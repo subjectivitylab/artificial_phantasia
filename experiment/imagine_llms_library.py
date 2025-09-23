@@ -585,8 +585,8 @@ def build_models(
         elif family == "openai":
             client = build_openai_client(
                 api_path_openai,
-                org="org-X0xzwS0XAbtQpj9P4OlUJljE",
-                project="proj_pqMGucd0hiWDoW1YlJBJ61JX",
+                org="org",
+                project="proj",
             )
             chat = build_openai_chat(model, client)
             openai_chats.append(chat)
