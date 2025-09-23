@@ -1,4 +1,4 @@
-# artificial_phantasia
+# Artificial Phantasia: Evidence for Propositional Reasoning-Based Mental Imagery in Large Language Models
 Experiments on mental imagery in Large Language Models
 
 ## Usage

@@ -1,4 +1,4 @@
-# Artificial Phantasia: Evidence for Propositional Reasoning-Based Mental Imagery - Jupyter Notebook Data Analysis
+# Artificial Phantasia: Evidence for Propositional Reasoning-Based Mental Imagery in Large Language Models - Jupyter Notebook Data Analysis
 by Anonymous Authors
 2025-09-23
 

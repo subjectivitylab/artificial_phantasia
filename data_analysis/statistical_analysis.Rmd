@@ -1,5 +1,5 @@
 ---
-title: "Artificial Phantasia: Evidence for Propositional Reasoning-Based Mental Imagery Within Large Language Models"
+title: "Artificial Phantasia: Evidence for Propositional Reasoning-Based Mental Imagery in Large Language Models"
 author: "Anonymous Authors"
 date: "September 23, 2025"
 output: pdf_document
@@ -7,7 +7,7 @@ output: pdf_document
 
 ## Summary
 
-This R Markdown document reproduces the analyses reported in [Author Names Removed for Anonymized Peer Review]. _Artificial Phantasia: Evidence for Propositional Reasoning-Based Mental Imagery Within Large Language Models_.
+This R Markdown document reproduces the analyses reported in [Author Names Removed for Anonymized Peer Review]. _Artificial Phantasia: Evidence for Propositional Reasoning-Based Mental Imagery in Large Language Models_.
 
 Please use the provided Conda environment .yml file to set up an appropriate R environment to run this R markdown file.
 
