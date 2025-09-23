@@ -1,0 +1,1824 @@
+---
+title: "Artificial Phantasia: Evidence for Propositional Reasoning-Based Mental Imagery Within Large Language Models"
+author: "Anonymous Authors"
+date: "September 23, 2025"
+output: pdf_document
+---
+
+## Summary
+
+This R Markdown document reproduces the analyses reported in [Author Names Removed for Anonymized Peer Review]. _Artificial Phantasia: Evidence for Propositional Reasoning-Based Mental Imagery Within Large Language Models_.
+
+Please use the provided Conda environment .yml file to set up an appropriate R environment to run this R markdown file.
+
+
+```{r setup, include=FALSE}
+library(knitr)
+library(patchwork)
+library(tidyverse)
+
+# Set chunk options
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r data_loading}
+llm_data_finke <- read.csv("output_csvs/llm_graded_results_finke.csv")
+llm_data_novel <- read.csv("output_csvs/llm_graded_results_novel.csv")
+
+human_data_finke <- read.csv("output_csvs/h_graded_results_finke.csv")
+human_data_novel <- read.csv("output_csvs/h_graded_results_novel.csv")
+
+llm_data_sc_mc <- read.csv("output_csvs/single_vs_multiple_context_results.csv")
+
+aphant_data <- read.csv("output_csvs/aphant.csv")
+```
+
+```{r data_finke}
+# Data
+## Finke et al. Tasks - for reasoning models, only the high reasoning conditions
+humans_finke_score <- sum(human_data_finke$overall_score)
+humans_finke_max_score <- sum(human_data_finke$n_total) * 5
+
+o3_finke_score <- llm_data_finke[llm_data_finke$Model == "OpenAI: o3 - Single Context - High Reasoning (2025-07-21)", "overall_score"] +
+  llm_data_finke[llm_data_finke$Model == "OpenAI: o3 - Single Context - High Reasoning (2025-07-21)", "overall_score"] +
+  llm_data_finke[llm_data_finke$Model == "OpenAI: o3 - Multiple Context - High Reasoning (2025-09-15)", "overall_score"]
+o3_finke_max_score <- (12 + 12 + 12) * 5
+
+o3_images_finke_score <- llm_data_finke[llm_data_finke$Model == "OpenAI: o3 w/ GPT-image-1 - Multiple Context - High Reasoning (2025-07-21)", "overall_score"] +
+  llm_data_finke[llm_data_finke$Model == "OpenAI: o3 w/ GPT-image-1 - Multiple Context - High Reasoning (2025-07-22)", "overall_score"] +
+  llm_data_finke[llm_data_finke$Model == "OpenAI: o3 w/ GPT-image-1 - Multiple Context - High Reasoning (2025-07-23)", "overall_score"] +
+  llm_data_finke[llm_data_finke$Model == "OpenAI: o3 w/ GPT-image-1 - Multiple Context - High Reasoning (2025-07-24)", "overall_score"]
+o3_images_finke_max_score <- (12 + 12 + 12 + 12) * 5
+
+o3_pro_finke_score <- llm_data_finke[llm_data_finke$Model == "OpenAI: o3 Pro - Multiple Context - High Reasoning (2025-07-21)", "overall_score"] +
+  llm_data_finke[llm_data_finke$Model == "OpenAI: o3 Pro - Multiple Context - High Reasoning (2025-07-21)", "overall_score"] +
+  llm_data_finke[llm_data_finke$Model == "OpenAI: o3 Pro - Multiple Context - High Reasoning (2025-09-16)", "overall_score"]
+o3_pro_finke_max_score <- (12 + 12 + 12) * 5
+
+o4_mini_finke_score <- llm_data_finke[llm_data_finke$Model == "OpenAI: o4-mini - Multiple Context - High Reasoning (2025-07-21)", "overall_score"] +
+  llm_data_finke[llm_data_finke$Model == "OpenAI: o4-mini - Single Context - High Reasoning (2025-07-21)", "overall_score"]
+o4_mini_finke_max_score <- (12 + 12) * 5
+
+chatgpt_4o_finke_score <- llm_data_finke[llm_data_finke$Model == "OpenAI: ChatGPT-4o - Multiple Context (2025-07-25)", "overall_score"] +
+  llm_data_finke[llm_data_finke$Model == "OpenAI: ChatGPT-4o - Single Context (2025-07-25)", "overall_score"]
+chatgpt_4o_finke_max_score <- (12 + 12) * 5
+
+gpt4_1_finke_score <- llm_data_finke[llm_data_finke$Model == "OpenAI: GPT 4.1 - Multiple Context (2025-07-21)", "overall_score"] +
+  llm_data_finke[llm_data_finke$Model == "OpenAI: GPT 4.1 - Single Context (2025-07-21)", "overall_score"]
+gpt4_1_finke_max_score <- (12 + 12) * 5
+
+gpt4_1_images_finke_score <- llm_data_finke[llm_data_finke$Model == "OpenAI: GPT 4.1 w/ GPT-image-1 - Multiple Context (2025-07-21)", "overall_score"] +
+  llm_data_finke[llm_data_finke$Model == "OpenAI: GPT 4.1 w/ GPT-Image-1 - Single Context (2025-07-21)", "overall_score"]
+gpt4_1_images_finke_max_score <- (12 + 12) * 5
+
+gpt5_finke_score <- llm_data_finke[llm_data_finke$Model == "OpenAI: GPT 5 - Multiple Context - High Reasoning (2025-09-11)", "overall_score"] +
+  llm_data_finke[llm_data_finke$Model == "OpenAI: GPT 5 - Multiple Context - High Reasoning (2025-09-15)", "overall_score"]
+gpt5_finke_max_score <- (12 + 12) * 5
+
+gemini2_5_finke_score <- llm_data_finke[llm_data_finke$Model == "DeepMind: Gemini 2.5 Pro - Multiple Context - Dynamic Thinking (2025-07-21)", "overall_score"] +
+  llm_data_finke[llm_data_finke$Model == "DeepMind: Gemini 2.5 Pro - Single Context - Dynamic Thinking (2025-07-21)", "overall_score"]
+gemini2_5_finke_max_score <- (12 + 12) * 5
+
+gemini2_0_flash_finke_score <- llm_data_finke[llm_data_finke$Model == "DeepMind: Gemini 2.0 Flash - Multiple Context (2025-07-21)", "overall_score"] +
+  llm_data_finke[llm_data_finke$Model == "DeepMind: Gemini 2.0 Flash - Single Context (2025-07-21)", "overall_score"]
+gemini2_0_flash_finke_max_score <- (12 + 12) * 5
+
+gemini2_0_flash_images_finke_score <- llm_data_finke[llm_data_finke$Model == "DeepMind: Gemini 2.0 Flash w/ Images - Multiple Context (2025-07-25)", "overall_score"]
+gemini2_0_flash_images_finke_max_score <- (12) * 5
+
+opus4_1_finke_score <- llm_data_finke[llm_data_finke$Model == "Anthropic: Claude Opus 4.1 - Multiple Context - Extended Thinking 9000t (2025-09-11)", "overall_score"]
+opus4_1_finke_max_score <- (12) * 5
+
+sonnet4_finke_score <- llm_data_finke[llm_data_finke$Model == "Anthropic: Claude Sonnet 4 - Multiple Context - Extended Thinking 4000t (2025-09-11)", "overall_score"] +
+  llm_data_finke[llm_data_finke$Model == "Anthropic: Claude Sonnet 4 - Single Context - Extended Thinking 4000t (2025-09-11)", "overall_score"]
+sonnet4_finke_max_score <- (12 + 12) * 5
+```
+
+```{r finke_reasoning_comparisons}
+## Finke Tasks - Minimal, Low, Medium Reasoning Models
+medium_gpt5_finke_score <- llm_data_finke[llm_data_finke$Model == "OpenAI: GPT 5 - Multiple Context - Medium Reasoning (2025-09-16)", "overall_score"]
+medium_gpt5_finke_max_score <- (12) * 5
+
+low_gpt5_finke_score <- llm_data_finke[llm_data_finke$Model == "OpenAI: GPT 5 - Multiple Context - Low Reasoning (2025-09-15)", "overall_score"]
+low_gpt5_finke_max_score <- (12) * 5
+
+minimal_gpt5_finke_score <- llm_data_finke[llm_data_finke$Model == "OpenAI: GPT 5 - Multiple Context - Minimal Reasoning (2025-09-16)", "overall_score"]
+minimal_gpt5_finke_max_score <- (12) * 5
+
+medium_o3_finke_score <- llm_data_finke[llm_data_finke$Model == "OpenAI: o3 - Multiple Context - Medium Reasoning (2025-09-12)", "overall_score"]
+medium_o3_finke_max_score <- (12) * 5
+
+low_o3_finke_score <- llm_data_finke[llm_data_finke$Model == "OpenAI: o3 - Multiple Context - Low Reasoning (2025-09-12)", "overall_score"]
+low_o3_finke_max_score <- (12) * 5
+
+medium_o3_images_finke_score <- llm_data_finke[llm_data_finke$Model == "OpenAI: o3 w/ GPT-image-1 - Multiple Context - Med Reasoning (2025-07-14)", "overall_score"]
+medium_o3_images_finke_max_score <- (12) * 5
+
+medium_o4_mini_finke_score <- llm_data_finke[llm_data_finke$Model == "OpenAI: o4-mini - Multiple Context - Medium Reasoning (2025-07-14)", "overall_score"] +
+  llm_data_finke[llm_data_finke$Model == "OpenAI: o4-mini - Single Context - Medium Reasoning (2025-07-14)", "overall_score"]
+medium_o4_mini_finke_max_score <- (12 + 12) * 5
+```
+
+```{r data_novel}
+## Novel 48 Tasks
+humans_novel_score <- sum(human_data_novel$overall_score)
+humans_novel_max_score <- sum(human_data_novel$n_total) * 5
+
+o3_novel_score <- llm_data_novel[llm_data_novel$Model == "OpenAI: o3 - Single Context - High Reasoning (2025-07-21)", "overall_score"] +
+  llm_data_novel[llm_data_novel$Model == "OpenAI: o3 - Single Context - High Reasoning (2025-07-21)", "overall_score"] +
+  llm_data_novel[llm_data_novel$Model == "OpenAI: o3 - Multiple Context - High Reasoning (2025-09-15)", "overall_score"]
+o3_novel_max_score <- (48 + 48 + 48) * 5
+
+o3_images_novel_score <- llm_data_novel[llm_data_novel$Model == "OpenAI: o3 w/ GPT-image-1 - Multiple Context - High Reasoning (2025-07-21)", "overall_score"] +
+  llm_data_novel[llm_data_novel$Model == "OpenAI: o3 w/ GPT-image-1 - Multiple Context - High Reasoning (2025-07-22)", "overall_score"] +
+  llm_data_novel[llm_data_novel$Model == "OpenAI: o3 w/ GPT-image-1 - Multiple Context - High Reasoning (2025-07-23)", "overall_score"] +
+  llm_data_novel[llm_data_novel$Model == "OpenAI: o3 w/ GPT-image-1 - Multiple Context - High Reasoning (2025-07-24)", "overall_score"]
+o3_images_novel_max_score <- (48 + 48 + 48 + 48) * 5
+
+o3_pro_novel_score <- llm_data_novel[llm_data_novel$Model == "OpenAI: o3 Pro - Multiple Context - High Reasoning (2025-07-21)", "overall_score"] +
+  llm_data_novel[llm_data_novel$Model == "OpenAI: o3 Pro - Multiple Context - High Reasoning (2025-07-21)", "overall_score"] +
+  llm_data_novel[llm_data_novel$Model == "OpenAI: o3 Pro - Multiple Context - High Reasoning (2025-09-16)", "overall_score"]
+o3_pro_novel_max_score <- (48 + 48 + 48) * 5
+
+o4_mini_novel_score <- llm_data_novel[llm_data_novel$Model == "OpenAI: o4-mini - Multiple Context - High Reasoning (2025-07-21)", "overall_score"] +
+  llm_data_novel[llm_data_novel$Model == "OpenAI: o4-mini - Single Context - High Reasoning (2025-07-21)", "overall_score"]
+o4_mini_novel_max_score <- (48 + 48) * 5
+
+chatgpt_4o_novel_score <- llm_data_novel[llm_data_novel$Model == "OpenAI: ChatGPT-4o - Multiple Context (2025-07-25)", "overall_score"] +
+  llm_data_novel[llm_data_novel$Model == "OpenAI: ChatGPT-4o - Single Context (2025-07-25)", "overall_score"]
+chatgpt_4o_novel_max_score <- (48 + 48) * 5
+
+gpt4_1_novel_score <- llm_data_novel[llm_data_novel$Model == "OpenAI: GPT 4.1 - Multiple Context (2025-07-21)", "overall_score"] +
+  llm_data_novel[llm_data_novel$Model == "OpenAI: GPT 4.1 - Single Context (2025-07-21)", "overall_score"]
+gpt4_1_novel_max_score <- (48 + 48) * 5
+
+gpt4_1_images_novel_score <- llm_data_novel[llm_data_novel$Model == "OpenAI: GPT 4.1 w/ GPT-image-1 - Multiple Context (2025-07-21)", "overall_score"] +
+  llm_data_novel[llm_data_novel$Model == "OpenAI: GPT 4.1 w/ GPT-Image-1 - Single Context (2025-07-21)", "overall_score"]
+gpt4_1_images_novel_max_score <- (48 + 48) * 5
+
+gpt5_novel_score <- llm_data_novel[llm_data_novel$Model == "OpenAI: GPT 5 - Multiple Context - High Reasoning (2025-09-11)", "overall_score"] +
+  llm_data_novel[llm_data_novel$Model == "OpenAI: GPT 5 - Multiple Context - High Reasoning (2025-09-15)", "overall_score"]
+gpt5_novel_max_score <- (48 + 48) * 5
+
+gemini2_5_novel_score <- llm_data_novel[llm_data_novel$Model == "DeepMind: Gemini 2.5 Pro - Multiple Context - Dynamic Thinking (2025-07-21)", "overall_score"] +
+  llm_data_novel[llm_data_novel$Model == "DeepMind: Gemini 2.5 Pro - Single Context - Dynamic Thinking (2025-07-21)", "overall_score"]
+gemini2_5_novel_max_score <- (48 + 48) * 5
+
+gemini2_0_flash_novel_score <- llm_data_novel[llm_data_novel$Model == "DeepMind: Gemini 2.0 Flash - Multiple Context (2025-07-21)", "overall_score"] +
+  llm_data_novel[llm_data_novel$Model == "DeepMind: Gemini 2.0 Flash - Single Context (2025-07-21)", "overall_score"]
+gemini2_0_flash_novel_max_score <- (48 + 48) * 5
+
+gemini2_0_flash_images_novel_score <- llm_data_novel[llm_data_novel$Model == "DeepMind: Gemini 2.0 Flash w/ Images - Multiple Context (2025-07-25)", "overall_score"]
+gemini2_0_flash_images_novel_max_score <- (48) * 5
+
+opus4_1_novel_score <- llm_data_novel[llm_data_novel$Model == "Anthropic: Claude Opus 4.1 - Multiple Context - Extended Thinking 9000t (2025-09-11)", "overall_score"]
+opus4_1_novel_max_score <- (48) * 5
+
+sonnet4_novel_score <- llm_data_novel[llm_data_novel$Model == "Anthropic: Claude Sonnet 4 - Multiple Context - Extended Thinking 4000t (2025-09-11)", "overall_score"] +
+  llm_data_novel[llm_data_novel$Model == "Anthropic: Claude Sonnet 4 - Single Context - Extended Thinking 4000t (2025-09-11)", "overall_score"]
+sonnet4_novel_max_score <- (48 + 48) * 5
+```
+
+```{r novel_reasoning_comparisons}
+## Novel Tasks - Minimal, Low, Medium Reasoning Models
+medium_gpt5_novel_score <- llm_data_novel[llm_data_novel$Model == "OpenAI: GPT 5 - Multiple Context - Medium Reasoning (2025-09-16)", "overall_score"]
+medium_gpt5_novel_max_score <- (48) * 5
+
+low_gpt5_novel_score <- llm_data_novel[llm_data_novel$Model == "OpenAI: GPT 5 - Multiple Context - Low Reasoning (2025-09-15)", "overall_score"]
+low_gpt5_novel_max_score <- (48) * 5
+
+minimal_gpt5_novel_score <- llm_data_novel[llm_data_novel$Model == "OpenAI: GPT 5 - Multiple Context - Minimal Reasoning (2025-09-16)", "overall_score"]
+minimal_gpt5_novel_max_score <- (48) * 5
+
+medium_o3_novel_score <- llm_data_novel[llm_data_novel$Model == "OpenAI: o3 - Multiple Context - Medium Reasoning (2025-09-12)", "overall_score"]
+medium_o3_novel_max_score <- (48) * 5
+
+low_o3_novel_score <- llm_data_novel[llm_data_novel$Model == "OpenAI: o3 - Multiple Context - Low Reasoning (2025-09-12)", "overall_score"]
+low_o3_novel_max_score <- (48) * 5
+
+medium_o3_images_novel_score <- llm_data_novel[llm_data_novel$Model == "OpenAI: o3 w/ GPT-image-1 - Multiple Context - Med Reasoning (2025-07-14)", "overall_score"]
+medium_o3_images_novel_max_score <- (48) * 5
+
+medium_o4_mini_novel_score <- llm_data_novel[llm_data_novel$Model == "OpenAI: o4-mini - Multiple Context - Medium Reasoning (2025-07-14)", "overall_score"] +
+  llm_data_novel[llm_data_novel$Model == "OpenAI: o4-mini - Single Context - Medium Reasoning (2025-07-14)", "overall_score"]
+medium_o4_mini_novel_max_score <- (48 + 48) * 5
+```
+
+```{r collapse_mc_sc}
+o3_collapsed_sc <- llm_data_sc_mc[llm_data_sc_mc$Model == "o3_sc", "overall_score"]
+o3_collapsed_sc_max <- (llm_data_sc_mc[llm_data_sc_mc$Model == "o3_sc", "n_total"]) * 5
+
+o3_collapsed_mc <- llm_data_sc_mc[llm_data_sc_mc$Model == "o3_mc", "overall_score"]
+o3_collapsed_mc_max <- (llm_data_sc_mc[llm_data_sc_mc$Model == "o3_mc", "n_total"]) * 5
+
+
+o3_pro_collapsed_sc <- llm_data_sc_mc[llm_data_sc_mc$Model == "o3_pro_sc", "overall_score"]
+o3_pro_collapsed_sc_max <- (llm_data_sc_mc[llm_data_sc_mc$Model == "o3_pro_sc", "n_total"]) * 5
+
+o3_pro_collapsed_mc <- llm_data_sc_mc[llm_data_sc_mc$Model == "o3_pro_mc", "overall_score"]
+o3_pro_collapsed_mc_max <- (llm_data_sc_mc[llm_data_sc_mc$Model == "o3_pro_mc", "n_total"]) * 5
+
+
+o4_mini_collapsed_sc <- llm_data_sc_mc[llm_data_sc_mc$Model == "o4_mini_sc", "overall_score"]
+o4_mini_collapsed_sc_max <- (llm_data_sc_mc[llm_data_sc_mc$Model == "o4_mini_sc", "n_total"]) * 5
+
+o4_mini_collapsed_mc <- llm_data_sc_mc[llm_data_sc_mc$Model == "o4_mini_mc", "overall_score"]
+o4_mini_collapsed_mc_max <- (llm_data_sc_mc[llm_data_sc_mc$Model == "o4_mini_mc", "n_total"]) * 5
+
+
+sonnet_collapsed_sc <- llm_data_sc_mc[llm_data_sc_mc$Model == "sonnet_sc", "overall_score"]
+sonnet_collapsed_sc_max <- (llm_data_sc_mc[llm_data_sc_mc$Model == "sonnet_sc", "n_total"]) * 5
+
+sonnet_collapsed_mc <- llm_data_sc_mc[llm_data_sc_mc$Model == "sonnet_mc", "overall_score"]
+sonnet_collapsed_mc_max <- (llm_data_sc_mc[llm_data_sc_mc$Model == "sonnet_mc", "n_total"]) * 5
+
+
+gemini2_0_flash_sc <- llm_data_sc_mc[llm_data_sc_mc$Model == "gemini_2.0_flash_sc", "overall_score"]
+gemini2_0_flash_sc_max <- (llm_data_sc_mc[llm_data_sc_mc$Model == "gemini_2.0_flash_sc", "n_total"]) * 5
+
+gemini2_0_flash_mc <- llm_data_sc_mc[llm_data_sc_mc$Model == "gemini_2.0_flash_mc", "overall_score"]
+gemini2_0_flash_mc_max <- (llm_data_sc_mc[llm_data_sc_mc$Model == "gemini_2.0_flash_mc", "n_total"]) * 5
+
+
+gemini2_5_pro_sc <- llm_data_sc_mc[llm_data_sc_mc$Model == "gemini_2.5_pro_sc", "overall_score"]
+gemini2_5_pro_sc_max <- (llm_data_sc_mc[llm_data_sc_mc$Model == "gemini_2.5_pro_sc", "n_total"]) * 5
+
+gemini2_5_pro_mc <- llm_data_sc_mc[llm_data_sc_mc$Model == "gemini_2.5_pro_mc", "overall_score"]
+gemini2_5_pro_mc_max <- (llm_data_sc_mc[llm_data_sc_mc$Model == "gemini_2.5_pro_mc", "n_total"]) * 5
+
+
+chatgpt4o_collapsed_sc <- llm_data_sc_mc[llm_data_sc_mc$Model == "chatgpt4o_sc", "overall_score"]
+chatgpt4o_collapsed_sc_max <- (llm_data_sc_mc[llm_data_sc_mc$Model == "chatgpt4o_sc", "n_total"]) * 5
+
+chatgpt4o_collapsed_mc <- llm_data_sc_mc[llm_data_sc_mc$Model == "chatgpt4o_mc", "overall_score"]
+chatgpt4o_collapsed_mc_max <- (llm_data_sc_mc[llm_data_sc_mc$Model == "chatgpt4o_mc", "n_total"]) * 5
+
+
+gpt4_1_collapsed_sc <- llm_data_sc_mc[llm_data_sc_mc$Model == "gpt4.1_sc", "overall_score"]
+gpt4_1_collapsed_sc_max <- (llm_data_sc_mc[llm_data_sc_mc$Model == "gpt4.1_sc", "n_total"]) * 5
+
+gpt4_1_collapsed_mc <- llm_data_sc_mc[llm_data_sc_mc$Model == "gpt4.1_mc", "overall_score"]
+gpt4_1_collapsed_mc_max <- (llm_data_sc_mc[llm_data_sc_mc$Model == "gpt4.1_mc", "n_total"]) * 5
+
+
+gpt_4_1_images_collapsed_sc <- llm_data_sc_mc[llm_data_sc_mc$Model == "gpt4.1_images_sc", "overall_score"]
+gpt_4_1_images_collapsed_sc_max <- (llm_data_sc_mc[llm_data_sc_mc$Model == "gpt4.1_images_sc", "n_total"]) * 5
+
+gpt_4_1_images_collapsed_mc <- llm_data_sc_mc[llm_data_sc_mc$Model == "gpt4.1_images_mc", "overall_score"]
+gpt_4_1_images_collapsed_mc_max <- (llm_data_sc_mc[llm_data_sc_mc$Model == "gpt4.1_images_mc", "n_total"]) * 5
+
+
+
+total_collapsed_sc <- o3_collapsed_sc +
+  o3_pro_collapsed_sc +
+  o4_mini_collapsed_sc +
+  sonnet_collapsed_sc +
+  gemini2_0_flash_sc +
+  gemini2_5_pro_sc +
+  chatgpt4o_collapsed_sc +
+  gpt4_1_collapsed_sc +
+  gpt_4_1_images_collapsed_sc
+total_collapsed_sc_max <- o3_collapsed_sc_max +
+  o3_pro_collapsed_sc_max +
+  o4_mini_collapsed_sc_max +
+  sonnet_collapsed_sc_max +
+  gemini2_0_flash_sc_max +
+  gemini2_5_pro_sc_max +
+  chatgpt4o_collapsed_sc_max +
+  gpt4_1_collapsed_sc_max +
+  gpt_4_1_images_collapsed_sc_max
+
+total_collapsed_mc <- o3_collapsed_mc +
+  o3_pro_collapsed_mc +
+  o4_mini_collapsed_mc +
+  sonnet_collapsed_mc +
+  gemini2_0_flash_mc +
+  gemini2_5_pro_mc +
+  chatgpt4o_collapsed_mc +
+  gpt4_1_collapsed_mc +
+  gpt_4_1_images_collapsed_mc
+total_collapsed_mc_max <- o3_collapsed_mc_max +
+  o3_pro_collapsed_mc_max +
+  o4_mini_collapsed_mc_max +
+  sonnet_collapsed_mc_max +
+  gemini2_0_flash_mc_max +
+  gemini2_5_pro_mc_max +
+  chatgpt4o_collapsed_mc_max +
+  gpt4_1_collapsed_mc_max +
+  gpt_4_1_images_collapsed_mc_max
+```
+
+```{r collapse_total}
+## Collapsed Data (Finke + 48 Novel)
+humans_total_score <- humans_finke_score + humans_novel_score
+humans_total_max_score <- humans_finke_max_score + humans_novel_max_score
+
+o3_total_score <- o3_finke_score + o3_novel_score
+o3_total_max_score <- o3_finke_max_score + o3_novel_max_score
+
+o3_images_total_score <- o3_images_finke_score + o3_images_novel_score
+o3_images_total_max_score <- o3_images_finke_max_score + o3_images_novel_max_score
+
+o3_pro_total_score <- o3_pro_finke_score + o3_pro_novel_score
+o3_pro_total_max_score <- o3_pro_finke_max_score + o3_pro_novel_max_score
+
+o4_mini_total_score <- o4_mini_finke_score + o4_mini_novel_score
+o4_mini_total_max_score <- o4_mini_finke_max_score + o4_mini_novel_max_score
+
+chatgpt_4o_total_score <- chatgpt_4o_finke_score + chatgpt_4o_novel_score
+chatgpt_4o_total_max_score <- chatgpt_4o_finke_max_score + chatgpt_4o_novel_max_score
+
+gpt4_1_total_score <- gpt4_1_finke_score + gpt4_1_novel_score
+gpt4_1_total_max_score <- gpt4_1_finke_max_score + gpt4_1_novel_max_score
+
+gpt4_1_images_total_score <- gpt4_1_images_finke_score + gpt4_1_images_novel_score
+gpt4_1_images_total_max_score <- gpt4_1_images_finke_max_score + gpt4_1_images_novel_max_score
+
+gpt5_total_score <- gpt5_finke_score + gpt5_novel_score
+gpt5_total_max_score <- gpt5_finke_max_score + gpt5_novel_max_score
+
+gemini2_5_total_score <- gemini2_5_finke_score + gemini2_5_novel_score
+gemini2_5_total_max_score <- gemini2_5_finke_max_score + gemini2_5_novel_max_score
+
+gemini2_0_flash_total_score <- gemini2_0_flash_finke_score + gemini2_0_flash_novel_score
+gemini2_0_flash_total_max_score <- gemini2_0_flash_finke_max_score + gemini2_0_flash_novel_max_score
+
+gemini2_0_flash_images_total_score <- gemini2_0_flash_images_finke_score + gemini2_0_flash_images_novel_score
+gemini2_0_flash_images_total_max_score <- gemini2_0_flash_images_finke_max_score + gemini2_0_flash_images_novel_max_score
+
+opus4_1_total_score <- opus4_1_finke_score + opus4_1_novel_score
+opus4_1_total_max_score <- opus4_1_finke_max_score + opus4_1_novel_max_score
+
+sonnet4_total_score <- sonnet4_finke_score + sonnet4_novel_score
+sonnet4_total_max_score <- sonnet4_finke_max_score + sonnet4_novel_max_score
+
+
+## Original Finke Data - modified towards the new scoring system
+original_finke_exp2_correct <- 37 * 5 + 72 - 37
+original_finke_exp2_total <- 72 * 5
+
+original_finke_exp3_correct <- 28 * 5 + 72 - 28
+original_finke_exp3_total <- 72 * 5
+
+# Collapsed Original Finke (Exp 2 + Exp 3)
+original_finke_correct <- original_finke_exp2_correct + original_finke_exp3_correct
+original_finke_total <- original_finke_exp2_total + original_finke_exp3_total
+```
+
+```{r collapsed_reasoning_data}
+## Collapsed Data - Minimal, Low, Medium Reasoning Models
+medium_gpt5_total_score <- medium_gpt5_finke_score + medium_gpt5_novel_score
+medium_gpt5_total_max_score <- medium_gpt5_finke_max_score + medium_gpt5_novel_max_score
+
+low_gpt5_total_score <- low_gpt5_finke_score + low_gpt5_novel_score
+low_gpt5_total_max_score <- low_gpt5_finke_max_score + low_gpt5_novel_max_score
+
+minimal_gpt5_total_score <- minimal_gpt5_finke_score + minimal_gpt5_novel_score
+minimal_gpt5_total_max_score <- minimal_gpt5_finke_max_score + minimal_gpt5_novel_max_score
+
+medium_o3_total_score <- medium_o3_finke_score + medium_o3_novel_score
+medium_o3_total_max_score <- medium_o3_finke_max_score + medium_o3_novel_max_score
+
+low_o3_total_score <- low_o3_finke_score + low_o3_novel_score
+low_o3_total_max_score <- low_o3_finke_max_score + low_o3_novel_max_score
+
+medium_o3_images_total_score <- medium_o3_images_finke_score + medium_o3_images_novel_score
+medium_o3_images_total_max_score <- medium_o3_images_finke_max_score + medium_o3_images_novel_max_score
+
+medium_o4_mini_total_score <- medium_o4_mini_finke_score + medium_o4_mini_novel_score
+medium_o4_mini_total_max_score <- medium_o4_mini_finke_max_score + medium_o4_mini_novel_max_score
+
+
+```
+
+```{r aphant_data}
+aphant_total_score <- as.numeric(aphant_data["overall_score"])
+aphant_total_max_score <- as.numeric(aphant_data["n_total"]) * 5
+```
+
+```{r sc_mc_dataframe}
+# Create data frames for easier manipulation
+sc_mc_data <- data.frame(
+  model = c("o3-SC", "o3-MC",
+            "o3-Pro-SC", "o3-Pro-MC",
+            "o4-mini-SC", "o4-mini-MC",
+            "Sonnet-4-SC", "Sonnet-4-MC",
+            "Gemini-2.0-Flash-SC", "Gemini-2.0-Flash-MC",
+            "Gemini-2.5-Pro-SC", "Gemini-2.5-Pro-MC",
+            "ChatGPT-4o-SC", "ChatGPT-4o-MC",
+            "GPT-4.1-SC", "GPT-4.1-MC",
+            "GPT-4.1-GPT-Image-SC", "GPT-4.1-GPT-Image-MC"),
+  score = c(o3_collapsed_sc, o3_collapsed_mc,
+            o3_pro_collapsed_sc, o3_pro_collapsed_mc,
+            o4_mini_collapsed_sc, o4_mini_collapsed_mc,
+            sonnet_collapsed_sc, sonnet_collapsed_mc,
+            gemini2_0_flash_sc, gemini2_0_flash_mc,
+            gemini2_5_pro_sc, gemini2_5_pro_mc,
+            chatgpt4o_collapsed_sc, chatgpt4o_collapsed_mc,
+            gpt4_1_collapsed_sc, gpt4_1_collapsed_mc,
+            gpt_4_1_images_collapsed_sc, gpt_4_1_images_collapsed_mc),
+  max_score = c(o3_collapsed_sc_max, o3_collapsed_mc_max,
+                o3_pro_collapsed_sc_max, o3_pro_collapsed_mc_max,
+                o4_mini_collapsed_sc_max, o4_mini_collapsed_mc_max,
+                sonnet_collapsed_sc_max, sonnet_collapsed_mc_max,
+                gemini2_0_flash_sc_max, gemini2_0_flash_mc_max,
+                gemini2_5_pro_sc_max, gemini2_5_pro_mc_max,
+                chatgpt4o_collapsed_sc_max, chatgpt4o_collapsed_mc_max,
+                gpt4_1_collapsed_sc_max, gpt4_1_collapsed_mc_max,
+                gpt_4_1_images_collapsed_sc_max, gpt_4_1_images_collapsed_mc_max),
+  color = c("#fc8d62", "#fc8d62",
+            "#fc8d62", "#fc8d62",
+            "#fc8d62", "#fc8d62",
+            "#e78ac3", "#e78ac3",
+            "#8da0cb", "#8da0cb",
+            "#8da0cb", "#8da0cb",
+            "#fc8d62", "#fc8d62",
+            "#fc8d62", "#fc8d62",
+            "#fc8d62", "#fc8d62"),
+
+  shape = c(16, 18,
+            16, 18,
+            16, 18,
+            16, 18,
+            16, 18,
+            16, 18,
+            16, 18,
+            16, 18,
+            16, 18)
+)
+# Calculate proportions from correct/total
+sc_mc_data$proportion <- sc_mc_data$score / sc_mc_data$max_score
+```
+```{r finke_dataframe}
+# Create data frames for easier manipulation
+finke_data <- data.frame(
+  model = c("Humans", "o3", "o3-GPT-Image",
+            "o3-Pro", "GPT-4.1", "GPT-4.1-GPT-Image",
+            "ChatGPT-4o", "o4-mini", "Gemini-2.5",
+            "Gemini-2.0-Flash", "Gemini-2.0-Flash-Images",
+            "Sonnet-4", "Opus-4.1", "GPT-5"),
+  score = c(humans_finke_score, o3_finke_score, o3_images_finke_score,
+            o3_pro_finke_score, gpt4_1_finke_score, gpt4_1_images_finke_score,
+            chatgpt_4o_finke_score, o4_mini_finke_score, gemini2_5_finke_score,
+            gemini2_0_flash_finke_score, gemini2_0_flash_images_finke_score,
+            sonnet4_finke_score, opus4_1_finke_score, gpt5_finke_score),
+  max_score = c(humans_finke_max_score, o3_finke_max_score, o3_images_finke_max_score,
+                o3_pro_finke_max_score, gpt4_1_finke_max_score, gpt4_1_images_finke_max_score,
+                chatgpt_4o_finke_max_score, o4_mini_finke_max_score, gemini2_5_finke_max_score,
+                gemini2_0_flash_finke_max_score, gemini2_0_flash_images_finke_max_score,
+                sonnet4_finke_max_score, opus4_1_finke_max_score, gpt5_finke_max_score),
+  color = c("#66c2a5", "#fc8d62", "#fc8d62",
+            "#fc8d62", "#fc8d62", "#fc8d62",
+            "#fc8d62", "#fc8d62", "#8da0cb",
+            "#8da0cb", "#8da0cb", "#e78ac3", "#e78ac3", "#fc8d62")
+
+  # human #66c2a5
+  # openai #fc8d62
+  # gemini #8da0cb
+  # claude #e78ac3
+)
+
+# Calculate proportions from correct/total
+finke_data$proportion <- finke_data$score / finke_data$max_score
+```
+```{r novel_dataframe}
+novel_data <- data.frame(
+  model = c("Humans", "o3", "o3-GPT-Image",
+            "o3-Pro", "GPT-4.1", "GPT-4.1-GPT-Image",
+            "ChatGPT-4o", "o4-mini", "Gemini-2.5",
+            "Gemini-2.0-Flash", "Gemini-2.0-Flash-Images",
+            "Sonnet-4", "Opus-4.1", "GPT-5"),
+  score = c(humans_novel_score, o3_novel_score, o3_images_novel_score,
+            o3_pro_novel_score, gpt4_1_novel_score, gpt4_1_images_novel_score,
+            chatgpt_4o_novel_score, o4_mini_novel_score, gemini2_5_novel_score,
+            gemini2_0_flash_novel_score, gemini2_0_flash_images_novel_score,
+            sonnet4_novel_score, opus4_1_novel_score, gpt5_novel_score),
+  max_score = c(humans_novel_max_score, o3_novel_max_score, o3_images_novel_max_score,
+                o3_pro_novel_max_score, gpt4_1_novel_max_score, gpt4_1_images_novel_max_score,
+                chatgpt_4o_novel_max_score, o4_mini_novel_max_score, gemini2_5_novel_max_score,
+                gemini2_0_flash_novel_max_score, gemini2_0_flash_images_novel_max_score,
+                sonnet4_novel_max_score, opus4_1_novel_max_score, gpt5_novel_max_score),
+  color = c("#66c2a5", "#fc8d62", "#fc8d62",
+            "#fc8d62", "#fc8d62", "#fc8d62",
+            "#fc8d62", "#fc8d62", "#8da0cb",
+            "#8da0cb", "#8da0cb", "#e78ac3", "#e78ac3", "#fc8d62")
+
+)
+
+# Calculate proportions from correct/total
+novel_data$proportion <- novel_data$score / novel_data$max_score
+
+```
+
+```{r collapsed_dataframe}
+
+collapsed_data <- data.frame(
+  model = c("Humans", "o3", "o3-GPT-Image",
+            "o3-Pro", "GPT-4.1", "GPT-4.1-GPT-Image",
+            "ChatGPT-4o", "o4-mini", "Gemini-2.5",
+            "Gemini-2.0-Flash", "Gemini-2.0-Flash-Images",
+            "Sonnet-4", "Opus-4.1", "GPT-5"),
+  score = c(humans_total_score, o3_total_score, o3_images_total_score,
+            o3_pro_total_score, gpt4_1_total_score, gpt4_1_images_total_score,
+            chatgpt_4o_total_score, o4_mini_total_score, gemini2_5_total_score,
+            gemini2_0_flash_total_score, gemini2_0_flash_images_total_score,
+            sonnet4_total_score, opus4_1_total_score, gpt5_total_score),
+  max_score = c(humans_total_max_score, o3_total_max_score, o3_images_total_max_score,
+                o3_pro_total_max_score, gpt4_1_total_max_score, gpt4_1_images_total_max_score,
+                chatgpt_4o_total_max_score, o4_mini_total_max_score, gemini2_5_total_max_score,
+                gemini2_0_flash_total_max_score, gemini2_0_flash_images_total_max_score,
+                sonnet4_total_max_score, opus4_1_total_max_score, gpt5_total_max_score),
+  color = c("#66c2a5", "#fc8d62", "#fc8d62",
+            "#fc8d62", "#fc8d62", "#fc8d62",
+            "#fc8d62", "#fc8d62", "#8da0cb",
+            "#8da0cb", "#8da0cb", "#e78ac3", "#e78ac3", "#fc8d62")
+)
+
+# Calculate proportions from correct/total
+collapsed_data$proportion <- collapsed_data$score / collapsed_data$max_score
+```
+
+### Set-up Data for Reasoning Variations
+
+```{r finke_reasoning_dataframe}
+# Prepare data for reasoning variations analysis
+finke_reasoning_data <- data.frame(
+  model = c("Humans", "o3-High", "o3-Medium",
+            "o3-Low", 'GPT-5-High', 'o3-Pro',
+            "GPT-5-Medium", "GPT-5-Low", "GPT-5-Minimal",
+            "o4-mini-High", "o4-mini-Medium", "o3-GPT-Image-High",
+            "o3-GPT-Image-Medium"),
+  score = c(humans_finke_score, o3_finke_score, medium_o3_finke_score,
+            low_o3_finke_score, gpt5_finke_score, o3_pro_finke_score,
+            medium_gpt5_finke_score, low_gpt5_finke_score, minimal_gpt5_finke_score,
+            o4_mini_finke_score, medium_o4_mini_finke_score, o3_images_finke_score,
+            medium_o3_images_finke_score),
+  max_score = c(humans_finke_max_score, o3_finke_max_score, medium_o3_finke_max_score,
+                low_o3_finke_max_score, gpt5_finke_max_score, o3_pro_finke_max_score,
+                medium_gpt5_finke_max_score, low_gpt5_finke_max_score,
+                minimal_gpt5_finke_max_score, o4_mini_finke_max_score, medium_o4_mini_finke_max_score, o3_images_finke_max_score,
+                medium_o3_images_finke_max_score),
+  color = c("#66c2a5", "#980043", "#dd1c77",
+            "#df65b0", "#980043", "#980043",
+            "#dd1c77", "#df65b0",
+            "#d7b5d8", "#980043", "#dd1c77", "#980043", "#dd1c77")
+)
+
+# Calculate proportions from score/max_score
+finke_reasoning_data$proportion <- finke_reasoning_data$score / finke_reasoning_data$max_score
+```
+
+```{r novel_reasoning_dataframe}
+novel_reasoning_data <- data.frame(
+  model = c("Humans", "o3-High", "o3-Medium",
+            "o3-Low", 'GPT-5-High', 'o3-Pro',
+            "GPT-5-Medium", "GPT-5-Low", "GPT-5-Minimal",
+            "o4-mini-High", "o4-mini-Medium", "o3-GPT-Image-High",
+            "o3-GPT-Image-Medium"),
+  score = c(humans_novel_score, o3_novel_score, medium_o3_novel_score,
+            low_o3_novel_score,
+            gpt5_novel_score, medium_gpt5_novel_score, o3_pro_novel_score, low_gpt5_novel_score,
+            minimal_gpt5_novel_score, o4_mini_novel_score, medium_o4_mini_novel_score,
+            o3_images_novel_score, medium_o3_images_novel_score),
+  max_score = c(humans_novel_max_score, o3_novel_max_score, medium_o3_novel_max_score,
+                low_o3_novel_max_score,
+                gpt5_novel_max_score, medium_gpt5_novel_max_score, o3_pro_novel_max_score, low_gpt5_novel_max_score,
+                minimal_gpt5_novel_max_score, o4_mini_novel_max_score, medium_o4_mini_novel_max_score,
+                o3_images_novel_max_score, medium_o3_images_novel_max_score),
+  color = c("#66c2a5", "#980043", "#dd1c77",
+            "#df65b0", "#980043", "#980043",
+            "#dd1c77", "#df65b0",
+            "#d7b5d8", "#980043", "#dd1c77", "#980043", "#dd1c77")
+)
+# Calculate proportions from score/max_score
+novel_reasoning_data$proportion <- novel_reasoning_data$score / novel_reasoning_data$max_score
+```
+
+```{r collapsed_reasoning_dataframe}
+collapsed_reasoning_data <- data.frame(
+  model = c("Humans", "o3-High", "o3-Medium",
+            "o3-Low", 'GPT-5-High', 'o3-Pro',
+            "GPT-5-Medium", "GPT-5-Low", "GPT-5-Minimal",
+            "o4-mini-High", "o4-mini-Medium", "o3-GPT-Image-High",
+            "o3-GPT-Image-Medium"),
+  score = c(humans_total_score, o3_total_score, medium_o3_total_score,
+            low_o3_total_score,
+            gpt5_total_score, o3_pro_total_score, medium_gpt5_total_score, low_gpt5_total_score,
+            minimal_gpt5_total_score, o4_mini_total_score, medium_o4_mini_total_score,
+            o3_images_total_score, medium_o3_images_total_score),
+  max_score = c(humans_total_max_score, o3_total_max_score, medium_o3_total_max_score,
+                low_o3_total_max_score,
+                gpt5_total_max_score, o3_pro_total_max_score, medium_gpt5_total_max_score, low_gpt5_total_max_score,
+                minimal_gpt5_total_max_score, o4_mini_total_max_score, medium_o4_mini_total_max_score,
+                o3_images_total_max_score, medium_o3_images_total_max_score),
+  color = c("#66c2a5", "#980043", "#dd1c77",
+            "#df65b0", "#980043", "#980043",
+            "#dd1c77", "#df65b0",
+            "#d7b5d8", "#980043", "#dd1c77", "#980043", "#dd1c77")
+)
+# Calculate proportions from score/max_score
+collapsed_reasoning_data$proportion <- collapsed_reasoning_data$score / collapsed_reasoning_data$max_score
+```
+```{r collapsed_aphant_dataframe}
+aphant_collapsed_data <- data.frame(
+  model = c("Aphant", "Humans", "o3", "o3-GPT-Image",
+            "o3-Pro", "GPT-4.1", "GPT-4.1-GPT-Image",
+            "ChatGPT-4o", "o4-mini", "Gemini-2.5",
+            "Gemini-2.0-Flash", "Gemini-2.0-Flash-Images",
+            "Sonnet-4", "Opus-4.1", "GPT-5"),
+  score = c(aphant_total_score, humans_total_score, o3_total_score, o3_images_total_score,
+            o3_pro_total_score, gpt4_1_total_score, gpt4_1_images_total_score,
+            chatgpt_4o_total_score, o4_mini_total_score, gemini2_5_total_score,
+            gemini2_0_flash_total_score, gemini2_0_flash_images_total_score,
+            sonnet4_total_score, opus4_1_total_score, gpt5_total_score),
+  max_score = c(aphant_total_max_score, humans_total_max_score, o3_total_max_score, o3_images_total_max_score,
+                o3_pro_total_max_score, gpt4_1_total_max_score, gpt4_1_images_total_max_score,
+                chatgpt_4o_total_max_score, o4_mini_total_max_score, gemini2_5_total_max_score,
+                gemini2_0_flash_total_max_score, gemini2_0_flash_images_total_max_score,
+                sonnet4_total_max_score, opus4_1_total_max_score, gpt5_total_max_score),
+  color = c("#ccccff","#66c2a5", "#fc8d62", "#fc8d62",
+            "#fc8d62", "#fc8d62", "#fc8d62",
+            "#fc8d62", "#fc8d62", "#8da0cb",
+            "#8da0cb", "#8da0cb", "#e78ac3", "#e78ac3", "#fc8d62")
+)
+# Calculate proportions from correct/total
+aphant_collapsed_data$proportion <- aphant_collapsed_data$score / aphant_collapsed_data$max_score
+```
+
+
+
+
+
+```{r dislay_data}
+# Display the data
+cat("Finke et al. Tasks Data:\n")
+print(finke_data)
+cat("\n48 Novel Tasks Data:\n")
+print(novel_data)
+cat("\nCollapsed Data (Finke + 48 Novel Tasks):\n")
+print(collapsed_data)
+
+# Display Original Finke data
+cat("\n\nOriginal Finke Data:\n")
+cat("Exp 2: ", original_finke_exp2_correct, "/", original_finke_exp2_total, " (", round(original_finke_exp2_correct / original_finke_exp2_total, 3), ")\n", sep = "")
+cat("Exp 3: ", original_finke_exp3_correct, "/", original_finke_exp3_total, " (", round(original_finke_exp3_correct / original_finke_exp3_total, 3), ")\n", sep = "")
+cat("Collapsed Original Finke: ", original_finke_correct, "/", original_finke_total, " (", round(original_finke_correct / original_finke_total, 3), ")\n", sep = "")
+```
+
+```{r display_reasoning_data}
+# Display the reasoning variation data
+cat("\n\nFinke et al. Tasks - Reasoning Variations Data:\n")
+print(finke_reasoning_data)
+cat("\n48 Novel Tasks - Reasoning Variations Data:\n")
+print(novel_reasoning_data)
+cat("\nCollapsed Data (Finke + 48 Novel Tasks) - Reasoning Variations Data:\n")
+print(collapsed_reasoning_data)
+```
+
+## Proportion Testing Function
+
+```{r functions}
+# Function to perform proportion test and extract results
+perform_prop_test <- function(model1_name, model1_correct, model1_total,
+                              model2_name, model2_correct, model2_total) {
+
+  # Perform the test
+  test_result <- prop.test(x = c(model1_correct, model2_correct),
+                           n = c(model1_total, model2_total),
+                           alternative = "two.sided",
+                           conf.level = 0.95,
+                           correct = TRUE)
+
+  # Calculate proportions
+  prop1 <- model1_correct / model1_total
+  prop2 <- model2_correct / model2_total
+  diff <- prop1 - prop2
+
+  # Return results as a list
+  return(list(
+    comparison = paste(model1_name, "vs", model2_name),
+    model1 = model1_name,
+    model2 = model2_name,
+    prop1 = prop1,
+    prop2 = prop2,
+    diff = diff,
+    chi_squared = test_result$statistic,
+    df = test_result$parameter,
+    p_value = test_result$p.value,
+    ci_lower = test_result$conf.int[1],
+    ci_upper = test_result$conf.int[2],
+    significant = test_result$p.value < 0.05
+  ))
+}
+
+# Function to test all combinations
+test_all_combinations <- function(data, task_name) {
+  results <- list()
+  counter <- 1
+
+  # Test all unique pairs
+  for (i in 1:(nrow(data) - 1)) {
+    for (j in (i + 1):nrow(data)) {
+      results[[counter]] <- perform_prop_test(
+        data$model[i], data$score[i], data$max_score[i],
+        data$model[j], data$score[j], data$max_score[j]
+      )
+      counter <- counter + 1
+    }
+  }
+
+  # Convert to data frame
+  results_df <- do.call(rbind, lapply(results, as.data.frame))
+  results_df$task <- task_name
+
+  return(results_df)
+}
+```
+
+## Comparison: Current Human Finke vs Original Finke
+
+```{r human_vs_original_finke, echo = FALSE}
+# Perform proportion test between current human Finke performance and original Finke data
+human_vs_original <- prop.test(x = c(humans_finke_score, original_finke_correct),
+                               n = c(humans_finke_max_score, original_finke_total),
+                               alternative = "two.sided",
+                               conf.level = 0.95,
+                               correct = TRUE)
+
+# Display results
+cat("\n\nComparison: Current Human Finke vs Original Finke (Collapsed Exp 2 + Exp 3)\n")
+cat(paste(rep("=", 70), collapse = ""), "\n")
+cat("Current Human Finke: ", humans_finke_score, "/", humans_finke_max_score,
+    " (", round(humans_finke_score / humans_finke_max_score, 3), ")\n", sep = "")
+cat("Original Finke: ", original_finke_correct, "/", original_finke_total,
+    " (", round(original_finke_correct / original_finke_total, 3), ")\n", sep = "")
+cat("Difference: ", round(humans_finke_score / humans_finke_max_score - original_finke_correct / original_finke_total, 3), "\n")
+cat("Chi-squared: ", round(human_vs_original$statistic, 3), "\n")
+cat("P-value: ", format(human_vs_original$p.value, scientific = FALSE, digits = 4), "\n")
+cat("95% CI: [", round(human_vs_original$conf.int[1], 3), ", ",
+    round(human_vs_original$conf.int[2], 3), "]\n")
+cat("Significant: ", ifelse(human_vs_original$p.value < 0.05, "YES (p < 0.05)", "NO"), "\n")
+
+# Create a formatted summary similar to other comparisons
+cat("\n\nDetailed Comparison: Current Humans vs Original Finke\n")
+cat(paste(rep("-", 40), collapse = ""), "\n")
+cat("Proportions: ", round(humans_finke_score / humans_finke_max_score, 3), " vs ",
+    round(original_finke_correct / original_finke_total, 3), "\n")
+cat("Difference: ", round(humans_finke_score / humans_finke_max_score - original_finke_correct / original_finke_total, 3), "\n")
+cat("Chi-squared: ", round(human_vs_original$statistic, 3), "\n")
+cat("Degrees of freedom: ", human_vs_original$parameter, "\n")
+cat("P-value: ", format(human_vs_original$p.value, scientific = FALSE, digits = 4), "\n")
+cat("95% CI: [", round(human_vs_original$conf.int[1], 3), ", ",
+    round(human_vs_original$conf.int[2], 3), "]\n")
+cat("Significant: ", ifelse(human_vs_original$p.value < 0.05, "YES (p < 0.05)", "NO"), "\n")
+
+# Create summary table
+human_vs_original_summary <- data.frame(
+  comparison = "Current Humans vs Original Finke",
+  diff = round(humans_finke_score / humans_finke_max_score - original_finke_correct / original_finke_total, 3),
+  p_value = round(human_vs_original$p.value, 4),
+  significant = human_vs_original$p.value < 0.05
+)
+
+cat("\n\nSummary Table - Human vs Original Finke:\n")
+print(kable(human_vs_original_summary, format = "simple"))
+```
+
+## Comparison: Current Human 48 vs Original Finke
+
+```{r human_48_vs_original_finke, echo = FALSE}
+# Perform proportion test between current human 48 performance and original Finke data
+human_48_vs_original <- prop.test(x = c(humans_novel_score, original_finke_correct),
+                                  n = c(humans_novel_max_score, original_finke_total),
+                                  alternative = "two.sided",
+                                  conf.level = 0.95,
+                                  correct = TRUE)
+
+# Display results
+cat("\n\nComparison: Current Human 48-Item Task vs Original Finke (Collapsed Exp 2 + Exp 3)\n")
+cat(paste(rep("=", 70), collapse = ""), "\n")
+cat("Current Human 48: ", humans_novel_score, "/", humans_novel_max_score,
+    " (", round(humans_novel_score / humans_novel_max_score, 3), ")\n", sep = "")
+cat("Original Finke: ", original_finke_correct, "/", original_finke_total,
+    " (", round(original_finke_correct / original_finke_total, 3), ")\n", sep = "")
+cat("Difference: ", round(humans_novel_score / humans_novel_max_score - original_finke_correct / original_finke_total, 3), "\n")
+cat("Chi-squared: ", round(human_48_vs_original$statistic, 3), "\n")
+cat("P-value: ", format(human_48_vs_original$p.value, scientific = FALSE, digits = 4), "\n")
+cat("95% CI: [", round(human_48_vs_original$conf.int[1], 3), ", ",
+    round(human_48_vs_original$conf.int[2], 3), "]\n")
+cat("Significant: ", ifelse(human_48_vs_original$p.value < 0.05, "YES (p < 0.05)", "NO"), "\n")
+
+# Create a formatted summary similar to other comparisons
+cat("\n\nDetailed Comparison: Current Humans vs Original Finke\n")
+cat(paste(rep("-", 40), collapse = ""), "\n")
+cat("Proportions: ", round(humans_novel_score / humans_novel_max_score, 3), " vs ",
+    round(original_finke_correct / original_finke_total, 3), "\n")
+cat("Difference: ", round(humans_novel_score / humans_novel_max_score - original_finke_correct / original_finke_total, 3), "\n")
+cat("Chi-squared: ", round(human_48_vs_original$statistic, 3), "\n")
+cat("Degrees of freedom: ", human_48_vs_original$parameter, "\n")
+cat("P-value: ", format(human_48_vs_original$p.value, scientific = FALSE, digits = 4), "\n")
+cat("95% CI: [", round(human_48_vs_original$conf.int[1], 3), ", ",
+    round(human_48_vs_original$conf.int[2], 3), "]\n")
+cat("Significant: ", ifelse(human_48_vs_original$p.value < 0.05, "YES (p < 0.05)", "NO"), "\n")
+
+# Create summary table
+human_48_vs_original_summary <- data.frame(
+  comparison = "Current Humans vs Original Finke",
+  diff = round(humans_novel_score / humans_novel_max_score - original_finke_correct / original_finke_total, 3),
+  p_value = round(human_48_vs_original$p.value, 4),
+  significant = human_48_vs_original$p.value < 0.05
+)
+
+cat("\n\nSummary Table - Human vs Original Finke:\n")
+print(kable(human_48_vs_original_summary, format = "simple"))
+```
+## Comparison: Current Humans (collapsed) vs Original Finke
+
+```{r human_collapsed_vs_original_finke, echo = FALSE}
+# Perform proportion test between current human 48 performance and original Finke data
+human_vs_original_collapsed <- prop.test(x = c(collapsed_data$score[1], original_finke_correct),
+                                         n = c(collapsed_data$max_score[1], original_finke_total),
+                                         alternative = "two.sided",
+                                         conf.level = 0.95,
+                                         correct = TRUE)
+
+# Display results
+cat("\n\nComparison: Current Human 48-Item Task vs Original Finke (Collapsed Exp 2 + Exp 3)\n")
+cat(paste(rep("=", 70), collapse = ""), "\n")
+cat("Current Human Finke: ", collapsed_data$score[1], "/", collapsed_data$max_score[1],
+    " (", round(collapsed_data$score[1] / collapsed_data$max_score[1], 3), ")\n", sep = "")
+cat("Original Finke: ", original_finke_correct, "/", original_finke_total,
+    " (", round(original_finke_correct / original_finke_total, 3), ")\n", sep = "")
+cat("Difference: ", round(collapsed_data$score[1] / collapsed_data$max_score[1] - original_finke_correct / original_finke_total, 3), "\n")
+cat("Chi-squared: ", round(human_vs_original_collapsed$statistic, 3), "\n")
+cat("P-value: ", format(human_vs_original_collapsed$p.value, scientific = FALSE, digits = 4), "\n")
+cat("95% CI: [", round(human_vs_original_collapsed$conf.int[1], 3), ", ",
+    round(human_vs_original_collapsed$conf.int[2], 3), "]\n")
+cat("Significant: ", ifelse(human_vs_original_collapsed$p.value < 0.05, "YES (p < 0.05)", "NO"), "\n")
+
+# Create a formatted summary similar to other comparisons
+cat("\n\nDetailed Comparison: Current Humans vs Original Finke\n")
+cat(paste(rep("-", 40), collapse = ""), "\n")
+cat("Proportions: ", round(collapsed_data$score[1] / collapsed_data$max_score[1], 3), " vs ",
+    round(original_finke_correct / original_finke_total, 3), "\n")
+cat("Difference: ", round(collapsed_data$score[1] / collapsed_data$max_score[1] - original_finke_correct / original_finke_total, 3), "\n")
+cat("Chi-squared: ", round(human_vs_original_collapsed$statistic, 3), "\n")
+cat("Degrees of freedom: ", human_vs_original_collapsed$parameter, "\n")
+cat("P-value: ", format(human_vs_original_collapsed$p.value, scientific = FALSE, digits = 4), "\n")
+cat("95% CI: [", round(human_vs_original_collapsed$conf.int[1], 3), ", ",
+    round(human_vs_original_collapsed$conf.int[2], 3), "]\n")
+cat("Significant: ", ifelse(human_vs_original_collapsed$p.value < 0.05, "YES (p < 0.05)", "NO"), "\n")
+
+# Create summary table
+human_vs_original_collapsed_summary <- data.frame(
+  comparison = "Current Humans (collapsed) vs Original Finke",
+  diff = round(collapsed_data$score[1] / collapsed_data$max_score[1] - original_finke_correct / original_finke_total, 3),
+  p_value = round(human_vs_original_collapsed$p.value, 4),
+  significant = human_vs_original_collapsed$p.value < 0.05
+)
+
+cat("\n\nSummary Table - Current Human (Collapsed) vs Original Finke:\n")
+print(kable(human_vs_original_collapsed_summary, format = "simple"))
+```
+## Aphant vs Humans and Models - All Pairwise Comparisons
+
+```{r aphant_comparisons}
+# Test all combinations for Aphant vs Humans and Models (results not included in paper)
+aphant_results <- test_all_combinations(aphant_collapsed_data, "Aphant vs Humans and Models")
+# Display results
+cat("All Pairwise Comparisons for Aphant vs Humans and Models:\n")
+cat(paste(rep("=", 80), collapse = ""), "\n")
+for (i in 1:nrow(aphant_results)) {
+  cat("\n", aphant_results$comparison[i], "\n")
+  cat(paste(rep("-", 40), collapse = ""), "\n")
+  cat("Proportions: ", round(aphant_results$prop1[i], 3), " vs ",
+      round(aphant_results$prop2[i], 3), "\n")
+  cat("Difference: ", round(aphant_results$diff[i], 3), "\n")
+  cat("Chi-squared: ", round(aphant_results$chi_squared[i], 3), "\n")
+  cat("Degrees of freedom: ", round(aphant_results$df[i], 3), "\n")
+  cat("P-value: ", format(aphant_results$p_value[i], scientific = FALSE, digits = 4), "\n")
+  cat("95% CI: [", round(aphant_results$ci_lower[i], 3), ", ",
+      round(aphant_results$ci_upper[i], 3), "]\n")
+  cat("Significant: ", ifelse(aphant_results$significant[i], "YES (p < 0.05)", "NO"), "\n")
+}
+# Summary table
+aphant_summary <- aphant_results %>%
+  select(comparison, diff, chi_squared, p_value, significant) %>%
+    mutate(diff = round(diff, 3),
+            p_value = round(p_value, 4))
+cat("\n\nSummary Table - Aphant vs Humans and Models:\n")
+print(kable(aphant_summary, format = "simple"))
+```
+
+
+## Single Context vs Multiple Context - All Pairwise Comparisons
+
+```{r single_vs_multiple, echo = FALSE}
+# Test all combinations for SC vs MC data
+sc_mc_results <- test_all_combinations(sc_mc_data, "Single-Context vs Multiple-Context")
+
+# Display results
+cat("All Pairwise Comparisons for Single-Context vs Multiple-Context:\n")
+cat(paste(rep("=", 80), collapse = ""), "\n")
+
+for (i in 1:nrow(sc_mc_results)) {
+  cat("\n", sc_mc_results$comparison[i], "\n")
+  cat(paste(rep("-", 40), collapse = ""), "\n")
+  cat("Proportions: ", round(sc_mc_results$prop1[i], 3), " vs ",
+      round(sc_mc_results$prop2[i], 3), "\n")
+  cat("Difference: ", round(sc_mc_results$diff[i], 3), "\n")
+  cat("Chi-squared: ", round(sc_mc_results$chi_squared[i], 3), "\n")
+  cat("Degrees of freedom: ", round(sc_mc_results$df[i], 3), "\n")
+  cat("P-value: ", format(sc_mc_results$p_value[i], scientific = FALSE, digits = 4), "\n")
+  cat("95% CI: [", round(sc_mc_results$ci_lower[i], 3), ", ",
+      round(sc_mc_results$ci_upper[i], 3), "]\n")
+  cat("Significant: ", ifelse(sc_mc_results$significant[i], "YES (p < 0.05)", "NO"), "\n")
+}
+
+# Summary table
+sc_mc_summary <- sc_mc_results %>%
+  select(comparison, diff, chi_squared, p_value, significant) %>%
+  mutate(diff = round(diff, 3),
+         p_value = round(p_value, 4))
+
+cat("\n\nSummary Table - Single-Context vs Multiple-Context:\n")
+print(kable(sc_mc_summary, format = "simple"))
+
+
+
+```
+
+### Visualization of Single vs Multiple Context
+
+```{r sc_mc_visualization, fig.width=10, fig.height=6}
+# Plot for Single-Context vs Multiple-Context
+sc_mc_plot <- ggplot(sc_mc_data, aes(x = reorder(model, proportion), y = proportion, color = model)) +
+  geom_point(size = 4, aes(color = as.factor(color), shape = as.factor(shape))) +
+  geom_errorbar(aes(ymin = proportion - 1.96 * sqrt(proportion * (1 - proportion) / max_score),
+                    ymax = proportion + 1.96 * sqrt(proportion * (1 - proportion) / max_score),
+                    color = color),
+                width = 0.2, size = 1) +
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "Single-Context vs Multiple-Context Models - Proportions with 95% CI",
+       x = "Model",
+       y = "Proportion of Max Score") +
+  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")) +
+  scale_color_manual(
+    values = c("#fc8d62", "#8da0cb", "#e78ac3"),
+    name = "Model Family",
+    breaks = c("#fc8d62", "#8da0cb", "#e78ac3"),
+    labels = c("OpenAI", "Gemini", "Claude")
+  ) +
+  scale_shape_manual(
+    values = c(16, 18),
+    name = "Context Type",
+    breaks = c(16, 18),
+    labels = c("Single Context", "Multiple Context")
+  )
+
+
+print(sc_mc_plot)
+
+```
+
+
+## Finke et al. Tasks - All Pairwise Comparisons
+
+```{r finke_comparisons}
+# Test all combinations for Finke tasks
+finke_results <- test_all_combinations(finke_data, "Finke")
+
+# Display results
+cat("All Pairwise Comparisons for Finke et al. Tasks:\n")
+cat(paste(rep("=", 80), collapse = ""), "\n")
+
+for (i in 1:nrow(finke_results)) {
+  cat("\n", finke_results$comparison[i], "\n")
+  cat(paste(rep("-", 40), collapse = ""), "\n")
+  cat("Proportions: ", round(finke_results$prop1[i], 3), " vs ",
+      round(finke_results$prop2[i], 3), "\n")
+  cat("Difference: ", round(finke_results$diff[i], 3), "\n")
+  cat("Chi-squared: ", round(finke_results$chi_squared[i], 3), "\n")
+  cat("Degrees of freedom: ", round(finke_results$df[i], 3), "\n")
+  cat("P-value: ", format(finke_results$p_value[i], scientific = FALSE, digits = 4), "\n")
+  cat("95% CI: [", round(finke_results$ci_lower[i], 3), ", ",
+      round(finke_results$ci_upper[i], 3), "]\n")
+  cat("Significant: ", ifelse(finke_results$significant[i], "YES (p < 0.05)", "NO"), "\n")
+}
+
+# Summary table
+finke_summary <- finke_results %>%
+  select(comparison, diff, chi_squared, p_value, significant) %>%
+  mutate(diff = round(diff, 3),
+         p_value = round(p_value, 4))
+
+cat("\n\nSummary Table - Finke Tasks:\n")
+print(kable(finke_summary, format = "simple"))
+```
+
+## 48 Novel Tasks - All Pairwise Comparisons
+
+```{r novel_48_comparisons}
+# Test all combinations for 48 Novel tasks
+novel_48_results <- test_all_combinations(novel_data, "48 Novel")
+
+# Display results
+cat("All Pairwise Comparisons for 48 Novel Tasks:\n")
+cat(paste(rep("=", 80), collapse = ""), "\n")
+
+for (i in 1:nrow(novel_48_results)) {
+  cat("\n", novel_48_results$comparison[i], "\n")
+  cat(paste(rep("-", 40), collapse = ""), "\n")
+  cat("Proportions: ", round(novel_48_results$prop1[i], 3), " vs ",
+      round(novel_48_results$prop2[i], 3), "\n")
+  cat("Difference: ", round(novel_48_results$diff[i], 3), "\n")
+  cat("Chi-squared: ", round(novel_48_results$chi_squared[i], 3), "\n")
+  cat("Degrees of freedom: ", round(novel_48_results$df[i], 3), "\n")
+  cat("P-value: ", format(novel_48_results$p_value[i], scientific = FALSE, digits = 4), "\n")
+  cat("95% CI: [", round(novel_48_results$ci_lower[i], 3), ", ",
+      round(novel_48_results$ci_upper[i], 3), "]\n")
+  cat("Significant: ", ifelse(novel_48_results$significant[i], "YES (p < 0.05)", "NO"), "\n")
+}
+
+# Summary table
+novel_48_summary <- novel_48_results %>%
+  select(comparison, diff, chi_squared, p_value, significant) %>%
+  mutate(diff = round(diff, 3),
+         p_value = round(p_value, 4))
+
+cat("\n\nSummary Table - 48 Novel Tasks:\n")
+print(kable(novel_48_summary, format = "simple"))
+```
+
+## Visualization of All Comparisons
+
+```{r visualizations, fig.width=14, fig.height=8}
+
+# Plot 1: Proportions with confidence intervals for Finke tasks
+finke_plot <- ggplot(finke_data, aes(x = reorder(model, proportion), y = proportion)) +
+  geom_point(size = 4, aes(color = color)) +
+  geom_errorbar(aes(ymin = proportion - 1.96 * sqrt(proportion * (1 - proportion) / max_score),
+                    ymax = proportion + 1.96 * sqrt(proportion * (1 - proportion) / max_score),
+                    color = color),
+                width = 0.2, size = 1) +
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "Finke et al. Tasks - Proportions with 95% CI",
+       x = "Model",
+       y = "Proportion of Max Score") +
+  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")) +
+  scale_color_manual(
+    values = c("#fc8d62", "#8da0cb", "#e78ac3", "#66c2a5"),
+    name = element_blank(),
+    breaks = c("#fc8d62", "#8da0cb", "#e78ac3", "#66c2a5"),
+    labels = c("OpenAI", "Gemini", "Claude", "Human Baseline")
+  )
+
+# Plot 2: Proportions with confidence intervals for 48 Novel tasks
+novel_48_plot <- ggplot(novel_data, aes(x = reorder(model, proportion), y = proportion)) +
+  geom_point(size = 4, aes(color = color)) +
+  geom_errorbar(aes(ymin = proportion - 1.96 * sqrt(proportion * (1 - proportion) / max_score),
+                    ymax = proportion + 1.96 * sqrt(proportion * (1 - proportion) / max_score),
+                    color = color),
+                width = 0.2, size = 1) +
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "48 Novel Tasks - Proportions with 95% CI",
+       x = "Model",
+       y = "Proportion of Max Score") +
+  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")) +
+  scale_color_manual(
+    values = c("#fc8d62", "#8da0cb", "#e78ac3", "#66c2a5"),
+    name = element_blank(),
+    breaks = c("#fc8d62", "#8da0cb", "#e78ac3", "#66c2a5"),
+    labels = c("OpenAI", "Gemini", "Claude", "Human Baseline")
+  )
+
+# Combine plots
+combined_plot <- (finke_plot + novel_48_plot & theme(legend.position = "bottom")) + plot_layout(ncol = 2, guides = "collect")
+print(combined_plot)
+
+# red #66c2a5
+# blue #fc8d62
+# green #8da0cb
+# purple #e78ac3
+
+
+```
+
+## Heatmap of P-values
+
+```{r heatmap, fig.width=10, fig.height=10}
+# Create matrix of p-values for Finke tasks
+finke_models <- finke_data$model
+finke_pval_matrix <- matrix(NA, nrow = length(finke_models), ncol = length(finke_models))
+rownames(finke_pval_matrix) <- finke_models
+colnames(finke_pval_matrix) <- finke_models
+
+for (i in 1:nrow(finke_results)) {
+  row_idx <- which(finke_models == finke_results$model1[i])
+  col_idx <- which(finke_models == finke_results$model2[i])
+  finke_pval_matrix[row_idx, col_idx] <- finke_results$p_value[i]
+  finke_pval_matrix[col_idx, row_idx] <- finke_results$p_value[i]
+}
+
+# Set diagonal to NA
+diag(finke_pval_matrix) <- NA
+
+# Create matrix of p-values for 48 Novel tasks
+novel_models <- novel_data$model
+novel_pval_matrix <- matrix(NA, nrow = length(novel_models), ncol = length(novel_models))
+rownames(novel_pval_matrix) <- novel_models
+colnames(novel_pval_matrix) <- novel_models
+
+for (i in 1:nrow(novel_48_results)) {
+  row_idx <- which(novel_models == novel_48_results$model1[i])
+  col_idx <- which(novel_models == novel_48_results$model2[i])
+  novel_pval_matrix[row_idx, col_idx] <- novel_48_results$p_value[i]
+  novel_pval_matrix[col_idx, row_idx] <- novel_48_results$p_value[i]
+}
+
+# Set diagonal to NA
+diag(novel_pval_matrix) <- NA
+
+# Plot heatmaps
+par(mfrow = c(2, 1), mar = c(6, 6, 3, 2))  # Increase margins for labels
+
+# Define color palette
+col_palette <- colorRampPalette(c("lightcyan", "lightblue", "lightskyblue", "steelblue4"))(20)
+
+# Finke heatmap
+image(finke_pval_matrix, axes = FALSE, col = col_palette, main = "P-values Heatmap - Finke Tasks")
+axis(1, at = seq(0, 1, length.out = length(finke_models)), labels = finke_models,
+     las = 2, cex.axis = 0.8)  # las=2 makes labels perpendicular, cex.axis makes them smaller
+axis(2, at = seq(0, 1, length.out = length(finke_models)), labels = finke_models,
+     las = 2, cex.axis = 0.8)
+
+# Add gray color for diagonal
+for (i in 1:length(finke_models)) {
+  x_pos <- (i - 1) / (length(finke_models) - 1)
+  y_pos <- (i - 1) / (length(finke_models) - 1)
+  rect(x_pos - 0.5 / (length(finke_models) - 1), y_pos - 0.5 / (length(finke_models) - 1),
+       x_pos + 0.5 / (length(finke_models) - 1), y_pos + 0.5 / (length(finke_models) - 1),
+       col = "gray80", border = NA)
+}
+
+# Add p-values to the plot
+for (i in 1:nrow(finke_pval_matrix)) {
+  for (j in 1:ncol(finke_pval_matrix)) {
+    if (!is.na(finke_pval_matrix[i, j])) {
+      x_pos <- (j - 1) / (ncol(finke_pval_matrix) - 1)
+      y_pos <- (i - 1) / (nrow(finke_pval_matrix) - 1)
+      text(x_pos, y_pos, sprintf("%.3f", finke_pval_matrix[i, j]), cex = 0.7)
+    }
+  }
+}
+
+# 48 Novel heatmap
+image(novel_pval_matrix, axes = FALSE, col = col_palette, main = "P-values Heatmap - 48 Novel Tasks")
+axis(1, at = seq(0, 1, length.out = length(novel_models)), labels = novel_models,
+     las = 2, cex.axis = 0.8)  # las=2 makes labels perpendicular, cex.axis makes them smaller
+axis(2, at = seq(0, 1, length.out = length(novel_models)), labels = novel_models,
+     las = 2, cex.axis = 0.8)
+
+# Add gray color for diagonal
+for (i in 1:length(novel_models)) {
+  x_pos <- (i - 1) / (length(novel_models) - 1)
+  y_pos <- (i - 1) / (length(novel_models) - 1)
+  rect(x_pos - 0.5 / (length(novel_models) - 1), y_pos - 0.5 / (length(novel_models) - 1),
+       x_pos + 0.5 / (length(novel_models) - 1), y_pos + 0.5 / (length(novel_models) - 1),
+       col = "gray80", border = NA)
+}
+
+# Add p-values to the plot
+for (i in 1:nrow(novel_pval_matrix)) {
+  for (j in 1:ncol(novel_pval_matrix)) {
+    if (!is.na(novel_pval_matrix[i, j])) {
+      x_pos <- (j - 1) / (ncol(novel_pval_matrix) - 1)
+      y_pos <- (i - 1) / (nrow(novel_pval_matrix) - 1)
+      text(x_pos, y_pos, sprintf("%.3f", novel_pval_matrix[i, j]), cex = 0.7)
+    }
+  }
+}
+```
+
+## Summary of Significant Differences
+
+```{r summary_significant}
+# Count significant differences for each task
+finke_sig_count <- sum(finke_results$significant)
+novel_48_sig_count <- sum(novel_48_results$significant)
+
+cat("Summary of Significant Differences:\n")
+cat(paste(rep("=", 50), collapse = ""), "\n")
+cat("Finke Tasks:\n")
+cat("  Total comparisons:", nrow(finke_results), "\n")
+cat("  Significant differences:", finke_sig_count, "\n")
+cat("  Percentage significant:", round(finke_sig_count / nrow(finke_results) * 100, 1), "%\n\n")
+
+cat("48 Novel Tasks:\n")
+cat("  Total comparisons:", nrow(novel_48_results), "\n")
+cat("  Significant differences:", novel_48_sig_count, "\n")
+cat("  Percentage significant:", round(novel_48_sig_count / nrow(novel_48_results) * 100, 1), "%\n\n")
+
+# Show which comparisons are significant
+cat("Significant Comparisons in Finke Tasks:\n")
+finke_sig <- finke_results[finke_results$significant, c("comparison", "diff", "p_value")]
+if (nrow(finke_sig) > 0) {
+  print(kable(finke_sig, format = "simple", digits = 4))
+} else {
+  cat("  None\n")
+}
+
+cat("\nSignificant Comparisons in 48 Novel Tasks:\n")
+novel_sig <- novel_48_results[novel_48_results$significant, c("comparison", "diff", "p_value")]
+if (nrow(novel_sig) > 0) {
+  print(kable(novel_sig, format = "simple", digits = 4))
+} else {
+  cat("  None\n")
+}
+```
+
+## Collapsed Analysis - Finke + 48 Novel Tasks Combined
+
+```{r collapsed_comparisons}
+# Test all combinations for collapsed data
+collapsed_results <- test_all_combinations(collapsed_data, "Collapsed (Finke + 48 Novel)")
+
+# Display results
+cat("All Pairwise Comparisons for Collapsed Data (Finke + 48 Novel Tasks):\n")
+cat(paste(rep("=", 80), collapse = ""), "\n")
+
+for (i in 1:nrow(collapsed_results)) {
+  cat("\n", collapsed_results$comparison[i], "\n")
+  cat(paste(rep("-", 40), collapse = ""), "\n")
+  cat("Proportions: ", round(collapsed_results$prop1[i], 3), " vs ",
+      round(collapsed_results$prop2[i], 3), "\n")
+  cat("Difference: ", round(collapsed_results$diff[i], 3), "\n")
+  cat("Chi-squared: ", round(collapsed_results$chi_squared[i], 3), "\n")
+  cat("Degrees of freedom: ", round(collapsed_results$df[i], 3), "\n")
+  cat("P-value: ", format(collapsed_results$p_value[i], scientific = FALSE, digits = 4), "\n")
+  cat("95% CI: [", round(collapsed_results$ci_lower[i], 3), ", ",
+      round(collapsed_results$ci_upper[i], 3), "]\n")
+  cat("Significant: ", ifelse(collapsed_results$significant[i], "YES (p < 0.05)", "NO"), "\n")
+}
+
+# Summary table
+collapsed_summary <- collapsed_results %>%
+  select(comparison, diff, chi_squared, p_value, significant) %>%
+  mutate(diff = round(diff, 3),
+         p_value = round(p_value, 4))
+
+cat("\n\nSummary Table - Collapsed Data:\n")
+print(kable(collapsed_summary, format = "simple"))
+
+# Count significant differences
+collapsed_sig_count <- sum(collapsed_results$significant)
+
+cat("\n\nCollapsed Data Summary:\n")
+cat("  Total comparisons:", nrow(collapsed_results), "\n")
+cat("  Significant differences:", collapsed_sig_count, "\n")
+cat("  Percentage significant:", round(collapsed_sig_count / nrow(collapsed_results) * 100, 1), "%\n\n")
+
+# Show significant comparisons
+cat("Significant Comparisons in Collapsed Data:\n")
+collapsed_sig <- collapsed_results[collapsed_results$significant, c("comparison", "diff", "p_value")]
+if (nrow(collapsed_sig) > 0) {
+  print(kable(collapsed_sig, format = "simple", digits = 4))
+} else {
+  cat("  None\n")
+}
+```
+
+## Visualization of Collapsed Data
+
+```{r collapsed_visualization, fig.width=10, fig.height=6}
+# Plot proportions with confidence intervals for collapsed data
+collapsed_plot <- ggplot(collapsed_data, aes(x = reorder(model, proportion), y = proportion)) +
+  geom_point(aes(color = color), size = 4) +
+  geom_errorbar(aes(ymin = proportion - 1.96 * sqrt(proportion * (1 - proportion) / max_score),
+                    ymax = proportion + 1.96 * sqrt(proportion * (1 - proportion) / max_score),
+                    color = color),
+                width = 0.2, size = 1) +
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "Collapsed Data (Finke + 48 Novel) - Proportions with 95% CI",
+       x = "Model",
+       y = "Proportion of Max Score") +
+  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")) +
+  scale_color_manual(
+    values = c("#fc8d62", "#8da0cb", "#e78ac3", "#66c2a5"),
+    name = element_blank(),
+    breaks = c("#fc8d62", "#8da0cb", "#e78ac3", "#66c2a5"),
+    labels = c("OpenAI", "Gemini", "Claude", "Human Baseline")
+  )
+
+# red #66c2a5
+# blue #fc8d62
+# green #8da0cb
+# purple #e78ac3
+
+print(collapsed_plot)
+
+```
+```{r comparison_plot, fig.width=10, fig.height=6}
+
+# Create a comparison plot showing all three datasets
+
+comparison_data <- bind_rows(
+  finke_data %>% mutate(dataset = "Finke"),
+  novel_data %>% mutate(dataset = "48 Novel"),
+  collapsed_data %>% mutate(dataset = "Collapsed")
+)
+
+comparison_plot <- ggplot(comparison_data, aes(x = model, y = proportion, fill = dataset)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  theme_minimal() +
+  labs(title = "Comparison Across All Datasets",
+       x = "Model",
+       y = "Proportion of Max Score",
+       fill = "Dataset") +
+  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
+print(comparison_plot)
+```
+
+## Heatmap for Collapsed Data
+
+```{r collapsed_heatmap, fig.width=8, fig.height=8}
+# Create matrix of p-values for collapsed data
+collapsed_models <- collapsed_data$model
+collapsed_pval_matrix <- matrix(NA, nrow = length(collapsed_models), ncol = length(collapsed_models))
+rownames(collapsed_pval_matrix) <- collapsed_models
+colnames(collapsed_pval_matrix) <- collapsed_models
+
+for (i in 1:nrow(collapsed_results)) {
+  row_idx <- which(collapsed_models == collapsed_results$model1[i])
+  col_idx <- which(collapsed_models == collapsed_results$model2[i])
+  collapsed_pval_matrix[row_idx, col_idx] <- collapsed_results$p_value[i]
+  collapsed_pval_matrix[col_idx, row_idx] <- collapsed_results$p_value[i]
+}
+
+# Set diagonal to NA
+diag(collapsed_pval_matrix) <- NA
+
+# Set margins for better label display
+par(mar = c(6, 6, 3, 2))
+
+# Plot heatmap with same color palette
+image(collapsed_pval_matrix, axes = FALSE, col = col_palette,
+      main = "P-values Heatmap - Collapsed Data (Finke + 48 Novel)")
+axis(1, at = seq(0, 1, length.out = length(collapsed_models)), labels = collapsed_models,
+     las = 2, cex.axis = 0.8)  # las=2 makes labels perpendicular, cex.axis makes them smaller
+axis(2, at = seq(0, 1, length.out = length(collapsed_models)), labels = collapsed_models,
+     las = 2, cex.axis = 0.8)
+
+# Add gray color for diagonal
+for (i in 1:length(collapsed_models)) {
+  x_pos <- (i - 1) / (length(collapsed_models) - 1)
+  y_pos <- (i - 1) / (length(collapsed_models) - 1)
+  rect(x_pos - 0.5 / (length(collapsed_models) - 1), y_pos - 0.5 / (length(collapsed_models) - 1),
+       x_pos + 0.5 / (length(collapsed_models) - 1), y_pos + 0.5 / (length(collapsed_models) - 1),
+       col = "gray80", border = NA)
+}
+
+# Add p-values to the plot
+for (i in 1:nrow(collapsed_pval_matrix)) {
+  for (j in 1:ncol(collapsed_pval_matrix)) {
+    if (!is.na(collapsed_pval_matrix[i, j])) {
+      x_pos <- (j - 1) / (ncol(collapsed_pval_matrix) - 1)
+      y_pos <- (i - 1) / (nrow(collapsed_pval_matrix) - 1)
+      text(x_pos, y_pos, sprintf("%.3f", collapsed_pval_matrix[i, j]), cex = 0.7)
+    }
+  }
+}
+```
+# Reasoning Variation Analysis
+
+
+## Finke
+
+```{r reasoning_variation_finke}
+# Test all combinations for Finke reasoning variations
+finke_reasoning_results <- test_all_combinations(finke_reasoning_data, "Finke Reasoning Variations")
+# Display results
+cat("All Pairwise Comparisons for Finke Reasoning Variations:\n")
+cat(paste(rep("=", 80), collapse = ""), "\n")
+
+for (i in 1:nrow(finke_reasoning_results)) {
+  cat("\n", finke_reasoning_results$comparison[i], "\n")
+  cat(paste(rep("-", 40), collapse = ""), "\n")
+  cat("Proportions: ", round(finke_reasoning_results$prop1[i], 3), " vs ",
+      round(finke_reasoning_results$prop2[i], 3), "\n")
+  cat("Difference: ", round(finke_reasoning_results$diff[i], 3), "\n")
+  cat("Chi-squared: ", round(finke_reasoning_results$chi_squared[i], 3), "\n")
+  cat("Degrees of freedom: ", round(finke_reasoning_results$df[i], 3), "\n")
+  cat("P-value: ", format(finke_reasoning_results$p_value[i], scientific = FALSE, digits = 4), "\n")
+  cat("95% CI: [", round(finke_reasoning_results$ci_lower[i], 3), ", ",
+      round(finke_reasoning_results$ci_upper[i], 3), "]\n")
+  cat("Significant: ", ifelse(finke_reasoning_results$significant[i], "YES (p < 0.05)", "NO"), "\n")
+}
+# Summary table
+finke_reasoning_summary <- finke_reasoning_results %>%
+  select(comparison, diff, chi_squared, p_value, significant) %>%
+  mutate(diff = round(diff, 3),
+         p_value = round(p_value, 4))
+cat("\n\nSummary Table - Finke Reasoning Variations:\n")
+print(kable(finke_reasoning_summary, format = "simple"))
+```
+
+### Heatmap for Finke Reasoning Variations
+
+```{r reasoning_variation_heatmap, fig.width=8, fig.height=8}
+# Create matrix of p-values for Finke reasoning variations
+finke_reasoning_models <- finke_reasoning_data$model
+finke_reasoning_pval_matrix <- matrix(NA, nrow = length(finke_reasoning_models), ncol = length(finke_reasoning_models))
+rownames(finke_reasoning_pval_matrix) <- finke_reasoning_models
+colnames(finke_reasoning_pval_matrix) <- finke_reasoning_models
+
+for (i in 1:nrow(finke_reasoning_results)) {
+  row_idx <- which(finke_reasoning_models == finke_reasoning_results$model1[i])
+  col_idx <- which(finke_reasoning_models == finke_reasoning_results$model2[i])
+  finke_reasoning_pval_matrix[row_idx, col_idx] <- finke_reasoning_results$p_value[i]
+  finke_reasoning_pval_matrix[col_idx, row_idx] <- finke_reasoning_results$p_value[i]
+}
+# Set diagonal to NA
+diag(finke_reasoning_pval_matrix) <- NA
+# Set margins for better label display
+par(mar = c(6, 6, 3, 2))
+# Plot heatmap with same color palette
+image(finke_reasoning_pval_matrix, axes = FALSE, col = col_palette,
+      main = "P-values Heatmap - Finke Reasoning Variations")
+axis(1, at = seq(0, 1, length.out = length(finke_reasoning_models)), labels = finke_reasoning_models,
+     las = 2, cex.axis = 0.8)  # las= 2 makes labels perpendicular, cex.axis makes them smaller
+axis(2, at = seq(0, 1, length.out = length(finke_reasoning_models)), labels = finke_reasoning_models,
+     las = 2, cex.axis = 0.8)
+# Add gray color for diagonal
+for (i in 1:length(finke_reasoning_models)) {
+  x_pos <- (i - 1) / (length(finke_reasoning_models) - 1)
+  y_pos <- (i - 1) / (length(finke_reasoning_models) - 1)
+  rect(x_pos - 0.5 / (length(finke_reasoning_models) - 1), y_pos - 0.5 / (length(finke_reasoning_models) - 1),
+       x_pos + 0.5 / (length(finke_reasoning_models) - 1), y_pos + 0.5 / (length(finke_reasoning_models) - 1),
+       col = "gray80", border = NA)
+}
+# Add p-values to the plot
+for (i in 1:nrow(finke_reasoning_pval_matrix)) {
+  for (j in 1:ncol(finke_reasoning_pval_matrix)) {
+    if (!is.na(finke_reasoning_pval_matrix[i, j])) {
+      x_pos <- (j - 1) / (ncol(finke_reasoning_pval_matrix) - 1)
+      y_pos <- (i - 1) / (nrow(finke_reasoning_pval_matrix) - 1)
+      text(x_pos, y_pos, sprintf("%.3f", finke_reasoning_pval_matrix[i, j]), cex = 0.7)
+    }
+  }
+}
+```
+
+### Summary of Significant Differences - Finke Reasoning Variations
+
+```{r reasoning_variation_summary}
+# Count significant differences for Finke reasoning variations
+finke_reasoning_sig_count <- sum(finke_reasoning_results$significant)
+cat("Summary of Significant Differences - Finke Reasoning Variations:\n")
+cat(paste(rep("=", 50), collapse = ""), "\n")
+cat("  Total comparisons:", nrow(finke_reasoning_results), "\n")
+cat("  Significant differences:", finke_reasoning_sig_count, "\n")
+cat("  Percentage significant:", round(finke_reasoning_sig_count / nrow(finke_reasoning_results) * 100, 1), "%\n\n")
+# Show which comparisons are significant
+cat("Significant Comparisons in Finke Reasoning Variations:\n")
+finke_reasoning_sig <- finke_reasoning_results[finke_reasoning_results$significant, c("comparison", "diff", "p_value")]
+if (nrow(finke_reasoning_sig) > 0) {
+  print(kable(finke_reasoning_sig, format = "simple", digits = 4))
+} else {
+  cat("  None\n")
+}
+```
+
+## 48 Novel
+
+```{r reasoning_variation_novel_48}
+# Test all combinations for 48 Novel reasoning variations
+novel_48_reasoning_results <- test_all_combinations(novel_reasoning_data, "48 Novel Reasoning Variations")
+# Display results
+cat("All Pairwise Comparisons for 48 Novel Reasoning Variations:\n")
+cat(paste(rep("=", 80), collapse = ""), "\n")
+
+for (i in 1:nrow(novel_48_reasoning_results)) {
+  cat("\n", novel_48_reasoning_results$comparison[i], "\n")
+  cat(paste(rep("-", 40), collapse = ""), "\n")
+  cat("Proportions: ", round(novel_48_reasoning_results$prop1[i], 3), " vs ",
+      round(novel_48_reasoning_results$prop2[i], 3), "\n")
+  cat("Difference: ", round(novel_48_reasoning_results$diff[i], 3), "\n")
+  cat("Chi-squared: ", round(novel_48_reasoning_results$chi_squared[i], 3), "\n")
+  cat("Degrees of freedom: ", round(novel_48_reasoning_results$df[i], 3), "\n")
+  cat("P-value: ", format(novel_48_reasoning_results$p_value[i], scientific = FALSE, digits = 4), "\n")
+  cat("95% CI: [", round(novel_48_reasoning_results$ci_lower[i], 3), ", ",
+      round(novel_48_reasoning_results$ci_upper[i], 3), "]\n")
+  cat("Significant: ", ifelse(novel_48_reasoning_results$significant[i], "YES (p < 0.05)", "NO"), "\n")
+}
+# Summary table
+novel_48_reasoning_summary <- novel_48_reasoning_results %>%
+  select(comparison, diff, chi_squared, p_value, significant) %>%
+  mutate(diff = round(diff, 3),
+         p_value = round(p_value, 4))
+cat("\n\nSummary Table - 48 Novel Reasoning Variations:\n")
+print(kable(novel_48_reasoning_summary, format = "simple"))
+```
+
+### Heatmap for 48 Novel Reasoning Variations
+
+```{r reasoning_variation_novel_heatmap, fig.width=8, fig.height=8}
+# Create matrix of p-values for 48 Novel reasoning variations
+novel_48_reasoning_models <- novel_reasoning_data$model
+novel_48_reasoning_pval_matrix <- matrix(NA, nrow = length(novel_48_reasoning_models), ncol = length(novel_48_reasoning_models))
+rownames(novel_48_reasoning_pval_matrix) <- novel_48_reasoning_models
+colnames(novel_48_reasoning_pval_matrix) <- novel_48_reasoning_models
+
+for (i in 1:nrow(novel_48_reasoning_results)) {
+  row_idx <- which(novel_48_reasoning_models == novel_48_reasoning_results$model1[i])
+  col_idx <- which(novel_48_reasoning_models == novel_48_reasoning_results$model2[i])
+  novel_48_reasoning_pval_matrix[row_idx, col_idx] <- novel_48_reasoning_results$p_value[i]
+  novel_48_reasoning_pval_matrix[col_idx, row_idx] <- novel_48_reasoning_results$p_value[i]
+}
+# Set diagonal to NA
+diag(novel_48_reasoning_pval_matrix) <- NA
+# Set margins for better label display
+par(mar = c(6, 6, 3, 2))
+# Plot heatmap with same color palette
+image(novel_48_reasoning_pval_matrix, axes = FALSE, col = col_palette,
+      main = "P-values Heatmap - 48 Novel Reasoning Variations")
+axis(1, at = seq(0, 1, length.out = length(novel_48_reasoning_models)), labels = novel_48_reasoning_models,
+     las = 2, cex.axis = 0.8)  # las= 2 makes labels perpendicular, cex.axis makes them smaller
+axis(2, at = seq(0, 1, length.out = length(novel_48_reasoning_models)), labels = novel_48_reasoning_models,
+     las = 2, cex.axis = 0.8)
+# Add gray color for diagonal
+for (i in 1:length(novel_48_reasoning_models)) {
+  x_pos <- (i - 1) / (length(novel_48_reasoning_models) - 1)
+  y_pos <- (i - 1) / (length(novel_48_reasoning_models) - 1)
+  rect(x_pos - 0.5 / (length(novel_48_reasoning_models) - 1), y_pos - 0.5 / (length(novel_48_reasoning_models) - 1),
+       x_pos + 0.5 / (length(novel_48_reasoning_models) - 1), y_pos + 0.5 / (length(novel_48_reasoning_models) - 1),
+       col = "gray80", border = NA)
+}
+# Add p-values to the plot
+for (i in 1:nrow(novel_48_reasoning_pval_matrix)) {
+  for (j in 1:ncol(novel_48_reasoning_pval_matrix)) {
+    if (!is.na(novel_48_reasoning_pval_matrix[i, j])) {
+      x_pos <- (j - 1) / (ncol(novel_48_reasoning_pval_matrix) - 1)
+      y_pos <- (i - 1) / (nrow(novel_48_reasoning_pval_matrix) - 1)
+      text(x_pos, y_pos, sprintf("%.3f", novel_48_reasoning_pval_matrix[i, j]), cex = 0.7)
+    }
+  }
+}
+```
+
+### Summary of Significant Differences - 48 Novel Reasoning Variations
+
+```{r reasoning_variation_novel_summary}
+# Count significant differences for 48 Novel reasoning variations
+novel_48_reasoning_sig_count <- sum(novel_48_reasoning_results$significant)
+cat("Summary of Significant Differences - 48 Novel Reasoning Variations:\n")
+cat(paste(rep("=", 50), collapse = ""), "\n")
+cat("  Total comparisons:", nrow(novel_48_reasoning_results), "\n")
+cat("  Significant differences:", novel_48_reasoning_sig_count, "\n")
+cat("  Percentage significant:", round(novel_48_reasoning_sig_count / nrow(novel_48_reasoning_results) * 100, 1), "%\n\n")
+
+# Show which comparisons are significant
+cat("Significant Comparisons in 48 Novel Reasoning Variations:\n")
+novel_48_reasoning_sig <- novel_48_reasoning_results[novel_48_reasoning_results$significant, c("comparison", "diff", "p_value")]
+if (nrow(novel_48_reasoning_sig) > 0) {
+  print(kable(novel_48_reasoning_sig, format = "simple", digits = 4))
+} else {
+  cat("  None\n")
+}
+```
+
+### Visualization of Finke and Novel Reasoning Variations
+
+```{r reasoning_variation_visualization, fig.width=14, fig.height=8}
+# Plot proportions with confidence intervals for Finke reasoning variations
+finke_reasoning_plot <- ggplot(finke_reasoning_data, aes(x = reorder(model, proportion), y = proportion)) +
+  geom_point(size = 4, aes(color = color)) +
+  geom_errorbar(aes(ymin = proportion - 1.96 * sqrt(proportion * (1 - proportion) / max_score),
+                    ymax = proportion + 1.96 * sqrt(proportion * (1 - proportion) / max_score),
+                    color = color),
+                width = 0.2, size = 1) +
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "Finke Reasoning - Proportions with 95% CI",
+       x = "Model",
+       y = "Proportion of Max Score") +
+  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")) +
+  scale_color_manual(
+    values = c("#980043", "#dd1c77", "#df65b0", "#d7b5d8", "#66c2a5"),
+    name = "Reasoning Level",
+    breaks = c("#980043", "#dd1c77", "#df65b0", "#d7b5d8", "#66c2a5"),
+    labels = c("High", "Medium", "Low", "Minimal", "Human Baseline")
+  )
+
+# Plot proportions with confidence intervals for 48 Novel reasoning variations
+novel_48_reasoning_plot <- ggplot(novel_reasoning_data, aes(x = reorder(model, proportion), y = proportion)) +
+  geom_point(size = 4, aes(color = color)) +
+  geom_errorbar(aes(ymin = proportion - 1.96 * sqrt(proportion * (1 - proportion) / max_score),
+                    ymax = proportion + 1.96 * sqrt(proportion * (1 - proportion) / max_score),
+                    color = color),
+                width = 0.2, size = 1) +
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "48 Novel Reasoning - Proportions with 95% CI",
+       x = "Model",
+       y = "Proportion of Max Score") +
+  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")) +
+  scale_color_manual(
+    values = c("#980043", "#dd1c77", "#df65b0", "#d7b5d8", "#66c2a5"),
+    name = "Reasoning Level",
+    breaks = c("#980043", "#dd1c77", "#df65b0", "#d7b5d8", "#66c2a5"),
+    labels = c("High", "Medium", "Low", "Minimal", "Human Baseline")
+  )
+
+
+combined_reasoning_plot <- (finke_reasoning_plot + novel_48_reasoning_plot & theme(legend.position = "bottom")) + plot_layout(ncol = 2, guides = "collect")
+print(combined_reasoning_plot)
+```
+
+## Combined Summary of Reasoning Variations
+
+```{r reasoning_variation_combined}
+combined_reasoning_results <- test_all_combinations(collapsed_reasoning_data, "Combined Reasoning Variations")
+# Display results
+cat("All Pairwise Comparisons for Combined Reasoning Variations:\n")
+cat(paste(rep("=", 80), collapse = ""), "\n")
+
+for (i in 1:nrow(combined_reasoning_results)) {
+  cat("\n", combined_reasoning_results$comparison[i], "\n")
+  cat(paste(rep("-", 40), collapse = ""), "\n")
+  cat("Proportions: ", round(combined_reasoning_results$prop1[i], 3), " vs ",
+      round(combined_reasoning_results$prop2[i], 3), "\n")
+  cat("Difference: ", round(combined_reasoning_results$diff[i], 3), "\n")
+  cat("Chi-squared: ", round(combined_reasoning_results$chi_squared[i], 3), "\n")
+  cat("Degrees of freedom: ", round(combined_reasoning_results$df[i], 3), "\n")
+  cat("P-value: ", format(combined_reasoning_results$p_value[i], scientific = FALSE, digits = 4), "\n")
+  cat("95% CI: [", round(combined_reasoning_results$ci_lower[i], 3), ", ",
+      round(combined_reasoning_results$ci_upper[i], 3), "]\n")
+  cat("Significant: ", ifelse(combined_reasoning_results$significant[i], "YES (p < 0.05)", "NO"), "\n")
+}
+# Summary table
+combined_reasoning_summary <- combined_reasoning_results %>%
+  select(comparison, diff, chi_squared, p_value, significant) %>%
+  mutate(diff = round(diff, 3),
+         p_value = round(p_value, 4))
+cat("\n\nSummary Table - Combined Reasoning Variations:\n")
+print(kable(combined_reasoning_summary, format = "simple"))
+# Count significant differences
+combined_reasoning_sig_count <- sum(combined_reasoning_results$significant)
+cat("\n\nCombined Reasoning Variations Summary:\n")
+cat("  Total comparisons:", nrow(combined_reasoning_results), "\n")
+cat("  Significant differences:", combined_reasoning_sig_count, "\n")
+cat("  Percentage significant:", round(combined_reasoning_sig_count / nrow(combined_reasoning_results) * 100, 1), "%\n\n")
+# Show significant comparisons
+cat("Significant Comparisons in Combined Reasoning Variations:\n")
+combined_reasoning_sig <- combined_reasoning_results[combined_reasoning_results$significant, c("comparison", "diff", "p_value")]
+if (nrow(combined_reasoning_sig) > 0) {
+  print(kable(combined_reasoning_sig, format = "simple", digits = 4))
+} else {
+  cat("  None\n")
+}
+```
+
+### Visualization of Combined Reasoning Variations
+
+```{r reasoning_variation_combined_visualization, fig.width=10, fig.height=6}
+# Plot proportions with confidence intervals for combined reasoning variations
+combined_reasoning_plot <- ggplot(collapsed_reasoning_data, aes(x = reorder(model, proportion), y = proportion)) +
+  geom_point(size = 4, aes(color = color)) +
+  geom_errorbar(aes(ymin = proportion - 1.96 * sqrt(proportion * (1 - proportion) / max_score),
+                    ymax = proportion + 1.96 * sqrt(proportion * (1 - proportion) / max_score),
+                    color = color),
+                width = 0.2, size = 1) +
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "Collapsed Data (Finke + 48) - Reasoning Variations - Proportions with 95% CI",
+       x = "Model",
+       y = "Proportion of Max Score") +
+  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")) +
+  scale_color_manual(
+    values = c("#980043", "#dd1c77", "#df65b0", "#d7b5d8", "#66c2a5"),
+    name = "Reasoning Level",
+    breaks = c("#980043", "#dd1c77", "#df65b0", "#d7b5d8", "#66c2a5"),
+    labels = c("High", "Medium", "Low", "Minimal", "Human Baseline")
+  )
+
+# minimal #d7b5d8
+# low #df65b0
+# medium #dd1c77
+# high #980043
+# human #66c2a5
+
+print(combined_reasoning_plot)
+```
+
+### Heatmap for Combined Reasoning Variations
+
+```{r reasoning_variation_combined_heatmap, fig.width=8, fig.height=8}
+# Create matrix of p-values for combined reasoning variations
+combined_reasoning_models <- collapsed_reasoning_data$model
+combined_reasoning_pval_matrix <- matrix(NA, nrow = length(combined_reasoning_models), ncol = length(combined_reasoning_models))
+rownames(combined_reasoning_pval_matrix) <- combined_reasoning_models
+colnames(combined_reasoning_pval_matrix) <- combined_reasoning_models
+
+for (i in 1:nrow(combined_reasoning_results)) {
+  row_idx <- which(combined_reasoning_models == combined_reasoning_results$model1[i])
+  col_idx <- which(combined_reasoning_models == combined_reasoning_results$model2[i])
+  combined_reasoning_pval_matrix[row_idx, col_idx] <- combined_reasoning_results$p_value[i]
+  combined_reasoning_pval_matrix[col_idx, row_idx] <- combined_reasoning_results$p_value[i]
+}
+# Set diagonal to NA
+diag(combined_reasoning_pval_matrix) <- NA
+# Set margins for better label display
+par(mar = c(6, 6, 3, 2))
+# Plot heatmap with same color palette
+image(combined_reasoning_pval_matrix, axes = FALSE, col = col_palette,
+      main = "P-values Heatmap - Combined Reasoning Variations")
+axis(1, at = seq(0, 1, length.out = length(combined_reasoning_models)), labels = combined_reasoning_models,
+     las = 2, cex.axis = 0.8)  # las= 2 makes labels perpendicular, cex.axis makes them smaller
+axis(2, at = seq(0, 1, length.out = length(combined_reasoning_models)), labels = combined_reasoning_models,
+     las = 2, cex.axis = 0.8)
+# Add gray color for diagonal
+for (i in 1:length(combined_reasoning_models)) {
+  x_pos <- (i - 1) / (length(combined_reasoning_models) - 1)
+  y_pos <- (i - 1) / (length(combined_reasoning_models) - 1)
+  rect(x_pos - 0.5 / (length(combined_reasoning_models) - 1), y_pos - 0.5 / (length(combined_reasoning_models) - 1),
+       x_pos + 0.5 / (length(combined_reasoning_models) - 1), y_pos + 0.5 / (length(combined_reasoning_models) - 1),
+       col = "gray80", border = NA)
+}
+# Add p-values to the plot
+for (i in 1:nrow(combined_reasoning_pval_matrix)) {
+  for (j in 1:ncol(combined_reasoning_pval_matrix)) {
+    if (!is.na(combined_reasoning_pval_matrix[i, j])) {
+      x_pos <- (j - 1) / (ncol(combined_reasoning_pval_matrix) - 1)
+      y_pos <- (i - 1) / (nrow(combined_reasoning_pval_matrix) - 1)
+      text(x_pos, y_pos, sprintf("%.3f", combined_reasoning_pval_matrix[i, j]), cex = 0.7)
+    }
+  }
+}
+```
+
+### Summary of Significant Differences - Combined Reasoning Variations
+
+```{r reasoning_variation_combined_summary}
+# Count significant differences for combined reasoning variations
+combined_reasoning_sig_count <- sum(combined_reasoning_results$significant)
+cat("Summary of Significant Differences - Combined Reasoning Variations:\n")
+cat(paste(rep("=", 50), collapse = ""), "\n")
+cat("  Total comparisons:", nrow(combined_reasoning_results), "\n")
+cat("  Significant differences:", combined_reasoning_sig_count, "\n")
+cat("  Percentage significant:", round(combined_reasoning_sig_count / nrow(combined_reasoning_results) * 100, 1), "%\n\n")
+# Show which comparisons are significant
+cat("Significant Comparisons in Combined Reasoning Variations:\n")
+combined_reasoning_sig <- combined_reasoning_results[combined_reasoning_results$significant, c("comparison", "diff", "p_value")]
+if (nrow(combined_reasoning_sig) > 0) {
+  print(kable(combined_reasoning_sig, format = "simple", digits = 4))
+} else {
+  cat("  None\n")
+}
+```
+
+
+
+
+
+## Export Results to CSV
+
+```{r export}
+# Combine all results
+all_results <- rbind(finke_results, novel_48_results, collapsed_results,
+                     finke_reasoning_results, novel_48_reasoning_results,
+                     combined_reasoning_results)
+
+# Export to CSV
+write.csv(all_results, "statistical_results/proportion_test_results.csv", row.names = FALSE)
+cat("\nResults exported to 'proportion_test_results.csv'\n")
+
+# Create a more detailed summary for export
+detailed_summary <- all_results %>%
+  mutate(
+    prop1_percent = paste0(round(prop1 * 100, 1), "%"),
+    prop2_percent = paste0(round(prop2 * 100, 1), "%"),
+    diff_percent = paste0(round(diff * 100, 1), "%"),
+    ci_95 = paste0("[", round(ci_lower, 3), ", ", round(ci_upper, 3), "]"),
+    interpretation = case_when(
+      p_value < 0.001 ~ "Highly significant (p < 0.001)",
+      p_value < 0.01 ~ "Very significant (p < 0.01)",
+      p_value < 0.05 ~ "Significant (p < 0.05)",
+      p_value < 0.10 ~ "Marginally significant (p < 0.10)",
+      TRUE ~ "Not significant"
+    )
+  ) %>%
+  select(task, comparison, prop1_percent, prop2_percent, diff_percent,
+         chi_squared, p_value, ci_95, interpretation)
+
+# Export detailed summary
+write.csv(detailed_summary, "statistical_results/proportion_test_detailed_summary.csv", row.names = FALSE)
+cat("Detailed summary exported to 'proportion_test_detailed_summary.csv'\n")
+```
+
