@@ -2,14 +2,14 @@
 title: "Artificial Phantasia: Evidence for Propositional Reasoning-Based Mental Imagery in Large Language Models"
 author: "Anonymous Authors"
 date: "September 23, 2025"
-output: pdf_document
+output: html_document
 ---
 
 ## Summary
 
 This R Markdown document reproduces the analyses reported in [Author Names Removed for Anonymized Peer Review]. _Artificial Phantasia: Evidence for Propositional Reasoning-Based Mental Imagery in Large Language Models_.
 
-Please use the provided Conda environment .yml file to set up an appropriate R environment to run this R markdown file.
+Please use the provided Conda environment .yml file to set up an appropriate R environment to run this R Markdown file.
 
 
 ```{r setup, include=FALSE}
@@ -29,8 +29,6 @@ human_data_finke <- read.csv("output_csvs/h_graded_results_finke.csv")
 human_data_novel <- read.csv("output_csvs/h_graded_results_novel.csv")
 
 llm_data_sc_mc <- read.csv("output_csvs/single_vs_multiple_context_results.csv")
-
-aphant_data <- read.csv("output_csvs/aphant.csv")
 ```
 
 ```{r data_finke}
@@ -391,11 +389,6 @@ medium_o4_mini_total_max_score <- medium_o4_mini_finke_max_score + medium_o4_min
 
 ```
 
-```{r aphant_data}
-aphant_total_score <- as.numeric(aphant_data["overall_score"])
-aphant_total_max_score <- as.numeric(aphant_data["n_total"]) * 5
-```
-
 ```{r sc_mc_dataframe}
 # Create data frames for easier manipulation
 sc_mc_data <- data.frame(
@@ -538,7 +531,7 @@ collapsed_data <- data.frame(
 collapsed_data$proportion <- collapsed_data$score / collapsed_data$max_score
 ```
 
-### Set-up Data for Reasoning Variations
+### Set up Data for Reasoning Variations
 
 ```{r finke_reasoning_dataframe}
 # Prepare data for reasoning variations analysis
@@ -618,31 +611,6 @@ collapsed_reasoning_data <- data.frame(
 )
 # Calculate proportions from score/max_score
 collapsed_reasoning_data$proportion <- collapsed_reasoning_data$score / collapsed_reasoning_data$max_score
-```
-```{r collapsed_aphant_dataframe}
-aphant_collapsed_data <- data.frame(
-  model = c("Aphant", "Humans", "o3", "o3-GPT-Image",
-            "o3-Pro", "GPT-4.1", "GPT-4.1-GPT-Image",
-            "ChatGPT-4o", "o4-mini", "Gemini-2.5",
-            "Gemini-2.0-Flash", "Gemini-2.0-Flash-Images",
-            "Sonnet-4", "Opus-4.1", "GPT-5"),
-  score = c(aphant_total_score, humans_total_score, o3_total_score, o3_images_total_score,
-            o3_pro_total_score, gpt4_1_total_score, gpt4_1_images_total_score,
-            chatgpt_4o_total_score, o4_mini_total_score, gemini2_5_total_score,
-            gemini2_0_flash_total_score, gemini2_0_flash_images_total_score,
-            sonnet4_total_score, opus4_1_total_score, gpt5_total_score),
-  max_score = c(aphant_total_max_score, humans_total_max_score, o3_total_max_score, o3_images_total_max_score,
-                o3_pro_total_max_score, gpt4_1_total_max_score, gpt4_1_images_total_max_score,
-                chatgpt_4o_total_max_score, o4_mini_total_max_score, gemini2_5_total_max_score,
-                gemini2_0_flash_total_max_score, gemini2_0_flash_images_total_max_score,
-                sonnet4_total_max_score, opus4_1_total_max_score, gpt5_total_max_score),
-  color = c("#ccccff","#66c2a5", "#fc8d62", "#fc8d62",
-            "#fc8d62", "#fc8d62", "#fc8d62",
-            "#fc8d62", "#fc8d62", "#8da0cb",
-            "#8da0cb", "#8da0cb", "#e78ac3", "#e78ac3", "#fc8d62")
-)
-# Calculate proportions from correct/total
-aphant_collapsed_data$proportion <- aphant_collapsed_data$score / aphant_collapsed_data$max_score
 ```
 
 
@@ -784,7 +752,7 @@ cat("\n\nSummary Table - Human vs Original Finke:\n")
 print(kable(human_vs_original_summary, format = "simple"))
 ```
 
-## Comparison: Current Human 48 vs Original Finke
+## Comparison: Current Human 48 vs. Original Finke
 
 ```{r human_48_vs_original_finke, echo = FALSE}
 # Perform proportion test between current human 48 performance and original Finke data
@@ -832,7 +800,7 @@ human_48_vs_original_summary <- data.frame(
 cat("\n\nSummary Table - Human vs Original Finke:\n")
 print(kable(human_48_vs_original_summary, format = "simple"))
 ```
-## Comparison: Current Humans (collapsed) vs Original Finke
+## Comparison: Current Humans (collapsed) vs. Original Finke
 
 ```{r human_collapsed_vs_original_finke, echo = FALSE}
 # Perform proportion test between current human 48 performance and original Finke data
@@ -880,36 +848,6 @@ human_vs_original_collapsed_summary <- data.frame(
 cat("\n\nSummary Table - Current Human (Collapsed) vs Original Finke:\n")
 print(kable(human_vs_original_collapsed_summary, format = "simple"))
 ```
-## Aphant vs Humans and Models - All Pairwise Comparisons
-
-```{r aphant_comparisons}
-# Test all combinations for Aphant vs Humans and Models (results not included in paper)
-aphant_results <- test_all_combinations(aphant_collapsed_data, "Aphant vs Humans and Models")
-# Display results
-cat("All Pairwise Comparisons for Aphant vs Humans and Models:\n")
-cat(paste(rep("=", 80), collapse = ""), "\n")
-for (i in 1:nrow(aphant_results)) {
-  cat("\n", aphant_results$comparison[i], "\n")
-  cat(paste(rep("-", 40), collapse = ""), "\n")
-  cat("Proportions: ", round(aphant_results$prop1[i], 3), " vs ",
-      round(aphant_results$prop2[i], 3), "\n")
-  cat("Difference: ", round(aphant_results$diff[i], 3), "\n")
-  cat("Chi-squared: ", round(aphant_results$chi_squared[i], 3), "\n")
-  cat("Degrees of freedom: ", round(aphant_results$df[i], 3), "\n")
-  cat("P-value: ", format(aphant_results$p_value[i], scientific = FALSE, digits = 4), "\n")
-  cat("95% CI: [", round(aphant_results$ci_lower[i], 3), ", ",
-      round(aphant_results$ci_upper[i], 3), "]\n")
-  cat("Significant: ", ifelse(aphant_results$significant[i], "YES (p < 0.05)", "NO"), "\n")
-}
-# Summary table
-aphant_summary <- aphant_results %>%
-  select(comparison, diff, chi_squared, p_value, significant) %>%
-    mutate(diff = round(diff, 3),
-            p_value = round(p_value, 4))
-cat("\n\nSummary Table - Aphant vs Humans and Models:\n")
-print(kable(aphant_summary, format = "simple"))
-```
-
 
 ## Single Context vs Multiple Context - All Pairwise Comparisons
 
@@ -948,7 +886,7 @@ print(kable(sc_mc_summary, format = "simple"))
 
 ```
 
-### Visualization of Single vs Multiple Context
+### Visualization of Single vs. Multiple Context
 
 ```{r sc_mc_visualization, fig.width=10, fig.height=6}
 # Plot for Single-Context vs Multiple-Context
@@ -962,8 +900,11 @@ sc_mc_plot <- ggplot(sc_mc_data, aes(x = reorder(model, proportion), y = proport
   theme_minimal() +
   labs(title = "Single-Context vs Multiple-Context Models - Proportions with 95% CI",
        x = "Model",
-       y = "Proportion of Max Score") +
-  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")) +
+       y = "Proportion of Maximum Possible Score") +
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 14),
+        legend.text = element_text(size = 12)) +
   scale_color_manual(
     values = c("#fc8d62", "#8da0cb", "#e78ac3"),
     name = "Model Family",
@@ -1064,10 +1005,13 @@ finke_plot <- ggplot(finke_data, aes(x = reorder(model, proportion), y = proport
                 width = 0.2, size = 1) +
   coord_flip() +
   theme_minimal() +
-  labs(title = "Finke et al. Tasks - Proportions with 95% CI",
+  labs(subtitle = "Finke et al. Tasks",
        x = "Model",
-       y = "Proportion of Max Score") +
-  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")) +
+       y = "Proportion of Maximum Possible Score") +
+  theme(plot.subtitle = element_text(hjust = 0.5, size = 18),
+        axis.text = element_text(size = 14),
+        axis.title = element_text(size = 16),
+        legend.text = element_text(size = 14)) +
   scale_color_manual(
     values = c("#fc8d62", "#8da0cb", "#e78ac3", "#66c2a5"),
     name = element_blank(),
@@ -1084,10 +1028,13 @@ novel_48_plot <- ggplot(novel_data, aes(x = reorder(model, proportion), y = prop
                 width = 0.2, size = 1) +
   coord_flip() +
   theme_minimal() +
-  labs(title = "48 Novel Tasks - Proportions with 95% CI",
+  labs(subtitle = "48 Novel Tasks",
        x = "Model",
-       y = "Proportion of Max Score") +
-  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")) +
+       y = "Proportion of Maximum Possible Score") +
+  theme(plot.subtitle = element_text(hjust = 0.5, size = 18),
+        axis.text = element_text(size = 14),
+        axis.title = element_text(size = 16),
+        legend.text = element_text(size = 14)) +
   scale_color_manual(
     values = c("#fc8d62", "#8da0cb", "#e78ac3", "#66c2a5"),
     name = element_blank(),
@@ -1096,15 +1043,11 @@ novel_48_plot <- ggplot(novel_data, aes(x = reorder(model, proportion), y = prop
   )
 
 # Combine plots
-combined_plot <- (finke_plot + novel_48_plot & theme(legend.position = "bottom")) + plot_layout(ncol = 2, guides = "collect")
+combined_plot <- ((finke_plot + novel_48_plot) +
+  plot_layout(ncol = 2, guides = "collect") +
+  plot_annotation(title = "Finke et al. Tasks vs. 48 Novel Tasks - Proportions with 95% CI")) &
+  theme(plot.title = element_text(hjust = 0.5, size = 20, face = "bold"), legend.position = "bottom")
 print(combined_plot)
-
-# red #66c2a5
-# blue #fc8d62
-# green #8da0cb
-# purple #e78ac3
-
-
 ```
 
 ## Heatmap of P-values
@@ -1303,10 +1246,13 @@ collapsed_plot <- ggplot(collapsed_data, aes(x = reorder(model, proportion), y =
                 width = 0.2, size = 1) +
   coord_flip() +
   theme_minimal() +
-  labs(title = "Collapsed Data (Finke + 48 Novel) - Proportions with 95% CI",
+  labs(title = "Finke et al. and 48 Novel Tasks Collapsed - Proportions with 95% CI",
        x = "Model",
-       y = "Proportion of Max Score") +
-  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")) +
+       y = "Proportion of Maximum Possible Score") +
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 14),
+        legend.text = element_text(size = 12)) +
   scale_color_manual(
     values = c("#fc8d62", "#8da0cb", "#e78ac3", "#66c2a5"),
     name = element_blank(),
@@ -1322,6 +1268,7 @@ collapsed_plot <- ggplot(collapsed_data, aes(x = reorder(model, proportion), y =
 print(collapsed_plot)
 
 ```
+
 ```{r comparison_plot, fig.width=10, fig.height=6}
 
 # Create a comparison plot showing all three datasets
@@ -1337,7 +1284,7 @@ comparison_plot <- ggplot(comparison_data, aes(x = model, y = proportion, fill =
   theme_minimal() +
   labs(title = "Comparison Across All Datasets",
        x = "Model",
-       y = "Proportion of Max Score",
+       y = "Proportion of Maximum Possible Score",
        fill = "Dataset") +
   theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
         axis.text.x = element_text(angle = 45, hjust = 1))
@@ -1605,13 +1552,16 @@ finke_reasoning_plot <- ggplot(finke_reasoning_data, aes(x = reorder(model, prop
                 width = 0.2, size = 1) +
   coord_flip() +
   theme_minimal() +
-  labs(title = "Finke Reasoning - Proportions with 95% CI",
+  labs(subtitle = "Finke et al. Tasks",
        x = "Model",
-       y = "Proportion of Max Score") +
-  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")) +
+       y = "Proportion of Maximum Possible Score") +
+  theme(plot.subtitle = element_text(hjust = 0.5, size = 18),
+        axis.text = element_text(size = 14),
+        axis.title = element_text(size = 16),
+        legend.text = element_text(size = 14)) +
   scale_color_manual(
     values = c("#980043", "#dd1c77", "#df65b0", "#d7b5d8", "#66c2a5"),
-    name = "Reasoning Level",
+    name = "Reasoning Effort",
     breaks = c("#980043", "#dd1c77", "#df65b0", "#d7b5d8", "#66c2a5"),
     labels = c("High", "Medium", "Low", "Minimal", "Human Baseline")
   )
@@ -1625,19 +1575,25 @@ novel_48_reasoning_plot <- ggplot(novel_reasoning_data, aes(x = reorder(model, p
                 width = 0.2, size = 1) +
   coord_flip() +
   theme_minimal() +
-  labs(title = "48 Novel Reasoning - Proportions with 95% CI",
+  labs(subtitle = "48 Novel Tasks",
        x = "Model",
-       y = "Proportion of Max Score") +
-  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")) +
+       y = "Proportion of Maximum Possible Score") +
+  theme(plot.subtitle = element_text(hjust = 0.5, size = 18),
+        axis.text = element_text(size = 14),
+        axis.title = element_text(size = 16),
+        legend.text = element_text(size = 14)) +
   scale_color_manual(
     values = c("#980043", "#dd1c77", "#df65b0", "#d7b5d8", "#66c2a5"),
-    name = "Reasoning Level",
+    name = "Reasoning Effort",
     breaks = c("#980043", "#dd1c77", "#df65b0", "#d7b5d8", "#66c2a5"),
     labels = c("High", "Medium", "Low", "Minimal", "Human Baseline")
   )
 
 
-combined_reasoning_plot <- (finke_reasoning_plot + novel_48_reasoning_plot & theme(legend.position = "bottom")) + plot_layout(ncol = 2, guides = "collect")
+combined_reasoning_plot <- ((finke_reasoning_plot + novel_48_reasoning_plot) +
+  plot_layout(ncol = 2, guides = "collect") +
+  plot_annotation(title = "Reasoning: Finke et al. Tasks vs. 48 Novel Tasks - Proportions with 95% CI")) &
+  theme(plot.title = element_text(hjust = 0.5, size = 20, face = "bold"), legend.position = "bottom")
 print(combined_reasoning_plot)
 ```
 
@@ -1697,10 +1653,13 @@ combined_reasoning_plot <- ggplot(collapsed_reasoning_data, aes(x = reorder(mode
                 width = 0.2, size = 1) +
   coord_flip() +
   theme_minimal() +
-  labs(title = "Collapsed Data (Finke + 48) - Reasoning Variations - Proportions with 95% CI",
+  labs(title = "Reasoning: Finke et al. and 48 Novel Tasks Collapsed - Proportions with 95% CI",
        x = "Model",
-       y = "Proportion of Max Score") +
-  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")) +
+       y = "Proportion of Maximum Possible Score") +
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 14),
+        legend.text = element_text(size = 12)) +
   scale_color_manual(
     values = c("#980043", "#dd1c77", "#df65b0", "#d7b5d8", "#66c2a5"),
     name = "Reasoning Level",
@@ -1713,6 +1672,8 @@ combined_reasoning_plot <- ggplot(collapsed_reasoning_data, aes(x = reorder(mode
 # medium #dd1c77
 # high #980043
 # human #66c2a5
+
+
 
 print(combined_reasoning_plot)
 ```
