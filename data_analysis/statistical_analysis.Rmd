@@ -447,7 +447,7 @@ sc_mc_data$proportion <- sc_mc_data$score / sc_mc_data$max_score
 finke_data <- data.frame(
   model = c("Humans", "o3", "o3-GPT-Image",
             "o3-Pro", "GPT-4.1", "GPT-4.1-GPT-Image",
-            "ChatGPT-4o", "o4-mini", "Gemini-2.5",
+            "ChatGPT-4o", "o4-mini", "Gemini-2.5-Pro",
             "Gemini-2.0-Flash", "Gemini-2.0-Flash-Images",
             "Sonnet-4", "Opus-4.1", "GPT-5"),
   score = c(humans_finke_score, o3_finke_score, o3_images_finke_score,
@@ -478,7 +478,7 @@ finke_data$proportion <- finke_data$score / finke_data$max_score
 novel_data <- data.frame(
   model = c("Humans", "o3", "o3-GPT-Image",
             "o3-Pro", "GPT-4.1", "GPT-4.1-GPT-Image",
-            "ChatGPT-4o", "o4-mini", "Gemini-2.5",
+            "ChatGPT-4o", "o4-mini", "Gemini-2.5-Pro",
             "Gemini-2.0-Flash", "Gemini-2.0-Flash-Images",
             "Sonnet-4", "Opus-4.1", "GPT-5"),
   score = c(humans_novel_score, o3_novel_score, o3_images_novel_score,
@@ -508,7 +508,7 @@ novel_data$proportion <- novel_data$score / novel_data$max_score
 collapsed_data <- data.frame(
   model = c("Humans", "o3", "o3-GPT-Image",
             "o3-Pro", "GPT-4.1", "GPT-4.1-GPT-Image",
-            "ChatGPT-4o", "o4-mini", "Gemini-2.5",
+            "ChatGPT-4o", "o4-mini", "Gemini-2.5-Pro",
             "Gemini-2.0-Flash", "Gemini-2.0-Flash-Images",
             "Sonnet-4", "Opus-4.1", "GPT-5"),
   score = c(humans_total_score, o3_total_score, o3_images_total_score,
@@ -1050,6 +1050,31 @@ combined_plot <- ((finke_plot + novel_48_plot) +
 print(combined_plot)
 ```
 
+```{r novel_48_plot, fig.width=14, fig.height=8}
+novel_plot <- ggplot(novel_data, aes(x = reorder(model, proportion), y = proportion)) +
+  geom_point(size = 4, aes(color = color)) +
+  geom_errorbar(aes(ymin = proportion - 1.96 * sqrt(proportion * (1 - proportion) / max_score),
+                    ymax = proportion + 1.96 * sqrt(proportion * (1 - proportion) / max_score),
+                    color = color),
+                width = 0.2, size = 1) +
+  coord_flip() +
+  theme_minimal() +
+  labs(subtitle = "48 Novel Tasks",
+       x = "Model",
+       y = "Proportion of Maximum Possible Score") +
+  theme(plot.subtitle = element_text(hjust = 0.5, size = 20),
+        axis.text = element_text(size = 16),
+        axis.title = element_text(size = 18),
+        legend.text = element_text(size = 16)) +
+  scale_color_manual(
+    values = c("#fc8d62", "#8da0cb", "#e78ac3", "#66c2a5"),
+    name = element_blank(),
+    breaks = c("#fc8d62", "#8da0cb", "#e78ac3", "#66c2a5"),
+    labels = c("OpenAI", "Gemini", "Claude", "Human Baseline")
+  )
+print(novel_plot)
+```
+
 ## Heatmap of P-values
 
 ```{r heatmap, fig.width=10, fig.height=10}
@@ -1246,7 +1271,7 @@ collapsed_plot <- ggplot(collapsed_data, aes(x = reorder(model, proportion), y =
                 width = 0.2, size = 1) +
   coord_flip() +
   theme_minimal() +
-  labs(title = "Finke et al. and 48 Novel Tasks Collapsed - Proportions with 95% CI",
+  labs(
        x = "Model",
        y = "Proportion of Maximum Possible Score") +
   theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
