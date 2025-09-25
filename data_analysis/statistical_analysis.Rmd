@@ -1045,7 +1045,7 @@ novel_48_plot <- ggplot(novel_data, aes(x = reorder(model, proportion), y = prop
 # Combine plots
 combined_plot <- ((finke_plot + novel_48_plot) +
   plot_layout(ncol = 2, guides = "collect") +
-  plot_annotation(title = "Finke et al. Tasks vs. 48 Novel Tasks - Proportions with 95% CI")) &
+  plot_annotation(title = "Finke et al. vs. Novel 48-Item - Proportions with 95% CI")) &
   theme(plot.title = element_text(hjust = 0.5, size = 20, face = "bold"), legend.position = "bottom")
 print(combined_plot)
 ```
