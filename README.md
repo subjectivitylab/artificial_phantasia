@@ -59,7 +59,6 @@ Transfer results to the data analysis pipeline to continue.
 We do not provided slot-in data analysis at this time due to the subjective nature of the responses. In order to analyze the data you must create a qualtrics survey of any unique answers using the Qualtrics conversion script ```csv2qualtrics.py```.
 
 ```
-python(ImagineLLMs) [morgan@Morgan phantasia_qualtrics_conversion_script]$ python csv2qualtrics.py --help
 usage: csv2qualtrics.py [-h] [--q_start Q_START] csv_in txt_out
 
 Convert CSV to Qualtrics TXT
@@ -71,6 +70,19 @@ positional arguments:
 options:
   -h, --help         show this help message and exit
   --q_start Q_START  starting question number
+```
+
+Finally, we have a script to compare the reasoning token usage of two models (by importing the generated usage.csv script from the output - ideally deshuffled).
+This script does not output any new files, but prints to standard input its results. Append the output to a file if you need to save the analysis.
+```
+usage: Take two usage .csv files and compare the reasoning token usage between the two step by step, block by block.
+
+positional arguments:
+  deshuffled_a  First usage .csv file path (A).
+  deshuffled_b  Second usage .csv file path (A).
+
+options:
+  -h, --help    show this help message and exit
 ```
 
 You can follow the procedure of our data analysis by viewing ```data_analysis.html``` or the raw Jupyter Notebook file ```data_analysis.ipynb```.
