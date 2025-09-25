@@ -6716,7 +6716,9 @@ def grade(responses_df, means_df, key_col, block_list=ALL_BLOCKS) -> tuple:
             result_list.append({key_col: key_val, "overall_score": average_total, "normal_score": normal_total,
                                 "expert_score": expert_total, "diff_normed_score": diff_normed_total,
                                 "n_graded": n_graded, "n_ungraded": n_ungraded,
-                                "n_total": n_total, "mean_score_per_item": average_total / n_total, "mean_diff_normed_score_per_item": diff_normed_total / n_total, "accumulated_difficulty": accumulated_difficulty})
+                                "n_total": n_total, "mean_score_per_item": average_total / n_total,
+                                "mean_diff_normed_score_per_item": diff_normed_total / n_total,
+                                "accumulated_difficulty": accumulated_difficulty})
     return pd.DataFrame(result_list), pd.DataFrame(full_results), pd.DataFrame(ungraded_results)
 ```
 
@@ -11641,7 +11643,7 @@ print("LLM aggregate mean:", llm_aggregate_mean)
 
 
 ```python
-h_graded_results_vviq = h_graded_results.merge(vviq_scores, left_on="ResponseId", right_on="ResponseId")
+h_graded_results_vviq = h_graded_results.merge(vviq_scores, left_on="ResponseId", right_on="ResponseId").sort_values(by = 'overall_score', axis = 0, ascending = False).reset_index(drop = True)
 h_graded_results_vviq
 ```
 
@@ -11692,123 +11694,123 @@ h_graded_results_vviq
   <tbody>
     <tr>
       <th>0</th>
-      <td>R_6hazd14Iv0vRJV7</td>
-      <td>27.323810</td>
-      <td>28.647619</td>
-      <td>26.0</td>
-      <td>10.887153</td>
+      <td>R_3NDJv5Msv9mPkGK</td>
+      <td>64.719048</td>
+      <td>59.938095</td>
+      <td>69.5</td>
+      <td>25.442354</td>
       <td>15</td>
       <td>0</td>
       <td>15</td>
-      <td>1.821587</td>
-      <td>0.725810</td>
+      <td>4.314603</td>
+      <td>1.696157</td>
       <td>...</td>
-      <td>5</td>
-      <td>5</td>
-      <td>1</td>
-      <td>1</td>
+      <td>3</td>
+      <td>3</td>
+      <td>3</td>
+      <td>2</td>
+      <td>3</td>
       <td>4</td>
-      <td>1</td>
-      <td>5</td>
-      <td>5</td>
-      <td>5</td>
-      <td>5</td>
+      <td>4</td>
+      <td>4</td>
+      <td>4</td>
+      <td>3</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>R_5vQ6Xf1WugueDND</td>
-      <td>30.880952</td>
-      <td>29.261905</td>
-      <td>32.5</td>
-      <td>13.013519</td>
-      <td>14</td>
-      <td>1</td>
+      <td>R_3VJvcRXM4mhNG0x</td>
+      <td>64.407143</td>
+      <td>58.314286</td>
+      <td>70.5</td>
+      <td>25.019106</td>
       <td>15</td>
-      <td>2.058730</td>
-      <td>0.867568</td>
+      <td>0</td>
+      <td>15</td>
+      <td>4.293810</td>
+      <td>1.667940</td>
       <td>...</td>
-      <td>5</td>
-      <td>5</td>
-      <td>5</td>
-      <td>5</td>
+      <td>3</td>
+      <td>4</td>
+      <td>3</td>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
       <td>4</td>
       <td>4</td>
-      <td>5</td>
-      <td>5</td>
-      <td>5</td>
+      <td>4</td>
       <td>4</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>R_5KpdGyLKCFDJS5r</td>
-      <td>30.238095</td>
-      <td>28.476190</td>
-      <td>32.0</td>
-      <td>12.169251</td>
+      <td>R_5XBVD7OnUiSPYzv</td>
+      <td>63.000000</td>
+      <td>57.000000</td>
+      <td>69.0</td>
+      <td>25.578287</td>
       <td>15</td>
       <td>0</td>
       <td>15</td>
-      <td>2.015873</td>
-      <td>0.811283</td>
+      <td>4.200000</td>
+      <td>1.705219</td>
       <td>...</td>
-      <td>5</td>
-      <td>5</td>
-      <td>5</td>
-      <td>5</td>
-      <td>2</td>
-      <td>5</td>
-      <td>1</td>
-      <td>5</td>
       <td>4</td>
+      <td>5</td>
+      <td>3</td>
+      <td>2</td>
+      <td>3</td>
+      <td>3</td>
+      <td>3</td>
+      <td>2</td>
+      <td>3</td>
       <td>4</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>R_5hfsgpVmDBRxfr5</td>
-      <td>45.500000</td>
-      <td>41.000000</td>
-      <td>50.0</td>
-      <td>16.875522</td>
+      <td>R_6mXDO57GGpQM4Q8</td>
+      <td>61.190476</td>
+      <td>55.380952</td>
+      <td>67.0</td>
+      <td>25.764838</td>
       <td>15</td>
       <td>0</td>
       <td>15</td>
-      <td>3.033333</td>
-      <td>1.125035</td>
+      <td>4.079365</td>
+      <td>1.717656</td>
       <td>...</td>
       <td>3</td>
+      <td>4</td>
+      <td>4</td>
       <td>3</td>
-      <td>3</td>
+      <td>4</td>
       <td>2</td>
-      <td>3</td>
-      <td>3</td>
-      <td>3</td>
-      <td>3</td>
-      <td>3</td>
-      <td>3</td>
+      <td>5</td>
+      <td>5</td>
+      <td>4</td>
+      <td>5</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>R_6Eu2oR7CwVBRwyp</td>
-      <td>38.266667</td>
-      <td>37.033333</td>
-      <td>39.5</td>
-      <td>15.870478</td>
-      <td>11</td>
-      <td>4</td>
+      <td>R_1LjuLUT4Y6CYGNe</td>
+      <td>59.242857</td>
+      <td>56.985714</td>
+      <td>61.5</td>
+      <td>20.928889</td>
       <td>15</td>
-      <td>2.551111</td>
-      <td>1.058032</td>
+      <td>0</td>
+      <td>15</td>
+      <td>3.949524</td>
+      <td>1.395259</td>
       <td>...</td>
-      <td>5</td>
-      <td>5</td>
-      <td>3</td>
-      <td>3</td>
-      <td>3</td>
-      <td>3</td>
-      <td>3</td>
-      <td>3</td>
-      <td>3</td>
-      <td>3</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>...</th>
@@ -11836,123 +11838,123 @@ h_graded_results_vviq
     </tr>
     <tr>
       <th>95</th>
-      <td>R_6RqfSAN0DF8nnsa</td>
-      <td>48.538095</td>
-      <td>44.576190</td>
-      <td>52.5</td>
-      <td>19.103933</td>
+      <td>R_7rGSNqpHRRXGZWh</td>
+      <td>24.350000</td>
+      <td>27.200000</td>
+      <td>21.5</td>
+      <td>9.592652</td>
       <td>15</td>
       <td>0</td>
       <td>15</td>
-      <td>3.235873</td>
-      <td>1.273596</td>
+      <td>1.623333</td>
+      <td>0.639510</td>
       <td>...</td>
-      <td>5</td>
+      <td>3</td>
+      <td>4</td>
       <td>5</td>
       <td>5</td>
       <td>5</td>
       <td>4</td>
-      <td>3</td>
-      <td>3</td>
-      <td>3</td>
-      <td>3</td>
       <td>4</td>
+      <td>4</td>
+      <td>3</td>
+      <td>3</td>
     </tr>
     <tr>
       <th>96</th>
-      <td>R_1paSSMOwVWpJyn2</td>
-      <td>52.892857</td>
-      <td>46.285714</td>
-      <td>59.5</td>
-      <td>19.223261</td>
+      <td>R_71C2kK0ya2WVTj3</td>
+      <td>23.969048</td>
+      <td>25.938095</td>
+      <td>22.0</td>
+      <td>9.977369</td>
       <td>15</td>
       <td>0</td>
       <td>15</td>
-      <td>3.526190</td>
-      <td>1.281551</td>
+      <td>1.597937</td>
+      <td>0.665158</td>
       <td>...</td>
       <td>4</td>
       <td>4</td>
-      <td>3</td>
-      <td>3</td>
-      <td>2</td>
-      <td>3</td>
       <td>4</td>
-      <td>4</td>
-      <td>4</td>
-      <td>4</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
     </tr>
     <tr>
       <th>97</th>
-      <td>R_7NhDTJ2fxewY5qh</td>
-      <td>36.183333</td>
-      <td>34.366667</td>
-      <td>38.0</td>
-      <td>12.791947</td>
-      <td>15</td>
-      <td>0</td>
-      <td>15</td>
-      <td>2.412222</td>
-      <td>0.852796</td>
-      <td>...</td>
-      <td>4</td>
-      <td>4</td>
-      <td>2</td>
-      <td>3</td>
-      <td>4</td>
-      <td>4</td>
-      <td>3</td>
-      <td>4</td>
+      <td>R_6HnmuPESQ911bSs</td>
+      <td>20.350000</td>
+      <td>24.700000</td>
+      <td>16.0</td>
+      <td>8.122331</td>
+      <td>10</td>
       <td>5</td>
+      <td>15</td>
+      <td>1.356667</td>
+      <td>0.541489</td>
+      <td>...</td>
       <td>3</td>
+      <td>4</td>
+      <td>3</td>
+      <td>3</td>
+      <td>4</td>
+      <td>4</td>
+      <td>4</td>
+      <td>3</td>
+      <td>3</td>
+      <td>4</td>
     </tr>
     <tr>
       <th>98</th>
-      <td>R_5RvyCf53JoQh7Eg</td>
-      <td>45.707143</td>
-      <td>43.914286</td>
-      <td>47.5</td>
-      <td>15.245062</td>
+      <td>R_3LYjBidWcX7T3mo</td>
+      <td>19.800000</td>
+      <td>20.100000</td>
+      <td>19.5</td>
+      <td>7.011848</td>
       <td>13</td>
-      <td>2</td>
-      <td>15</td>
-      <td>3.047143</td>
-      <td>1.016337</td>
+      <td>0</td>
+      <td>13</td>
+      <td>1.523077</td>
+      <td>0.539373</td>
       <td>...</td>
+      <td>4</td>
       <td>5</td>
-      <td>5</td>
+      <td>4</td>
       <td>4</td>
       <td>4</td>
       <td>5</td>
       <td>4</td>
-      <td>5</td>
-      <td>5</td>
-      <td>5</td>
+      <td>4</td>
+      <td>4</td>
       <td>4</td>
     </tr>
     <tr>
       <th>99</th>
-      <td>R_6YaCnTxmrtmyBmt</td>
-      <td>44.516667</td>
-      <td>39.533333</td>
-      <td>49.5</td>
-      <td>17.705434</td>
+      <td>R_3fkIyfPjf94dl8o</td>
+      <td>17.333333</td>
+      <td>19.666667</td>
+      <td>15.0</td>
+      <td>6.509375</td>
+      <td>11</td>
+      <td>4</td>
       <td>15</td>
-      <td>0</td>
-      <td>15</td>
-      <td>2.967778</td>
-      <td>1.180362</td>
+      <td>1.155556</td>
+      <td>0.433958</td>
       <td>...</td>
       <td>3</td>
-      <td>5</td>
-      <td>5</td>
       <td>4</td>
-      <td>4</td>
-      <td>5</td>
       <td>4</td>
       <td>4</td>
       <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
       <td>4</td>
+      <td>5</td>
     </tr>
   </tbody>
 </table>
@@ -11964,7 +11966,8 @@ h_graded_results_vviq
 
 ```python
 aphant = h_graded_results_vviq.loc[h_graded_results_vviq["VVIQ_sum"] == 16]
-aphant.to_csv("output_csvs/aphant.csv")
+weak_aphant = h_graded_results_vviq.loc[h_graded_results_vviq["VVIQ_sum"].between(17, 32)]
+hyperphant = h_graded_results_vviq.loc[h_graded_results_vviq["VVIQ_sum"] >= 75]
 aphant
 ```
 
@@ -12014,7 +12017,7 @@ aphant
   </thead>
   <tbody>
     <tr>
-      <th>70</th>
+      <th>4</th>
       <td>R_1LjuLUT4Y6CYGNe</td>
       <td>59.242857</td>
       <td>56.985714</td>
@@ -12046,7 +12049,372 @@ aphant
 
 
 ```python
-corr_sum = h_graded_results_vviq.corr(numeric_only=True)
+weak_aphant
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ResponseId</th>
+      <th>overall_score</th>
+      <th>normal_score</th>
+      <th>expert_score</th>
+      <th>diff_normed_score</th>
+      <th>n_graded</th>
+      <th>n_ungraded</th>
+      <th>n_total</th>
+      <th>mean_score_per_item</th>
+      <th>mean_diff_normed_score_per_item</th>
+      <th>...</th>
+      <th>VVIQ - 07</th>
+      <th>VVIQ - 08</th>
+      <th>VVIQ - 09</th>
+      <th>VVIQ - 10</th>
+      <th>VVIQ - 11</th>
+      <th>VVIQ - 12</th>
+      <th>VVIQ - 13</th>
+      <th>VVIQ - 14</th>
+      <th>VVIQ - 15</th>
+      <th>VVIQ - 16</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>14</th>
+      <td>R_6G88HMPnMd2CyLe</td>
+      <td>52.478571</td>
+      <td>50.457143</td>
+      <td>54.5</td>
+      <td>19.824248</td>
+      <td>14</td>
+      <td>1</td>
+      <td>15</td>
+      <td>3.498571</td>
+      <td>1.321617</td>
+      <td>...</td>
+      <td>2</td>
+      <td>2</td>
+      <td>1</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>R_18IHc8q1xLCnQHe</td>
+      <td>40.416667</td>
+      <td>35.333333</td>
+      <td>45.5</td>
+      <td>15.133636</td>
+      <td>8</td>
+      <td>7</td>
+      <td>15</td>
+      <td>2.694444</td>
+      <td>1.008909</td>
+      <td>...</td>
+      <td>1</td>
+      <td>1</td>
+      <td>3</td>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+      <td>3</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>R_5IME3bnJF5C8vPK</td>
+      <td>38.800000</td>
+      <td>38.600000</td>
+      <td>39.0</td>
+      <td>16.047456</td>
+      <td>15</td>
+      <td>0</td>
+      <td>15</td>
+      <td>2.586667</td>
+      <td>1.069830</td>
+      <td>...</td>
+      <td>1</td>
+      <td>2</td>
+      <td>2</td>
+      <td>1</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>3 rows × 30 columns</p>
+</div>
+
+
+
+
+```python
+hyperphant
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ResponseId</th>
+      <th>overall_score</th>
+      <th>normal_score</th>
+      <th>expert_score</th>
+      <th>diff_normed_score</th>
+      <th>n_graded</th>
+      <th>n_ungraded</th>
+      <th>n_total</th>
+      <th>mean_score_per_item</th>
+      <th>mean_diff_normed_score_per_item</th>
+      <th>...</th>
+      <th>VVIQ - 07</th>
+      <th>VVIQ - 08</th>
+      <th>VVIQ - 09</th>
+      <th>VVIQ - 10</th>
+      <th>VVIQ - 11</th>
+      <th>VVIQ - 12</th>
+      <th>VVIQ - 13</th>
+      <th>VVIQ - 14</th>
+      <th>VVIQ - 15</th>
+      <th>VVIQ - 16</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>17</th>
+      <td>R_7D6TWTVSx8Nbnl3</td>
+      <td>51.397619</td>
+      <td>42.795238</td>
+      <td>60.0</td>
+      <td>19.580970</td>
+      <td>14</td>
+      <td>1</td>
+      <td>15</td>
+      <td>3.426508</td>
+      <td>1.305398</td>
+      <td>...</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>4</td>
+      <td>5</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>R_3gw89p3wacWQFRn</td>
+      <td>50.904762</td>
+      <td>43.309524</td>
+      <td>58.5</td>
+      <td>18.207534</td>
+      <td>15</td>
+      <td>0</td>
+      <td>15</td>
+      <td>3.393651</td>
+      <td>1.213836</td>
+      <td>...</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>R_1mczKBtg2GsAMRr</td>
+      <td>49.107143</td>
+      <td>42.714286</td>
+      <td>55.5</td>
+      <td>18.141617</td>
+      <td>14</td>
+      <td>1</td>
+      <td>15</td>
+      <td>3.273810</td>
+      <td>1.209441</td>
+      <td>...</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>76</th>
+      <td>R_5fjcrirfMR1Dwul</td>
+      <td>31.433333</td>
+      <td>29.366667</td>
+      <td>33.5</td>
+      <td>10.635323</td>
+      <td>15</td>
+      <td>0</td>
+      <td>15</td>
+      <td>2.095556</td>
+      <td>0.709022</td>
+      <td>...</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>80</th>
+      <td>R_67re1CUSK65lHix</td>
+      <td>30.833333</td>
+      <td>28.666667</td>
+      <td>33.0</td>
+      <td>12.866058</td>
+      <td>15</td>
+      <td>0</td>
+      <td>15</td>
+      <td>2.055556</td>
+      <td>0.857737</td>
+      <td>...</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>90</th>
+      <td>R_5hxwR1AIkCiK5YQ</td>
+      <td>27.250000</td>
+      <td>24.500000</td>
+      <td>30.0</td>
+      <td>11.281489</td>
+      <td>14</td>
+      <td>1</td>
+      <td>15</td>
+      <td>1.816667</td>
+      <td>0.752099</td>
+      <td>...</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>93</th>
+      <td>R_7IcV6n5DqSpqtcR</td>
+      <td>25.166667</td>
+      <td>26.833333</td>
+      <td>23.5</td>
+      <td>9.413504</td>
+      <td>13</td>
+      <td>2</td>
+      <td>15</td>
+      <td>1.677778</td>
+      <td>0.627567</td>
+      <td>...</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+    </tr>
+  </tbody>
+</table>
+<p>7 rows × 30 columns</p>
+</div>
+
+
+
+
+```python
+aphant.to_csv("output_csvs/aphant.csv")
+weak_aphant.to_csv("output_csvs/weak_aphant.csv")
+hyperphant.to_csv("output_csvs/hyperphant.csv")
+```
+
+
+```python
+corr_sum = h_graded_results_vviq.drop(
+    ['diff_normed_score', 'n_total', 'accumulated_difficulty', 'mean_diff_normed_score_per_item', 'VVIQ_mean',
+     "VVIQ_std", "VVIQ - 01", "VVIQ - 02", "VVIQ - 03", "VVIQ - 04",
+     "VVIQ - 05", "VVIQ - 06", "VVIQ - 07", "VVIQ - 08", "VVIQ - 09", "VVIQ - 10", "VVIQ - 11", "VVIQ - 12",
+     "VVIQ - 13", "VVIQ - 14", "VVIQ - 15", "VVIQ - 16", "n_ungraded", "mean_score_per_item", "n_graded"], axis=1).corr(numeric_only=True)
 corr_sum
 ```
 
@@ -12074,24 +12442,7 @@ corr_sum
       <th>overall_score</th>
       <th>normal_score</th>
       <th>expert_score</th>
-      <th>diff_normed_score</th>
-      <th>n_graded</th>
-      <th>n_ungraded</th>
-      <th>n_total</th>
-      <th>mean_score_per_item</th>
-      <th>mean_diff_normed_score_per_item</th>
-      <th>accumulated_difficulty</th>
-      <th>...</th>
-      <th>VVIQ - 07</th>
-      <th>VVIQ - 08</th>
-      <th>VVIQ - 09</th>
-      <th>VVIQ - 10</th>
-      <th>VVIQ - 11</th>
-      <th>VVIQ - 12</th>
-      <th>VVIQ - 13</th>
-      <th>VVIQ - 14</th>
-      <th>VVIQ - 15</th>
-      <th>VVIQ - 16</th>
+      <th>VVIQ_sum</th>
     </tr>
   </thead>
   <tbody>
@@ -12100,705 +12451,186 @@ corr_sum
       <td>1.000000</td>
       <td>0.980517</td>
       <td>0.989172</td>
-      <td>0.980227</td>
-      <td>0.209017</td>
-      <td>-0.184085</td>
-      <td>0.198775</td>
-      <td>0.999611</td>
-      <td>0.980016</td>
-      <td>-0.007445</td>
-      <td>...</td>
-      <td>-0.054766</td>
-      <td>-0.081225</td>
-      <td>-0.072413</td>
-      <td>-0.227092</td>
-      <td>-0.166029</td>
-      <td>-0.267213</td>
-      <td>-0.154208</td>
-      <td>-0.166755</td>
-      <td>-0.038782</td>
-      <td>-0.080357</td>
+      <td>-0.168289</td>
     </tr>
     <tr>
       <th>normal_score</th>
       <td>0.980517</td>
       <td>1.000000</td>
       <td>0.941072</td>
-      <td>0.964026</td>
-      <td>0.185062</td>
-      <td>-0.160572</td>
-      <td>0.195165</td>
-      <td>0.980128</td>
-      <td>0.963827</td>
-      <td>-0.012808</td>
-      <td>...</td>
-      <td>-0.080790</td>
-      <td>-0.107256</td>
-      <td>-0.112156</td>
-      <td>-0.257145</td>
-      <td>-0.181584</td>
-      <td>-0.293066</td>
-      <td>-0.169951</td>
-      <td>-0.179056</td>
-      <td>-0.052061</td>
-      <td>-0.084814</td>
+      <td>-0.201529</td>
     </tr>
     <tr>
       <th>expert_score</th>
       <td>0.989172</td>
       <td>0.941072</td>
       <td>1.000000</td>
-      <td>0.967449</td>
-      <td>0.221608</td>
-      <td>-0.196979</td>
-      <td>0.196427</td>
-      <td>0.988793</td>
-      <td>0.967235</td>
-      <td>-0.003249</td>
-      <td>...</td>
-      <td>-0.033932</td>
-      <td>-0.059714</td>
-      <td>-0.040883</td>
-      <td>-0.198874</td>
-      <td>-0.150194</td>
-      <td>-0.241115</td>
-      <td>-0.138531</td>
-      <td>-0.153332</td>
-      <td>-0.027877</td>
-      <td>-0.074988</td>
-    </tr>
-    <tr>
-      <th>diff_normed_score</th>
-      <td>0.980227</td>
-      <td>0.964026</td>
-      <td>0.967449</td>
-      <td>1.000000</td>
-      <td>0.193444</td>
-      <td>-0.167537</td>
-      <td>0.206437</td>
-      <td>0.979516</td>
-      <td>0.999692</td>
-      <td>-0.148977</td>
-      <td>...</td>
-      <td>-0.047333</td>
-      <td>-0.061976</td>
-      <td>-0.046231</td>
-      <td>-0.223552</td>
-      <td>-0.140709</td>
-      <td>-0.248783</td>
-      <td>-0.146192</td>
-      <td>-0.138335</td>
-      <td>-0.015309</td>
-      <td>-0.053528</td>
-    </tr>
-    <tr>
-      <th>n_graded</th>
-      <td>0.209017</td>
-      <td>0.185062</td>
-      <td>0.221608</td>
-      <td>0.193444</td>
-      <td>1.000000</td>
-      <td>-0.992064</td>
-      <td>0.067427</td>
-      <td>0.208199</td>
-      <td>0.192687</td>
-      <td>0.024145</td>
-      <td>...</td>
-      <td>0.141264</td>
-      <td>0.065256</td>
-      <td>0.047276</td>
-      <td>0.007108</td>
-      <td>0.013346</td>
-      <td>-0.082675</td>
-      <td>-0.038950</td>
-      <td>0.076227</td>
-      <td>0.040737</td>
-      <td>-0.033094</td>
-    </tr>
-    <tr>
-      <th>n_ungraded</th>
-      <td>-0.184085</td>
-      <td>-0.160572</td>
-      <td>-0.196979</td>
-      <td>-0.167537</td>
-      <td>-0.992064</td>
-      <td>1.000000</td>
-      <td>0.058554</td>
-      <td>-0.186720</td>
-      <td>-0.169847</td>
-      <td>0.016116</td>
-      <td>...</td>
-      <td>-0.146711</td>
-      <td>-0.079284</td>
-      <td>-0.053141</td>
-      <td>-0.014870</td>
-      <td>-0.019792</td>
-      <td>0.065758</td>
-      <td>0.031853</td>
-      <td>-0.081191</td>
-      <td>-0.046087</td>
-      <td>0.023860</td>
-    </tr>
-    <tr>
-      <th>n_total</th>
-      <td>0.198775</td>
-      <td>0.195165</td>
-      <td>0.196427</td>
-      <td>0.206437</td>
-      <td>0.067427</td>
-      <td>0.058554</td>
-      <td>1.000000</td>
-      <td>0.171374</td>
-      <td>0.182100</td>
-      <td>0.319599</td>
-      <td>...</td>
-      <td>-0.042593</td>
-      <td>-0.111025</td>
-      <td>-0.046330</td>
-      <td>-0.061564</td>
-      <td>-0.051091</td>
-      <td>-0.134603</td>
-      <td>-0.056489</td>
-      <td>-0.039047</td>
-      <td>-0.042274</td>
-      <td>-0.073418</td>
-    </tr>
-    <tr>
-      <th>mean_score_per_item</th>
-      <td>0.999611</td>
-      <td>0.980128</td>
-      <td>0.988793</td>
-      <td>0.979516</td>
-      <td>0.208199</td>
-      <td>-0.186720</td>
-      <td>0.171374</td>
-      <td>1.000000</td>
-      <td>0.979997</td>
-      <td>-0.016576</td>
-      <td>...</td>
-      <td>-0.053842</td>
-      <td>-0.078494</td>
-      <td>-0.071477</td>
-      <td>-0.226536</td>
-      <td>-0.165450</td>
-      <td>-0.264791</td>
-      <td>-0.153413</td>
-      <td>-0.166523</td>
-      <td>-0.037784</td>
-      <td>-0.078692</td>
-    </tr>
-    <tr>
-      <th>mean_diff_normed_score_per_item</th>
-      <td>0.980016</td>
-      <td>0.963827</td>
-      <td>0.967235</td>
-      <td>0.999692</td>
-      <td>0.192687</td>
-      <td>-0.169847</td>
-      <td>0.182100</td>
-      <td>0.979997</td>
-      <td>1.000000</td>
-      <td>-0.157813</td>
-      <td>...</td>
-      <td>-0.046486</td>
-      <td>-0.059466</td>
-      <td>-0.045284</td>
-      <td>-0.223092</td>
-      <td>-0.140106</td>
-      <td>-0.246596</td>
-      <td>-0.145480</td>
-      <td>-0.138026</td>
-      <td>-0.014313</td>
-      <td>-0.051930</td>
-    </tr>
-    <tr>
-      <th>accumulated_difficulty</th>
-      <td>-0.007445</td>
-      <td>-0.012808</td>
-      <td>-0.003249</td>
-      <td>-0.148977</td>
-      <td>0.024145</td>
-      <td>0.016116</td>
-      <td>0.319599</td>
-      <td>-0.016576</td>
-      <td>-0.157813</td>
-      <td>1.000000</td>
-      <td>...</td>
-      <td>-0.073530</td>
-      <td>-0.174571</td>
-      <td>-0.253763</td>
-      <td>-0.091411</td>
-      <td>-0.187787</td>
-      <td>-0.154157</td>
-      <td>-0.238403</td>
-      <td>-0.208267</td>
-      <td>-0.184816</td>
-      <td>-0.187227</td>
+      <td>-0.139184</td>
     </tr>
     <tr>
       <th>VVIQ_sum</th>
       <td>-0.168289</td>
       <td>-0.201529</td>
       <td>-0.139184</td>
-      <td>-0.144999</td>
-      <td>0.079078</td>
-      <td>-0.088681</td>
-      <td>-0.075852</td>
-      <td>-0.167018</td>
-      <td>-0.143790</td>
-      <td>-0.237874</td>
-      <td>...</td>
-      <td>0.644598</td>
-      <td>0.753136</td>
-      <td>0.711314</td>
-      <td>0.708682</td>
-      <td>0.734245</td>
-      <td>0.678948</td>
-      <td>0.745407</td>
-      <td>0.755698</td>
-      <td>0.728475</td>
-      <td>0.725072</td>
-    </tr>
-    <tr>
-      <th>VVIQ_mean</th>
-      <td>-0.168289</td>
-      <td>-0.201529</td>
-      <td>-0.139184</td>
-      <td>-0.144999</td>
-      <td>0.079078</td>
-      <td>-0.088681</td>
-      <td>-0.075852</td>
-      <td>-0.167018</td>
-      <td>-0.143790</td>
-      <td>-0.237874</td>
-      <td>...</td>
-      <td>0.644598</td>
-      <td>0.753136</td>
-      <td>0.711314</td>
-      <td>0.708682</td>
-      <td>0.734245</td>
-      <td>0.678948</td>
-      <td>0.745407</td>
-      <td>0.755698</td>
-      <td>0.728475</td>
-      <td>0.725072</td>
-    </tr>
-    <tr>
-      <th>VVIQ_std</th>
-      <td>-0.050360</td>
-      <td>-0.064514</td>
-      <td>-0.038507</td>
-      <td>-0.002575</td>
-      <td>0.088444</td>
-      <td>-0.078012</td>
-      <td>0.083169</td>
-      <td>-0.052991</td>
-      <td>-0.004696</td>
-      <td>-0.013334</td>
-      <td>...</td>
-      <td>-0.113563</td>
-      <td>0.084196</td>
-      <td>-0.170092</td>
-      <td>-0.235011</td>
-      <td>-0.115802</td>
-      <td>-0.075809</td>
-      <td>-0.240856</td>
-      <td>-0.002381</td>
-      <td>-0.121967</td>
-      <td>-0.225696</td>
-    </tr>
-    <tr>
-      <th>VVIQ - 01</th>
-      <td>-0.071482</td>
-      <td>-0.093710</td>
-      <td>-0.053060</td>
-      <td>-0.068647</td>
-      <td>0.092456</td>
-      <td>-0.084475</td>
-      <td>0.063744</td>
-      <td>-0.073672</td>
-      <td>-0.070602</td>
-      <td>-0.022378</td>
-      <td>...</td>
-      <td>0.336224</td>
-      <td>0.465209</td>
-      <td>0.561831</td>
-      <td>0.545158</td>
-      <td>0.447607</td>
-      <td>0.549142</td>
-      <td>0.434441</td>
-      <td>0.385515</td>
-      <td>0.366839</td>
-      <td>0.404316</td>
-    </tr>
-    <tr>
-      <th>VVIQ - 02</th>
-      <td>-0.091038</td>
-      <td>-0.118079</td>
-      <td>-0.068525</td>
-      <td>-0.092296</td>
-      <td>0.097761</td>
-      <td>-0.105341</td>
-      <td>-0.059708</td>
-      <td>-0.089819</td>
-      <td>-0.091236</td>
-      <td>-0.090116</td>
-      <td>...</td>
-      <td>0.400968</td>
-      <td>0.473982</td>
-      <td>0.415446</td>
-      <td>0.579558</td>
-      <td>0.546218</td>
-      <td>0.448689</td>
-      <td>0.505584</td>
-      <td>0.365452</td>
-      <td>0.389356</td>
-      <td>0.422561</td>
-    </tr>
-    <tr>
-      <th>VVIQ - 03</th>
-      <td>-0.108126</td>
-      <td>-0.140369</td>
-      <td>-0.081293</td>
-      <td>-0.118122</td>
-      <td>0.112927</td>
-      <td>-0.123980</td>
-      <td>-0.087206</td>
-      <td>-0.106215</td>
-      <td>-0.116493</td>
-      <td>-0.149072</td>
-      <td>...</td>
-      <td>0.370103</td>
-      <td>0.421878</td>
-      <td>0.487636</td>
-      <td>0.500544</td>
-      <td>0.462979</td>
-      <td>0.352536</td>
-      <td>0.579663</td>
-      <td>0.382932</td>
-      <td>0.417872</td>
-      <td>0.540246</td>
-    </tr>
-    <tr>
-      <th>VVIQ - 04</th>
-      <td>-0.080618</td>
-      <td>-0.108193</td>
-      <td>-0.057970</td>
-      <td>-0.048887</td>
-      <td>0.096325</td>
-      <td>-0.103124</td>
-      <td>-0.053519</td>
-      <td>-0.079520</td>
-      <td>-0.047771</td>
-      <td>-0.298470</td>
-      <td>...</td>
-      <td>0.510394</td>
-      <td>0.542397</td>
-      <td>0.392852</td>
-      <td>0.346063</td>
-      <td>0.400390</td>
-      <td>0.326807</td>
-      <td>0.502543</td>
-      <td>0.502201</td>
-      <td>0.515346</td>
-      <td>0.436548</td>
-    </tr>
-    <tr>
-      <th>VVIQ - 05</th>
-      <td>-0.121111</td>
-      <td>-0.166356</td>
-      <td>-0.084233</td>
-      <td>-0.088859</td>
-      <td>0.110767</td>
-      <td>-0.114065</td>
-      <td>-0.025678</td>
-      <td>-0.121018</td>
-      <td>-0.088645</td>
-      <td>-0.229512</td>
-      <td>...</td>
-      <td>0.543386</td>
-      <td>0.668360</td>
-      <td>0.443060</td>
-      <td>0.432192</td>
-      <td>0.531544</td>
-      <td>0.458579</td>
-      <td>0.546011</td>
-      <td>0.552148</td>
-      <td>0.506919</td>
-      <td>0.447766</td>
-    </tr>
-    <tr>
-      <th>VVIQ - 06</th>
-      <td>-0.122645</td>
-      <td>-0.138114</td>
-      <td>-0.107974</td>
-      <td>-0.096296</td>
-      <td>0.157224</td>
-      <td>-0.160495</td>
-      <td>-0.025255</td>
-      <td>-0.122572</td>
-      <td>-0.096130</td>
-      <td>-0.164010</td>
-      <td>...</td>
-      <td>0.662624</td>
-      <td>0.573360</td>
-      <td>0.449835</td>
-      <td>0.334725</td>
-      <td>0.370718</td>
-      <td>0.379679</td>
-      <td>0.414477</td>
-      <td>0.521264</td>
-      <td>0.508813</td>
-      <td>0.454769</td>
-    </tr>
-    <tr>
-      <th>VVIQ - 07</th>
-      <td>-0.054766</td>
-      <td>-0.080790</td>
-      <td>-0.033932</td>
-      <td>-0.047333</td>
-      <td>0.141264</td>
-      <td>-0.146711</td>
-      <td>-0.042593</td>
-      <td>-0.053842</td>
-      <td>-0.046486</td>
-      <td>-0.073530</td>
-      <td>...</td>
-      <td>1.000000</td>
-      <td>0.572196</td>
-      <td>0.300789</td>
-      <td>0.301258</td>
-      <td>0.343100</td>
-      <td>0.296316</td>
-      <td>0.344959</td>
-      <td>0.448213</td>
-      <td>0.438961</td>
-      <td>0.496053</td>
-    </tr>
-    <tr>
-      <th>VVIQ - 08</th>
-      <td>-0.081225</td>
-      <td>-0.107256</td>
-      <td>-0.059714</td>
-      <td>-0.061976</td>
-      <td>0.065256</td>
-      <td>-0.079284</td>
-      <td>-0.111025</td>
-      <td>-0.078494</td>
-      <td>-0.059466</td>
-      <td>-0.174571</td>
-      <td>...</td>
-      <td>0.572196</td>
-      <td>1.000000</td>
-      <td>0.452074</td>
-      <td>0.458950</td>
-      <td>0.513038</td>
-      <td>0.471207</td>
-      <td>0.484091</td>
-      <td>0.509660</td>
-      <td>0.480863</td>
-      <td>0.520286</td>
-    </tr>
-    <tr>
-      <th>VVIQ - 09</th>
-      <td>-0.072413</td>
-      <td>-0.112156</td>
-      <td>-0.040883</td>
-      <td>-0.046231</td>
-      <td>0.047276</td>
-      <td>-0.053141</td>
-      <td>-0.046330</td>
-      <td>-0.071477</td>
-      <td>-0.045284</td>
-      <td>-0.253763</td>
-      <td>...</td>
-      <td>0.300789</td>
-      <td>0.452074</td>
-      <td>1.000000</td>
-      <td>0.670067</td>
-      <td>0.553868</td>
-      <td>0.659831</td>
-      <td>0.457873</td>
-      <td>0.469667</td>
-      <td>0.376654</td>
-      <td>0.404740</td>
-    </tr>
-    <tr>
-      <th>VVIQ - 10</th>
-      <td>-0.227092</td>
-      <td>-0.257145</td>
-      <td>-0.198874</td>
-      <td>-0.223552</td>
-      <td>0.007108</td>
-      <td>-0.014870</td>
-      <td>-0.061564</td>
-      <td>-0.226536</td>
-      <td>-0.223092</td>
-      <td>-0.091411</td>
-      <td>...</td>
-      <td>0.301258</td>
-      <td>0.458950</td>
-      <td>0.670067</td>
-      <td>1.000000</td>
-      <td>0.577608</td>
-      <td>0.623398</td>
-      <td>0.433764</td>
-      <td>0.423083</td>
-      <td>0.416435</td>
-      <td>0.402982</td>
-    </tr>
-    <tr>
-      <th>VVIQ - 11</th>
-      <td>-0.166029</td>
-      <td>-0.181584</td>
-      <td>-0.150194</td>
-      <td>-0.140709</td>
-      <td>0.013346</td>
-      <td>-0.019792</td>
-      <td>-0.051091</td>
-      <td>-0.165450</td>
-      <td>-0.140106</td>
-      <td>-0.187787</td>
-      <td>...</td>
-      <td>0.343100</td>
-      <td>0.513038</td>
-      <td>0.553868</td>
-      <td>0.577608</td>
-      <td>1.000000</td>
-      <td>0.588595</td>
-      <td>0.530370</td>
-      <td>0.588846</td>
-      <td>0.467608</td>
-      <td>0.470158</td>
-    </tr>
-    <tr>
-      <th>VVIQ - 12</th>
-      <td>-0.267213</td>
-      <td>-0.293066</td>
-      <td>-0.241115</td>
-      <td>-0.248783</td>
-      <td>-0.082675</td>
-      <td>0.065758</td>
-      <td>-0.134603</td>
-      <td>-0.264791</td>
-      <td>-0.246596</td>
-      <td>-0.154157</td>
-      <td>...</td>
-      <td>0.296316</td>
-      <td>0.471207</td>
-      <td>0.659831</td>
-      <td>0.623398</td>
-      <td>0.588595</td>
-      <td>1.000000</td>
-      <td>0.348325</td>
-      <td>0.486473</td>
-      <td>0.423707</td>
-      <td>0.335402</td>
-    </tr>
-    <tr>
-      <th>VVIQ - 13</th>
-      <td>-0.154208</td>
-      <td>-0.169951</td>
-      <td>-0.138531</td>
-      <td>-0.146192</td>
-      <td>-0.038950</td>
-      <td>0.031853</td>
-      <td>-0.056489</td>
-      <td>-0.153413</td>
-      <td>-0.145480</td>
-      <td>-0.238403</td>
-      <td>...</td>
-      <td>0.344959</td>
-      <td>0.484091</td>
-      <td>0.457873</td>
-      <td>0.433764</td>
-      <td>0.530370</td>
-      <td>0.348325</td>
-      <td>1.000000</td>
-      <td>0.669907</td>
-      <td>0.620897</td>
-      <td>0.660741</td>
-    </tr>
-    <tr>
-      <th>VVIQ - 14</th>
-      <td>-0.166755</td>
-      <td>-0.179056</td>
-      <td>-0.153332</td>
-      <td>-0.138335</td>
-      <td>0.076227</td>
-      <td>-0.081191</td>
-      <td>-0.039047</td>
-      <td>-0.166523</td>
-      <td>-0.138026</td>
-      <td>-0.208267</td>
-      <td>...</td>
-      <td>0.448213</td>
-      <td>0.509660</td>
-      <td>0.469667</td>
-      <td>0.423083</td>
-      <td>0.588846</td>
-      <td>0.486473</td>
-      <td>0.669907</td>
-      <td>1.000000</td>
-      <td>0.739176</td>
-      <td>0.621767</td>
-    </tr>
-    <tr>
-      <th>VVIQ - 15</th>
-      <td>-0.038782</td>
-      <td>-0.052061</td>
-      <td>-0.027877</td>
-      <td>-0.015309</td>
-      <td>0.040737</td>
-      <td>-0.046087</td>
-      <td>-0.042274</td>
-      <td>-0.037784</td>
-      <td>-0.014313</td>
-      <td>-0.184816</td>
-      <td>...</td>
-      <td>0.438961</td>
-      <td>0.480863</td>
-      <td>0.376654</td>
-      <td>0.416435</td>
-      <td>0.467608</td>
-      <td>0.423707</td>
-      <td>0.620897</td>
-      <td>0.739176</td>
-      <td>1.000000</td>
-      <td>0.679964</td>
-    </tr>
-    <tr>
-      <th>VVIQ - 16</th>
-      <td>-0.080357</td>
-      <td>-0.084814</td>
-      <td>-0.074988</td>
-      <td>-0.053528</td>
-      <td>-0.033094</td>
-      <td>0.023860</td>
-      <td>-0.073418</td>
-      <td>-0.078692</td>
-      <td>-0.051930</td>
-      <td>-0.187227</td>
-      <td>...</td>
-      <td>0.496053</td>
-      <td>0.520286</td>
-      <td>0.404740</td>
-      <td>0.402982</td>
-      <td>0.470158</td>
-      <td>0.335402</td>
-      <td>0.660741</td>
-      <td>0.621767</td>
-      <td>0.679964</td>
       <td>1.000000</td>
     </tr>
   </tbody>
 </table>
-<p>29 rows × 29 columns</p>
 </div>
 
 
 
 
 ```python
+num_cols = ["overall_score", "normal_score", "expert_score", "VVIQ_sum"]
+corr = corr_sum[num_cols].values
+fig, ax = plt.subplots(figsize=(14, 10))
+im = ax.imshow(corr, cmap='coolwarm', vmin=-1, vmax=1)
+
+ax.set_xticks(np.arange(len(num_cols)))
+ax.set_yticks(np.arange(len(num_cols)))
+ax.set_xticklabels(num_cols, rotation=45, ha='right')
+ax.set_yticklabels(num_cols)
+
+# Annotate cells
+for i in range(corr.shape[0]):
+    for j in range(corr.shape[1]):
+        ax.text(j, i, f"{corr[i, j]:.2f}", ha='center', va='center', color='black', fontsize=9)
+
+cbar = plt.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+cbar.set_label('Correlation', rotation=90)
+ax.set_title('Correlation Heatmap: Scores and VVIQ', pad=12)
+ax.grid(False)
+plt.tight_layout()
+plt.show()
+```
+
+
+    
+![png](data_analysis_files/data_analysis_113_0.png)
+    
+
+
+
+```python
 corr_sum.to_csv("output_csvs/human_correlation_summary.csv")
 ```
+
+
+```python
+from scipy.stats import pearsonr
+```
+
+
+```python
+def pearsonr_pval(x,y):
+    return pearsonr(x,y)[1]
+```
+
+
+```python
+p_values = h_graded_results_vviq.drop(
+    ['diff_normed_score', 'n_total', 'accumulated_difficulty', 'mean_diff_normed_score_per_item', 'VVIQ_mean',
+     "VVIQ_std", "VVIQ - 01", "VVIQ - 02", "VVIQ - 03", "VVIQ - 04",
+     "VVIQ - 05", "VVIQ - 06", "VVIQ - 07", "VVIQ - 08", "VVIQ - 09", "VVIQ - 10", "VVIQ - 11", "VVIQ - 12",
+     "VVIQ - 13", "VVIQ - 14", "VVIQ - 15", "VVIQ - 16", "n_ungraded", "mean_score_per_item", "n_graded"], axis=1).corr(numeric_only=True, method=pearsonr_pval)
+p_values
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>overall_score</th>
+      <th>normal_score</th>
+      <th>expert_score</th>
+      <th>VVIQ_sum</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>overall_score</th>
+      <td>1.000000e+00</td>
+      <td>4.455332e-71</td>
+      <td>1.726310e-83</td>
+      <td>0.094190</td>
+    </tr>
+    <tr>
+      <th>normal_score</th>
+      <td>4.455332e-71</td>
+      <td>1.000000e+00</td>
+      <td>6.179241e-48</td>
+      <td>0.044365</td>
+    </tr>
+    <tr>
+      <th>expert_score</th>
+      <td>1.726310e-83</td>
+      <td>6.179241e-48</td>
+      <td>1.000000e+00</td>
+      <td>0.167256</td>
+    </tr>
+    <tr>
+      <th>VVIQ_sum</th>
+      <td>9.419042e-02</td>
+      <td>4.436461e-02</td>
+      <td>1.672564e-01</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+p_values.to_csv("output_csvs/human_correlation_summary_significance.csv")
+```
+
+
+```python
+num_cols = ["overall_score", "normal_score", "expert_score", "VVIQ_sum"]
+corr = p_values[num_cols].values
+fig, ax = plt.subplots(figsize=(14, 10))
+im = ax.imshow(corr, cmap='coolwarm', vmin=-1, vmax=1)
+
+ax.set_xticks(np.arange(len(num_cols)))
+ax.set_yticks(np.arange(len(num_cols)))
+ax.set_xticklabels(num_cols, rotation=45, ha='right')
+ax.set_yticklabels(num_cols)
+
+# Annotate cells
+for i in range(corr.shape[0]):
+    for j in range(corr.shape[1]):
+        ax.text(j, i, f"{corr[i, j]:.2f}", ha='center', va='center', color='black', fontsize=9)
+
+cbar = plt.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+cbar.set_label('Correlation', rotation=90)
+ax.set_title('Correlation Heatmap p-Values: Scores and VVIQ', pad=12)
+ax.grid(False)
+plt.tight_layout()
+plt.show()
+```
+
+
+    
+![png](data_analysis_files/data_analysis_119_0.png)
+    
+
