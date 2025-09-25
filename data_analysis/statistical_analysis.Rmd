@@ -1005,7 +1005,7 @@ finke_plot <- ggplot(finke_data, aes(x = reorder(model, proportion), y = proport
                 width = 0.2, size = 1) +
   coord_flip() +
   theme_minimal() +
-  labs(subtitle = "Finke et al. Tasks",
+  labs(subtitle = "Finke et al. Sets",
        x = "Model",
        y = "Proportion of Maximum Possible Score") +
   theme(plot.subtitle = element_text(hjust = 0.5, size = 18),
@@ -1028,7 +1028,7 @@ novel_48_plot <- ggplot(novel_data, aes(x = reorder(model, proportion), y = prop
                 width = 0.2, size = 1) +
   coord_flip() +
   theme_minimal() +
-  labs(subtitle = "48 Novel Tasks",
+  labs(subtitle = "Novel 48-Item Sets",
        x = "Model",
        y = "Proportion of Maximum Possible Score") +
   theme(plot.subtitle = element_text(hjust = 0.5, size = 18),
@@ -1577,7 +1577,7 @@ finke_reasoning_plot <- ggplot(finke_reasoning_data, aes(x = reorder(model, prop
                 width = 0.2, size = 1) +
   coord_flip() +
   theme_minimal() +
-  labs(subtitle = "Finke et al. Tasks",
+  labs(subtitle = "Finke et al. Sets",
        x = "Model",
        y = "Proportion of Maximum Possible Score") +
   theme(plot.subtitle = element_text(hjust = 0.5, size = 18),
@@ -1600,7 +1600,7 @@ novel_48_reasoning_plot <- ggplot(novel_reasoning_data, aes(x = reorder(model, p
                 width = 0.2, size = 1) +
   coord_flip() +
   theme_minimal() +
-  labs(subtitle = "48 Novel Tasks",
+  labs(subtitle = "Novel 48-Item Sets",
        x = "Model",
        y = "Proportion of Maximum Possible Score") +
   theme(plot.subtitle = element_text(hjust = 0.5, size = 18),
@@ -1617,7 +1617,7 @@ novel_48_reasoning_plot <- ggplot(novel_reasoning_data, aes(x = reorder(model, p
 
 combined_reasoning_plot <- ((finke_reasoning_plot + novel_48_reasoning_plot) +
   plot_layout(ncol = 2, guides = "collect") +
-  plot_annotation(title = "Reasoning: Finke et al. Tasks vs. 48 Novel Tasks - Proportions with 95% CI")) &
+  plot_annotation(title = "Reasoning: Finke et al. vs. Novel 48-Item - Proportions with 95% CI")) &
   theme(plot.title = element_text(hjust = 0.5, size = 20, face = "bold"), legend.position = "bottom")
 print(combined_reasoning_plot)
 ```
@@ -1678,7 +1678,7 @@ combined_reasoning_plot <- ggplot(collapsed_reasoning_data, aes(x = reorder(mode
                 width = 0.2, size = 1) +
   coord_flip() +
   theme_minimal() +
-  labs(title = "Reasoning: Finke et al. and 48 Novel Tasks Collapsed - Proportions with 95% CI",
+  labs(title = "Reasoning: Finke et al. and Novel 48-Item - Proportions with 95% CI",
        x = "Model",
        y = "Proportion of Maximum Possible Score") +
   theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
