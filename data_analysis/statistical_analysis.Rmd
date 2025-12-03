@@ -1,15 +1,15 @@
 ---
-title: "Artificial Phantasia: Evidence for Propositional Reasoning-Based Mental Imagery in Large Language Models"
+title: "Artificial Phantasia: Evidence for Propositional Reasoning-Based Mental Imagery Within Large Language Models"
 author: "Anonymous Authors"
 date: "September 23, 2025"
-output: html_document
+output: pdf_document
 ---
 
 ## Summary
 
-This R Markdown document reproduces the analyses reported in [Author Names Removed for Anonymized Peer Review]. _Artificial Phantasia: Evidence for Propositional Reasoning-Based Mental Imagery in Large Language Models_.
+This R Markdown document reproduces the analyses reported in [Author Names Removed for Anonymized Peer Review]. _Artificial Phantasia: Evidence for Propositional Reasoning-Based Mental Imagery Within Large Language Models_.
 
-Please use the provided Conda environment .yml file to set up an appropriate R environment to run this R Markdown file.
+Please use the provided Conda environment .yml file to set up an appropriate R environment to run this R markdown file.
 
 
 ```{r setup, include=FALSE}
@@ -29,6 +29,8 @@ human_data_finke <- read.csv("output_csvs/h_graded_results_finke.csv")
 human_data_novel <- read.csv("output_csvs/h_graded_results_novel.csv")
 
 llm_data_sc_mc <- read.csv("output_csvs/single_vs_multiple_context_results.csv")
+
+aphant_data <- read.csv("output_csvs/aphant.csv")
 ```
 
 ```{r data_finke}
@@ -73,6 +75,11 @@ gpt5_finke_score <- llm_data_finke[llm_data_finke$Model == "OpenAI: GPT 5 - Mult
   llm_data_finke[llm_data_finke$Model == "OpenAI: GPT 5 - Multiple Context - High Reasoning (2025-09-15)", "overall_score"]
 gpt5_finke_max_score <- (12 + 12) * 5
 
+gemini3_0_finke_score <- llm_data_finke[llm_data_finke$Model == "DeepMind: Gemini 3 Pro - High Reasoning - 1.0 Temperature - Multiple Context (2025-11-19)", "overall_score"] +
+  llm_data_finke[llm_data_finke$Model == "DeepMind: Gemini 3 Pro - High Reasoning - 0.55 Temperature - Multiple Context (2025-11-19)", "overall_score"] +
+  llm_data_finke[llm_data_finke$Model == "DeepMind: Gemini 3 Pro - High Reasoning - 0.1 Temperature - Multiple Context (2025-11-19)", "overall_score"]
+gemini3_0_finke_max_score <- (12 + 12 + 12) * 5
+
 gemini2_5_finke_score <- llm_data_finke[llm_data_finke$Model == "DeepMind: Gemini 2.5 Pro - Multiple Context - Dynamic Thinking (2025-07-21)", "overall_score"] +
   llm_data_finke[llm_data_finke$Model == "DeepMind: Gemini 2.5 Pro - Single Context - Dynamic Thinking (2025-07-21)", "overall_score"]
 gemini2_5_finke_max_score <- (12 + 12) * 5
@@ -90,6 +97,18 @@ opus4_1_finke_max_score <- (12) * 5
 sonnet4_finke_score <- llm_data_finke[llm_data_finke$Model == "Anthropic: Claude Sonnet 4 - Multiple Context - Extended Thinking 4000t (2025-09-11)", "overall_score"] +
   llm_data_finke[llm_data_finke$Model == "Anthropic: Claude Sonnet 4 - Single Context - Extended Thinking 4000t (2025-09-11)", "overall_score"]
 sonnet4_finke_max_score <- (12 + 12) * 5
+
+qwen_3_finke_score <- llm_data_finke[llm_data_finke$Model == "Alibaba: Qwen 3 235b a22b Thinking 2507 - Multiple Context (2025-11-20)", "overall_score"]
+qwen_3_finke_max_score <- (12) * 5
+
+qwen_3_vl_finke_score <- llm_data_finke[llm_data_finke$Model == "Alibaba: Qwen 3 VL 235b a22b Thinking - Multiple Context (2025-11-20)", "overall_score"]
+qwen_3_vl_finke_max_score <- (12) * 5
+
+gpt_oss_120b_finke_score <- llm_data_finke[llm_data_finke$Model == "OpenAI: gpt-oss-120b - High Reasoning - Multiple Context (2025-11-20)", "overall_score"]
+gpt_oss_120b_finke_max_score <- (12) * 5
+
+deepseek_r1_finke_score <- llm_data_finke[llm_data_finke$Model == "DeepSeek: R1 0528 - Multiple Context (2025-11-20)", "overall_score"]
+deepseek_r1_finke_max_score <- (12) * 5
 ```
 
 ```{r finke_reasoning_comparisons}
@@ -115,6 +134,20 @@ medium_o3_images_finke_max_score <- (12) * 5
 medium_o4_mini_finke_score <- llm_data_finke[llm_data_finke$Model == "OpenAI: o4-mini - Multiple Context - Medium Reasoning (2025-07-14)", "overall_score"] +
   llm_data_finke[llm_data_finke$Model == "OpenAI: o4-mini - Single Context - Medium Reasoning (2025-07-14)", "overall_score"]
 medium_o4_mini_finke_max_score <- (12 + 12) * 5
+```
+
+```{r finke_temperature_comparisons}
+## Finke Tasks, Gemini 3 Pro - Temperature 0.1, 0.55, 1.0
+
+gemini_3_temp_1_0_finke_score <- llm_data_finke[llm_data_finke$Model == "DeepMind: Gemini 3 Pro - High Reasoning - 1.0 Temperature - Multiple Context (2025-11-19)", "overall_score"]
+gemini_3_temp_1_0_finke_max_score <- (12) * 5
+
+gemini_3_temp_0_55_finke_score <- llm_data_finke[llm_data_finke$Model == "DeepMind: Gemini 3 Pro - High Reasoning - 0.55 Temperature - Multiple Context (2025-11-19)", "overall_score"]
+gemini_3_temp_0_55_finke_max_score <- (12) * 5
+
+gemini_3_temp_0_1_finke_score <- llm_data_finke[llm_data_finke$Model == "DeepMind: Gemini 3 Pro - High Reasoning - 0.1 Temperature - Multiple Context (2025-11-19)", "overall_score"]
+gemini_3_temp_0_1_finke_max_score <- (12) * 5
+
 ```
 
 ```{r data_novel}
@@ -158,6 +191,11 @@ gpt5_novel_score <- llm_data_novel[llm_data_novel$Model == "OpenAI: GPT 5 - Mult
   llm_data_novel[llm_data_novel$Model == "OpenAI: GPT 5 - Multiple Context - High Reasoning (2025-09-15)", "overall_score"]
 gpt5_novel_max_score <- (48 + 48) * 5
 
+gemini3_0_novel_score <- llm_data_novel[llm_data_novel$Model == "DeepMind: Gemini 3 Pro - High Reasoning - 1.0 Temperature - Multiple Context (2025-11-19)", "overall_score"] +
+  llm_data_novel[llm_data_novel$Model == "DeepMind: Gemini 3 Pro - High Reasoning - 0.55 Temperature - Multiple Context (2025-11-19)", "overall_score"] +
+  llm_data_novel[llm_data_novel$Model == "DeepMind: Gemini 3 Pro - High Reasoning - 0.1 Temperature - Multiple Context (2025-11-19)", "overall_score"]
+gemini3_0_novel_max_score <- (48 + 48 + 48) * 5
+
 gemini2_5_novel_score <- llm_data_novel[llm_data_novel$Model == "DeepMind: Gemini 2.5 Pro - Multiple Context - Dynamic Thinking (2025-07-21)", "overall_score"] +
   llm_data_novel[llm_data_novel$Model == "DeepMind: Gemini 2.5 Pro - Single Context - Dynamic Thinking (2025-07-21)", "overall_score"]
 gemini2_5_novel_max_score <- (48 + 48) * 5
@@ -175,6 +213,18 @@ opus4_1_novel_max_score <- (48) * 5
 sonnet4_novel_score <- llm_data_novel[llm_data_novel$Model == "Anthropic: Claude Sonnet 4 - Multiple Context - Extended Thinking 4000t (2025-09-11)", "overall_score"] +
   llm_data_novel[llm_data_novel$Model == "Anthropic: Claude Sonnet 4 - Single Context - Extended Thinking 4000t (2025-09-11)", "overall_score"]
 sonnet4_novel_max_score <- (48 + 48) * 5
+
+qwen_3_novel_score <- llm_data_novel[llm_data_novel$Model == "Alibaba: Qwen 3 235b a22b Thinking 2507 - Multiple Context (2025-11-20)", "overall_score"]
+qwen_3_novel_max_score <- (48) * 5
+
+qwen_3_vl_novel_score <- llm_data_novel[llm_data_novel$Model == "Alibaba: Qwen 3 VL 235b a22b Thinking - Multiple Context (2025-11-20)", "overall_score"]
+qwen_3_vl_novel_max_score <- (48) * 5
+
+gpt_oss_120b_novel_score <- llm_data_novel[llm_data_novel$Model == "OpenAI: gpt-oss-120b - High Reasoning - Multiple Context (2025-11-20)", "overall_score"]
+gpt_oss_120b_novel_max_score <- (48) * 5
+
+deepseek_r1_novel_score <- llm_data_novel[llm_data_novel$Model == "DeepSeek: R1 0528 - Multiple Context (2025-11-20)", "overall_score"]
+deepseek_r1_novel_max_score <- (48) * 5
 ```
 
 ```{r novel_reasoning_comparisons}
@@ -200,6 +250,20 @@ medium_o3_images_novel_max_score <- (48) * 5
 medium_o4_mini_novel_score <- llm_data_novel[llm_data_novel$Model == "OpenAI: o4-mini - Multiple Context - Medium Reasoning (2025-07-14)", "overall_score"] +
   llm_data_novel[llm_data_novel$Model == "OpenAI: o4-mini - Single Context - Medium Reasoning (2025-07-14)", "overall_score"]
 medium_o4_mini_novel_max_score <- (48 + 48) * 5
+```
+
+```{r novel_temperature_comparisons}
+## Novel Tasks, Gemini 3 Pro - Temperature 0.1, 0.55, 1.0
+
+gemini_3_temp_1_0_novel_score <- llm_data_novel[llm_data_novel$Model == "DeepMind: Gemini 3 Pro - High Reasoning - 1.0 Temperature - Multiple Context (2025-11-19)", "overall_score"]
+gemini_3_temp_1_0_novel_max_score <- (48) * 5
+
+gemini_3_temp_0_55_novel_score <- llm_data_novel[llm_data_novel$Model == "DeepMind: Gemini 3 Pro - High Reasoning - 0.55 Temperature - Multiple Context (2025-11-19)", "overall_score"]
+gemini_3_temp_0_55_novel_max_score <- (48) * 5
+
+gemini_3_temp_0_1_novel_score <- llm_data_novel[llm_data_novel$Model == "DeepMind: Gemini 3 Pro - High Reasoning - 0.1 Temperature - Multiple Context (2025-11-19)", "overall_score"]
+gemini_3_temp_0_1_novel_max_score <- (48) * 5
+
 ```
 
 ```{r collapse_mc_sc}
@@ -335,6 +399,9 @@ gpt4_1_images_total_max_score <- gpt4_1_images_finke_max_score + gpt4_1_images_n
 gpt5_total_score <- gpt5_finke_score + gpt5_novel_score
 gpt5_total_max_score <- gpt5_finke_max_score + gpt5_novel_max_score
 
+gemini_3_total_score <- gemini3_0_finke_score + gemini3_0_novel_score
+gemini_3_total_max_score <- gemini3_0_finke_max_score + gemini3_0_novel_max_score
+
 gemini2_5_total_score <- gemini2_5_finke_score + gemini2_5_novel_score
 gemini2_5_total_max_score <- gemini2_5_finke_max_score + gemini2_5_novel_max_score
 
@@ -349,6 +416,19 @@ opus4_1_total_max_score <- opus4_1_finke_max_score + opus4_1_novel_max_score
 
 sonnet4_total_score <- sonnet4_finke_score + sonnet4_novel_score
 sonnet4_total_max_score <- sonnet4_finke_max_score + sonnet4_novel_max_score
+
+qwen_3_total_score <- qwen_3_finke_score + qwen_3_novel_score
+qwen_3_total_max_score <- qwen_3_finke_max_score + qwen_3_novel_max_score
+
+qwen_3_vl_total_score <- qwen_3_vl_finke_score + qwen_3_vl_novel_score
+qwen_3_vl_total_max_score <- qwen_3_vl_finke_max_score + qwen_3_vl_novel_max_score
+
+gpt_oss_120b_total_score <- gpt_oss_120b_finke_score + gpt_oss_120b_novel_score
+gpt_oss_120b_total_max_score <- gpt_oss_120b_finke_max_score + gpt_oss_120b_novel_max_score
+
+deepseek_r1_total_score <- deepseek_r1_finke_score + deepseek_r1_novel_score
+deepseek_r1_total_max_score <- deepseek_r1_finke_max_score + deepseek_r1_novel_max_score
+
 
 
 ## Original Finke Data - modified towards the new scoring system
@@ -387,6 +467,23 @@ medium_o4_mini_total_score <- medium_o4_mini_finke_score + medium_o4_mini_novel_
 medium_o4_mini_total_max_score <- medium_o4_mini_finke_max_score + medium_o4_mini_novel_max_score
 
 
+```
+
+```{r collapsed_temperature_data}
+gemini_3_temp_0_1_total_score <- gemini_3_temp_0_1_finke_score + gemini_3_temp_0_1_novel_score
+gemini_3_temp_0_1_total_max_score <- gemini_3_temp_0_1_finke_max_score + gemini_3_temp_0_1_novel_max_score
+
+gemini_3_temp_0_55_total_score <- gemini_3_temp_0_55_finke_score + gemini_3_temp_0_55_novel_score
+gemini_3_temp_0_55_total_max_score <- gemini_3_temp_0_55_finke_max_score + gemini_3_temp_0_55_novel_max_score
+
+gemini_3_temp_1_0_total_score <- gemini_3_temp_1_0_finke_score + gemini_3_temp_1_0_novel_score
+gemini_3_temp_1_0_total_max_score <- gemini_3_temp_1_0_finke_max_score + gemini_3_temp_1_0_novel_max_score
+
+```
+
+```{r aphant_data}
+aphant_total_score <- as.numeric(aphant_data["overall_score"])
+aphant_total_max_score <- as.numeric(aphant_data["n_total"]) * 5
 ```
 
 ```{r sc_mc_dataframe}
@@ -447,28 +544,37 @@ sc_mc_data$proportion <- sc_mc_data$score / sc_mc_data$max_score
 finke_data <- data.frame(
   model = c("Humans", "o3", "o3-GPT-Image",
             "o3-Pro", "GPT-4.1", "GPT-4.1-GPT-Image",
-            "ChatGPT-4o", "o4-mini", "Gemini-2.5-Pro",
+            "ChatGPT-4o", "o4-mini", "Gemini-2.5",
             "Gemini-2.0-Flash", "Gemini-2.0-Flash-Images",
-            "Sonnet-4", "Opus-4.1", "GPT-5"),
+            "Sonnet-4", "Opus-4.1", "GPT-5",
+            "Gemini-3 Pro", "DeepSeek R1",
+            "GPT-OSS-120B", "Qwen-3", "Qwen-3-VL"),
   score = c(humans_finke_score, o3_finke_score, o3_images_finke_score,
             o3_pro_finke_score, gpt4_1_finke_score, gpt4_1_images_finke_score,
             chatgpt_4o_finke_score, o4_mini_finke_score, gemini2_5_finke_score,
             gemini2_0_flash_finke_score, gemini2_0_flash_images_finke_score,
-            sonnet4_finke_score, opus4_1_finke_score, gpt5_finke_score),
+            sonnet4_finke_score, opus4_1_finke_score, gpt5_finke_score,
+            gemini3_0_finke_score, deepseek_r1_finke_score,
+            gpt_oss_120b_finke_score, qwen_3_finke_score, qwen_3_vl_finke_score),
   max_score = c(humans_finke_max_score, o3_finke_max_score, o3_images_finke_max_score,
                 o3_pro_finke_max_score, gpt4_1_finke_max_score, gpt4_1_images_finke_max_score,
                 chatgpt_4o_finke_max_score, o4_mini_finke_max_score, gemini2_5_finke_max_score,
                 gemini2_0_flash_finke_max_score, gemini2_0_flash_images_finke_max_score,
-                sonnet4_finke_max_score, opus4_1_finke_max_score, gpt5_finke_max_score),
+                sonnet4_finke_max_score, opus4_1_finke_max_score, gpt5_finke_max_score,
+                gemini3_0_finke_max_score, deepseek_r1_finke_max_score,
+                gpt_oss_120b_finke_max_score, qwen_3_finke_max_score, qwen_3_vl_finke_max_score),
   color = c("#66c2a5", "#fc8d62", "#fc8d62",
             "#fc8d62", "#fc8d62", "#fc8d62",
             "#fc8d62", "#fc8d62", "#8da0cb",
-            "#8da0cb", "#8da0cb", "#e78ac3", "#e78ac3", "#fc8d62")
+            "#8da0cb", "#8da0cb", "#e78ac3", "#e78ac3", "#fc8d62",
+            "#8da0cb", "#a6d854",
+            "#a6d854", "#a6d854", "#a6d854")
 
   # human #66c2a5
   # openai #fc8d62
   # gemini #8da0cb
   # claude #e78ac3
+  # open_models #a6d854
 )
 
 # Calculate proportions from correct/total
@@ -478,24 +584,33 @@ finke_data$proportion <- finke_data$score / finke_data$max_score
 novel_data <- data.frame(
   model = c("Humans", "o3", "o3-GPT-Image",
             "o3-Pro", "GPT-4.1", "GPT-4.1-GPT-Image",
-            "ChatGPT-4o", "o4-mini", "Gemini-2.5-Pro",
+            "ChatGPT-4o", "o4-mini", "Gemini-2.5",
             "Gemini-2.0-Flash", "Gemini-2.0-Flash-Images",
-            "Sonnet-4", "Opus-4.1", "GPT-5"),
+            "Sonnet-4", "Opus-4.1", "GPT-5",
+            "Gemini-3 Pro", "DeepSeek R1",
+            "GPT-OSS-120B", "Qwen-3", "Qwen-3-VL"),
   score = c(humans_novel_score, o3_novel_score, o3_images_novel_score,
             o3_pro_novel_score, gpt4_1_novel_score, gpt4_1_images_novel_score,
             chatgpt_4o_novel_score, o4_mini_novel_score, gemini2_5_novel_score,
             gemini2_0_flash_novel_score, gemini2_0_flash_images_novel_score,
-            sonnet4_novel_score, opus4_1_novel_score, gpt5_novel_score),
+            sonnet4_novel_score, opus4_1_novel_score, gpt5_novel_score,
+            gemini3_0_novel_score, deepseek_r1_novel_score,
+            gpt_oss_120b_novel_score, qwen_3_novel_score, qwen_3_vl_novel_score
+  ),
   max_score = c(humans_novel_max_score, o3_novel_max_score, o3_images_novel_max_score,
                 o3_pro_novel_max_score, gpt4_1_novel_max_score, gpt4_1_images_novel_max_score,
                 chatgpt_4o_novel_max_score, o4_mini_novel_max_score, gemini2_5_novel_max_score,
                 gemini2_0_flash_novel_max_score, gemini2_0_flash_images_novel_max_score,
-                sonnet4_novel_max_score, opus4_1_novel_max_score, gpt5_novel_max_score),
+                sonnet4_novel_max_score, opus4_1_novel_max_score, gpt5_novel_max_score,
+                gemini3_0_novel_max_score, deepseek_r1_novel_max_score,
+                gpt_oss_120b_novel_max_score, qwen_3_novel_max_score, qwen_3_vl_novel_max_score
+  ),
   color = c("#66c2a5", "#fc8d62", "#fc8d62",
             "#fc8d62", "#fc8d62", "#fc8d62",
             "#fc8d62", "#fc8d62", "#8da0cb",
-            "#8da0cb", "#8da0cb", "#e78ac3", "#e78ac3", "#fc8d62")
-
+            "#8da0cb", "#8da0cb", "#e78ac3", "#e78ac3", "#fc8d62",
+            "#8da0cb", "#a6d854",
+            "#a6d854", "#a6d854", "#a6d854")
 )
 
 # Calculate proportions from correct/total
@@ -508,30 +623,42 @@ novel_data$proportion <- novel_data$score / novel_data$max_score
 collapsed_data <- data.frame(
   model = c("Humans", "o3", "o3-GPT-Image",
             "o3-Pro", "GPT-4.1", "GPT-4.1-GPT-Image",
-            "ChatGPT-4o", "o4-mini", "Gemini-2.5-Pro",
+            "ChatGPT-4o", "o4-mini", "Gemini-2.5",
             "Gemini-2.0-Flash", "Gemini-2.0-Flash-Images",
-            "Sonnet-4", "Opus-4.1", "GPT-5"),
+            "Sonnet-4", "Opus-4.1", "GPT-5",
+            "Gemini-3 Pro", "DeepSeek R1",
+            "GPT-OSS-120B", "Qwen-3", "Qwen-3-VL"
+  ),
   score = c(humans_total_score, o3_total_score, o3_images_total_score,
             o3_pro_total_score, gpt4_1_total_score, gpt4_1_images_total_score,
             chatgpt_4o_total_score, o4_mini_total_score, gemini2_5_total_score,
             gemini2_0_flash_total_score, gemini2_0_flash_images_total_score,
-            sonnet4_total_score, opus4_1_total_score, gpt5_total_score),
+            sonnet4_total_score, opus4_1_total_score, gpt5_total_score,
+            gemini_3_total_score, deepseek_r1_total_score,
+            gpt_oss_120b_total_score, qwen_3_total_score, qwen_3_vl_total_score
+  ),
   max_score = c(humans_total_max_score, o3_total_max_score, o3_images_total_max_score,
                 o3_pro_total_max_score, gpt4_1_total_max_score, gpt4_1_images_total_max_score,
                 chatgpt_4o_total_max_score, o4_mini_total_max_score, gemini2_5_total_max_score,
                 gemini2_0_flash_total_max_score, gemini2_0_flash_images_total_max_score,
-                sonnet4_total_max_score, opus4_1_total_max_score, gpt5_total_max_score),
+                sonnet4_total_max_score, opus4_1_total_max_score, gpt5_total_max_score,
+                gemini_3_total_max_score, deepseek_r1_total_max_score,
+                gpt_oss_120b_total_max_score, qwen_3_total_max_score, qwen_3_vl_total_max_score
+  ),
   color = c("#66c2a5", "#fc8d62", "#fc8d62",
             "#fc8d62", "#fc8d62", "#fc8d62",
             "#fc8d62", "#fc8d62", "#8da0cb",
-            "#8da0cb", "#8da0cb", "#e78ac3", "#e78ac3", "#fc8d62")
+            "#8da0cb", "#8da0cb", "#e78ac3", "#e78ac3", "#fc8d62",
+            "#8da0cb", "#a6d854",
+            "#a6d854", "#a6d854", "#a6d854"
+  )
 )
 
 # Calculate proportions from correct/total
 collapsed_data$proportion <- collapsed_data$score / collapsed_data$max_score
 ```
 
-### Set up Data for Reasoning Variations
+### Set-up Data for Reasoning Variations
 
 ```{r finke_reasoning_dataframe}
 # Prepare data for reasoning variations analysis
@@ -613,6 +740,63 @@ collapsed_reasoning_data <- data.frame(
 collapsed_reasoning_data$proportion <- collapsed_reasoning_data$score / collapsed_reasoning_data$max_score
 ```
 
+```{r finke_temperature_dataframe}
+finke_temperature_data <- data.frame(
+  model = c("Gemini-3 Pro (Temp 0.1)", "Gemini-3 Pro (Temp 0.55)", "Gemini-3 Pro (Temp 1.0)"),
+  score = c(gemini_3_temp_0_1_finke_score, gemini_3_temp_0_55_finke_score, gemini_3_temp_1_0_finke_score),
+  max_score = c(gemini_3_temp_0_1_finke_max_score, gemini_3_temp_0_55_finke_max_score, gemini_3_temp_1_0_finke_max_score),
+  color = c("#8da0cb", "#8da0cb", "#8da0cb")
+)
+finke_temperature_data$proportion <- finke_temperature_data$score / finke_temperature_data$max_score
+```
+
+
+```{r novel_temperature_dataframe}
+novel_temperature_data <- data.frame(
+  model = c("Gemini-3 Pro (Temp 0.1)", "Gemini-3 Pro (Temp 0.55)", "Gemini-3 Pro (Temp 1.0)"),
+  score = c(gemini_3_temp_0_1_novel_score, gemini_3_temp_0_55_novel_score, gemini_3_temp_1_0_novel_score),
+  max_score = c(gemini_3_temp_0_1_novel_max_score, gemini_3_temp_0_55_novel_max_score, gemini_3_temp_1_0_novel_max_score),
+  color = c("#8da0cb", "#8da0cb", "#8da0cb")
+)
+novel_temperature_data$proportion <- novel_temperature_data$score / novel_temperature_data$max_score
+```
+
+
+```{r collapsed_temperature_dataframe}
+collapsed_temperature_data <- data.frame(
+  model = c("Gemini-3 Pro (Temp 0.1)", "Gemini-3 Pro (Temp 0.55)", "Gemini-3 Pro (Temp 1.0)"),
+  score = c(gemini_3_temp_0_1_total_score, gemini_3_temp_0_55_total_score, gemini_3_temp_1_0_total_score),
+  max_score = c(gemini_3_temp_0_1_total_max_score, gemini_3_temp_0_55_total_max_score, gemini_3_temp_1_0_total_max_score),
+  color = c("#8da0cb", "#8da0cb", "#8da0cb")
+)
+collapsed_temperature_data$proportion <- collapsed_temperature_data$score / collapsed_temperature_data$max_score
+```
+```{r collapsed_aphant_dataframe}
+aphant_collapsed_data <- data.frame(
+  model = c("Aphant", "Humans", "o3", "o3-GPT-Image",
+            "o3-Pro", "GPT-4.1", "GPT-4.1-GPT-Image",
+            "ChatGPT-4o", "o4-mini", "Gemini-2.5",
+            "Gemini-2.0-Flash", "Gemini-2.0-Flash-Images",
+            "Sonnet-4", "Opus-4.1", "GPT-5"),
+  score = c(aphant_total_score, humans_total_score, o3_total_score, o3_images_total_score,
+            o3_pro_total_score, gpt4_1_total_score, gpt4_1_images_total_score,
+            chatgpt_4o_total_score, o4_mini_total_score, gemini2_5_total_score,
+            gemini2_0_flash_total_score, gemini2_0_flash_images_total_score,
+            sonnet4_total_score, opus4_1_total_score, gpt5_total_score),
+  max_score = c(aphant_total_max_score, humans_total_max_score, o3_total_max_score, o3_images_total_max_score,
+                o3_pro_total_max_score, gpt4_1_total_max_score, gpt4_1_images_total_max_score,
+                chatgpt_4o_total_max_score, o4_mini_total_max_score, gemini2_5_total_max_score,
+                gemini2_0_flash_total_max_score, gemini2_0_flash_images_total_max_score,
+                sonnet4_total_max_score, opus4_1_total_max_score, gpt5_total_max_score),
+  color = c("#ccccff","#66c2a5", "#fc8d62", "#fc8d62",
+            "#fc8d62", "#fc8d62", "#fc8d62",
+            "#fc8d62", "#fc8d62", "#8da0cb",
+            "#8da0cb", "#8da0cb", "#e78ac3", "#e78ac3", "#fc8d62")
+)
+# Calculate proportions from correct/total
+aphant_collapsed_data$proportion <- aphant_collapsed_data$score / aphant_collapsed_data$max_score
+```
+
 
 
 
@@ -644,6 +828,16 @@ print(collapsed_reasoning_data)
 ```
 
 ## Proportion Testing Function
+
+```{r display_temperature_data}
+# Display the temperature variation data
+cat("\n\nFinke et al. Tasks - Temperature Variations Data:\n")
+print(finke_temperature_data)
+cat("\n48 Novel Tasks - Temperature Variations Data:\n")
+print(novel_temperature_data)
+cat("\nCollapsed Data (Finke + 48 Novel Tasks) - Temperature Variations Data:\n")
+print(collapsed_temperature_data)
+```
 
 ```{r functions}
 # Function to perform proportion test and extract results
@@ -752,7 +946,7 @@ cat("\n\nSummary Table - Human vs Original Finke:\n")
 print(kable(human_vs_original_summary, format = "simple"))
 ```
 
-## Comparison: Current Human 48 vs. Original Finke
+## Comparison: Current Human 48 vs Original Finke
 
 ```{r human_48_vs_original_finke, echo = FALSE}
 # Perform proportion test between current human 48 performance and original Finke data
@@ -800,7 +994,7 @@ human_48_vs_original_summary <- data.frame(
 cat("\n\nSummary Table - Human vs Original Finke:\n")
 print(kable(human_48_vs_original_summary, format = "simple"))
 ```
-## Comparison: Current Humans (collapsed) vs. Original Finke
+## Comparison: Current Humans (collapsed) vs Original Finke
 
 ```{r human_collapsed_vs_original_finke, echo = FALSE}
 # Perform proportion test between current human 48 performance and original Finke data
@@ -848,6 +1042,36 @@ human_vs_original_collapsed_summary <- data.frame(
 cat("\n\nSummary Table - Current Human (Collapsed) vs Original Finke:\n")
 print(kable(human_vs_original_collapsed_summary, format = "simple"))
 ```
+## Aphant vs Humans and Models - All Pairwise Comparisons
+
+```{r aphant_comparisons}
+# Test all combinations for Aphant vs Humans and Models (results not included in paper)
+aphant_results <- test_all_combinations(aphant_collapsed_data, "Aphant vs Humans and Models")
+# Display results
+cat("All Pairwise Comparisons for Aphant vs Humans and Models:\n")
+cat(paste(rep("=", 80), collapse = ""), "\n")
+for (i in 1:nrow(aphant_results)) {
+  cat("\n", aphant_results$comparison[i], "\n")
+  cat(paste(rep("-", 40), collapse = ""), "\n")
+  cat("Proportions: ", round(aphant_results$prop1[i], 3), " vs ",
+      round(aphant_results$prop2[i], 3), "\n")
+  cat("Difference: ", round(aphant_results$diff[i], 3), "\n")
+  cat("Chi-squared: ", round(aphant_results$chi_squared[i], 3), "\n")
+  cat("Degrees of freedom: ", round(aphant_results$df[i], 3), "\n")
+  cat("P-value: ", format(aphant_results$p_value[i], scientific = FALSE, digits = 4), "\n")
+  cat("95% CI: [", round(aphant_results$ci_lower[i], 3), ", ",
+      round(aphant_results$ci_upper[i], 3), "]\n")
+  cat("Significant: ", ifelse(aphant_results$significant[i], "YES (p < 0.05)", "NO"), "\n")
+}
+# Summary table
+aphant_summary <- aphant_results %>%
+  select(comparison, diff, chi_squared, p_value, significant) %>%
+    mutate(diff = round(diff, 3),
+            p_value = round(p_value, 4))
+cat("\n\nSummary Table - Aphant vs Humans and Models:\n")
+print(kable(aphant_summary, format = "simple"))
+```
+
 
 ## Single Context vs Multiple Context - All Pairwise Comparisons
 
@@ -886,7 +1110,7 @@ print(kable(sc_mc_summary, format = "simple"))
 
 ```
 
-### Visualization of Single vs. Multiple Context
+### Visualization of Single vs Multiple Context
 
 ```{r sc_mc_visualization, fig.width=10, fig.height=6}
 # Plot for Single-Context vs Multiple-Context
@@ -900,11 +1124,8 @@ sc_mc_plot <- ggplot(sc_mc_data, aes(x = reorder(model, proportion), y = proport
   theme_minimal() +
   labs(title = "Single-Context vs Multiple-Context Models - Proportions with 95% CI",
        x = "Model",
-       y = "Proportion of Maximum Possible Score") +
-  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
-        axis.text = element_text(size = 12),
-        axis.title = element_text(size = 14),
-        legend.text = element_text(size = 12)) +
+       y = "Proportion of Max Score") +
+  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")) +
   scale_color_manual(
     values = c("#fc8d62", "#8da0cb", "#e78ac3"),
     name = "Model Family",
@@ -1005,18 +1226,15 @@ finke_plot <- ggplot(finke_data, aes(x = reorder(model, proportion), y = proport
                 width = 0.2, size = 1) +
   coord_flip() +
   theme_minimal() +
-  labs(subtitle = "Finke et al. Sets",
+  labs(title = "Finke et al. Tasks - Proportions with 95% CI",
        x = "Model",
-       y = "Proportion of Maximum Possible Score") +
-  theme(plot.subtitle = element_text(hjust = 0.5, size = 18),
-        axis.text = element_text(size = 14),
-        axis.title = element_text(size = 16),
-        legend.text = element_text(size = 14)) +
+       y = "Proportion of Max Score") +
+  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")) +
   scale_color_manual(
-    values = c("#fc8d62", "#8da0cb", "#e78ac3", "#66c2a5"),
+    values = c("#fc8d62", "#8da0cb", "#e78ac3", "#a6d854", "#66c2a5"),
     name = element_blank(),
-    breaks = c("#fc8d62", "#8da0cb", "#e78ac3", "#66c2a5"),
-    labels = c("OpenAI", "Gemini", "Claude", "Human Baseline")
+    breaks = c("#fc8d62", "#8da0cb", "#e78ac3", "#a6d854", "#66c2a5"),
+    labels = c("OpenAI", "Gemini", "Claude", "Open Models", "Human Baseline")
   )
 
 # Plot 2: Proportions with confidence intervals for 48 Novel tasks
@@ -1028,51 +1246,27 @@ novel_48_plot <- ggplot(novel_data, aes(x = reorder(model, proportion), y = prop
                 width = 0.2, size = 1) +
   coord_flip() +
   theme_minimal() +
-  labs(subtitle = "Novel 48-Item Sets",
+  labs(title = "48 Novel Tasks - Proportions with 95% CI",
        x = "Model",
-       y = "Proportion of Maximum Possible Score") +
-  theme(plot.subtitle = element_text(hjust = 0.5, size = 18),
-        axis.text = element_text(size = 14),
-        axis.title = element_text(size = 16),
-        legend.text = element_text(size = 14)) +
+       y = "Proportion of Max Score") +
+  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")) +
   scale_color_manual(
-    values = c("#fc8d62", "#8da0cb", "#e78ac3", "#66c2a5"),
+    values = c("#fc8d62", "#8da0cb", "#e78ac3", "#a6d854", "#66c2a5"),
     name = element_blank(),
-    breaks = c("#fc8d62", "#8da0cb", "#e78ac3", "#66c2a5"),
-    labels = c("OpenAI", "Gemini", "Claude", "Human Baseline")
+    breaks = c("#fc8d62", "#8da0cb", "#e78ac3", "#a6d854", "#66c2a5"),
+    labels = c("OpenAI", "Gemini", "Claude", "Open Models", "Human Baseline")
   )
 
 # Combine plots
-combined_plot <- ((finke_plot + novel_48_plot) +
-  plot_layout(ncol = 2, guides = "collect") +
-  plot_annotation(title = "Finke et al. vs. Novel 48-Item - Proportions with 95% CI")) &
-  theme(plot.title = element_text(hjust = 0.5, size = 20, face = "bold"), legend.position = "bottom")
+combined_plot <- (finke_plot + novel_48_plot & theme(legend.position = "bottom")) + plot_layout(ncol = 2, guides = "collect")
 print(combined_plot)
-```
 
-```{r novel_48_plot, fig.width=14, fig.height=8}
-novel_plot <- ggplot(novel_data, aes(x = reorder(model, proportion), y = proportion)) +
-  geom_point(size = 4, aes(color = color)) +
-  geom_errorbar(aes(ymin = proportion - 1.96 * sqrt(proportion * (1 - proportion) / max_score),
-                    ymax = proportion + 1.96 * sqrt(proportion * (1 - proportion) / max_score),
-                    color = color),
-                width = 0.2, size = 1) +
-  coord_flip() +
-  theme_minimal() +
-  labs(subtitle = "48 Novel Tasks",
-       x = "Model",
-       y = "Proportion of Maximum Possible Score") +
-  theme(plot.subtitle = element_text(hjust = 0.5, size = 20),
-        axis.text = element_text(size = 16),
-        axis.title = element_text(size = 18),
-        legend.text = element_text(size = 16)) +
-  scale_color_manual(
-    values = c("#fc8d62", "#8da0cb", "#e78ac3", "#66c2a5"),
-    name = element_blank(),
-    breaks = c("#fc8d62", "#8da0cb", "#e78ac3", "#66c2a5"),
-    labels = c("OpenAI", "Gemini", "Claude", "Human Baseline")
-  )
-print(novel_plot)
+# red #66c2a5
+# blue #fc8d62
+# green #8da0cb
+# purple #e78ac3
+
+
 ```
 
 ## Heatmap of P-values
@@ -1271,18 +1465,15 @@ collapsed_plot <- ggplot(collapsed_data, aes(x = reorder(model, proportion), y =
                 width = 0.2, size = 1) +
   coord_flip() +
   theme_minimal() +
-  labs(
+  labs(title = "Collapsed Data (Finke + 48 Novel) - Proportions with 95% CI",
        x = "Model",
-       y = "Proportion of Maximum Possible Score") +
-  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
-        axis.text = element_text(size = 12),
-        axis.title = element_text(size = 14),
-        legend.text = element_text(size = 12)) +
+       y = "Proportion of Max Score") +
+  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")) +
   scale_color_manual(
-    values = c("#fc8d62", "#8da0cb", "#e78ac3", "#66c2a5"),
+    values = c("#fc8d62", "#8da0cb", "#e78ac3", "#a6d854", "#66c2a5"),
     name = element_blank(),
-    breaks = c("#fc8d62", "#8da0cb", "#e78ac3", "#66c2a5"),
-    labels = c("OpenAI", "Gemini", "Claude", "Human Baseline")
+    breaks = c("#fc8d62", "#8da0cb", "#e78ac3", "#a6d854", "#66c2a5"),
+    labels = c("OpenAI", "Gemini", "Claude", "Open Models", "Human Baseline")
   )
 
 # red #66c2a5
@@ -1293,7 +1484,6 @@ collapsed_plot <- ggplot(collapsed_data, aes(x = reorder(model, proportion), y =
 print(collapsed_plot)
 
 ```
-
 ```{r comparison_plot, fig.width=10, fig.height=6}
 
 # Create a comparison plot showing all three datasets
@@ -1309,7 +1499,7 @@ comparison_plot <- ggplot(comparison_data, aes(x = model, y = proportion, fill =
   theme_minimal() +
   labs(title = "Comparison Across All Datasets",
        x = "Model",
-       y = "Proportion of Maximum Possible Score",
+       y = "Proportion of Max Score",
        fill = "Dataset") +
   theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
         axis.text.x = element_text(angle = 45, hjust = 1))
@@ -1369,11 +1559,10 @@ for (i in 1:nrow(collapsed_pval_matrix)) {
 ```
 # Reasoning Variation Analysis
 
-
 ## Finke
 
 ```{r reasoning_variation_finke}
-# Test all combinations for Finke reasoning variations
+# Test all combinations for Finke reasoning variations # TODO
 finke_reasoning_results <- test_all_combinations(finke_reasoning_data, "Finke Reasoning Variations")
 # Display results
 cat("All Pairwise Comparisons for Finke Reasoning Variations:\n")
@@ -1577,16 +1766,13 @@ finke_reasoning_plot <- ggplot(finke_reasoning_data, aes(x = reorder(model, prop
                 width = 0.2, size = 1) +
   coord_flip() +
   theme_minimal() +
-  labs(subtitle = "Finke et al. Sets",
+  labs(title = "Finke Reasoning - Proportions with 95% CI",
        x = "Model",
-       y = "Proportion of Maximum Possible Score") +
-  theme(plot.subtitle = element_text(hjust = 0.5, size = 18),
-        axis.text = element_text(size = 14),
-        axis.title = element_text(size = 16),
-        legend.text = element_text(size = 14)) +
+       y = "Proportion of Max Score") +
+  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")) +
   scale_color_manual(
     values = c("#980043", "#dd1c77", "#df65b0", "#d7b5d8", "#66c2a5"),
-    name = "Reasoning Effort",
+    name = "Reasoning Level",
     breaks = c("#980043", "#dd1c77", "#df65b0", "#d7b5d8", "#66c2a5"),
     labels = c("High", "Medium", "Low", "Minimal", "Human Baseline")
   )
@@ -1600,25 +1786,19 @@ novel_48_reasoning_plot <- ggplot(novel_reasoning_data, aes(x = reorder(model, p
                 width = 0.2, size = 1) +
   coord_flip() +
   theme_minimal() +
-  labs(subtitle = "Novel 48-Item Sets",
+  labs(title = "48 Novel Reasoning - Proportions with 95% CI",
        x = "Model",
-       y = "Proportion of Maximum Possible Score") +
-  theme(plot.subtitle = element_text(hjust = 0.5, size = 18),
-        axis.text = element_text(size = 14),
-        axis.title = element_text(size = 16),
-        legend.text = element_text(size = 14)) +
+       y = "Proportion of Max Score") +
+  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")) +
   scale_color_manual(
     values = c("#980043", "#dd1c77", "#df65b0", "#d7b5d8", "#66c2a5"),
-    name = "Reasoning Effort",
+    name = "Reasoning Level",
     breaks = c("#980043", "#dd1c77", "#df65b0", "#d7b5d8", "#66c2a5"),
     labels = c("High", "Medium", "Low", "Minimal", "Human Baseline")
   )
 
 
-combined_reasoning_plot <- ((finke_reasoning_plot + novel_48_reasoning_plot) +
-  plot_layout(ncol = 2, guides = "collect") +
-  plot_annotation(title = "Reasoning: Finke et al. vs. Novel 48-Item - Proportions with 95% CI")) &
-  theme(plot.title = element_text(hjust = 0.5, size = 20, face = "bold"), legend.position = "bottom")
+combined_reasoning_plot <- (finke_reasoning_plot + novel_48_reasoning_plot & theme(legend.position = "bottom")) + plot_layout(ncol = 2, guides = "collect")
 print(combined_reasoning_plot)
 ```
 
@@ -1678,13 +1858,10 @@ combined_reasoning_plot <- ggplot(collapsed_reasoning_data, aes(x = reorder(mode
                 width = 0.2, size = 1) +
   coord_flip() +
   theme_minimal() +
-  labs(title = "Reasoning: Finke et al. and Novel 48-Item - Proportions with 95% CI",
+  labs(title = "Collapsed Data (Finke + 48) - Reasoning Variations - Proportions with 95% CI",
        x = "Model",
-       y = "Proportion of Maximum Possible Score") +
-  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
-        axis.text = element_text(size = 12),
-        axis.title = element_text(size = 14),
-        legend.text = element_text(size = 12)) +
+       y = "Proportion of Max Score") +
+  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")) +
   scale_color_manual(
     values = c("#980043", "#dd1c77", "#df65b0", "#d7b5d8", "#66c2a5"),
     name = "Reasoning Level",
@@ -1697,8 +1874,6 @@ combined_reasoning_plot <- ggplot(collapsed_reasoning_data, aes(x = reorder(mode
 # medium #dd1c77
 # high #980043
 # human #66c2a5
-
-
 
 print(combined_reasoning_plot)
 ```
@@ -1769,6 +1944,214 @@ if (nrow(combined_reasoning_sig) > 0) {
 }
 ```
 
+# Temperature Variation Analysis
+
+## Finke
+
+```{r finke_temperature_variation}
+# Test all combinations for Finke temperature variations
+finke_temperature_results <- test_all_combinations(finke_temperature_data, "Finke Temperature Variations (Gemini 3 Pro)")
+# Display results
+cat("All Pairwise Comparisons for Finke Temperature Variations (Gemini 3 Pro):\n")
+cat(paste(rep("=", 80), collapse = ""), "\n")
+
+for (i in 1:nrow(finke_temperature_results)) {
+  cat("\n", finke_temperature_results$comparison[i], "\n")
+  cat(paste(rep("-", 40), collapse = ""), "\n")
+  cat("Proportions: ", round(finke_temperature_results$prop1[i], 3), " vs ",
+      round(finke_temperature_results$prop2[i], 3), "\n")
+  cat("Difference: ", round(finke_temperature_results$diff[i], 3), "\n")
+  cat("Chi-squared: ", round(finke_temperature_results$chi_squared[i], 3), "\n")
+  cat("Degrees of freedom: ", round(finke_temperature_results$df[i], 3), "\n")
+  cat("P-value: ", format(finke_temperature_results$p_value[i], scientific = FALSE, digits = 4), "\n")
+  cat("95% CI: [", round(finke_temperature_results$ci_lower[i], 3), ", ",
+      round(finke_temperature_results$ci_upper[i], 3), "]\n")
+  cat("Significant: ", ifelse(finke_temperature_results$significant[i], "YES (p < 0.05)", "NO"), "\n")
+}
+# Summary table
+finke_temperature_summary <- finke_temperature_results %>%
+  select(comparison, diff, chi_squared, p_value, significant) %>%
+  mutate(diff = round(diff, 3),
+         p_value = round(p_value, 4))
+cat("\n\nSummary Table - Finke Temperature Variations (Gemini 3 Pro):\n")
+print(kable(finke_temperature_summary, format = "simple"))
+```
+
+```{r temperature_variation_summary_finke}
+# Count significant differences for Finke temperature variations
+finke_temperature_sig_count <- sum(finke_temperature_results$significant)
+cat("Summary of Significant Differences - Finke Temperature Variations (Gemini 3 Pro):\n")
+cat(paste(rep("=", 50), collapse = ""), "\n")
+cat("  Total comparisons:", nrow(finke_temperature_results), "\n")
+cat("  Significant differences:", finke_temperature_sig_count, "\n")
+cat("  Percentage significant:", round(finke_temperature_sig_count / nrow(finke_temperature_results) * 100, 1), "%\n\n")
+# Show which comparisons are significant
+cat("Significant Comparisons in Finke Temperature Variations (Gemini 3 Pro):\n")
+finke_temperature_sig <- finke_temperature_results[finke_temperature_results$significant, c("comparison", "diff", "p_value")]
+if (nrow(finke_temperature_sig) > 0) {
+  print(kable(finke_temperature_sig, format = "simple", digits = 4))
+} else {
+  cat("  None\n")
+}
+```
+
+## Novel
+```{r novel_temperature_variation}
+# Test all combinations for Novel temperature variations
+novel_temperature_results <- test_all_combinations(novel_temperature_data, "48 Novel Temperature Variations (Gemini 3 Pro)")
+# Display results
+cat("All Pairwise Comparisons for 48 Novel Temperature Variations (Gemini 3 Pro):\n")
+cat(paste(rep("=", 80), collapse = ""), "\n")
+
+for (i in 1:nrow(novel_temperature_results)) {
+  cat("\n", novel_temperature_results$comparison[i], "\n")
+  cat(paste(rep("-", 40), collapse = ""), "\n")
+  cat("Proportions: ", round(novel_temperature_results$prop1[i], 3), " vs ",
+      round(novel_temperature_results$prop2[i], 3), "\n")
+  cat("Difference: ", round(novel_temperature_results$diff[i], 3), "\n")
+  cat("Chi-squared: ", round(novel_temperature_results$chi_squared[i], 3), "\n")
+  cat("Degrees of freedom: ", round(novel_temperature_results$df[i], 3), "\n")
+  cat("P-value: ", format(novel_temperature_results$p_value[i], scientific = FALSE, digits = 4), "\n")
+  cat("95% CI: [", round(novel_temperature_results$ci_lower[i], 3), ", ",
+      round(novel_temperature_results$ci_upper[i], 3), "]\n")
+  cat("Significant: ", ifelse(novel_temperature_results$significant[i], "YES (p < 0.05)", "NO"), "\n")
+}
+# Summary table
+novel_temperature_summary <- novel_temperature_results %>%
+  select(comparison, diff, chi_squared, p_value, significant) %>%
+  mutate(diff = round(diff, 3),
+         p_value = round(p_value, 4))
+cat("\n\nSummary Table - 48 Novel Temperature Variations (Gemini 3 Pro):\n")
+print(kable(novel_temperature_summary, format = "simple"))
+```
+
+```{r temperature_variation_summary_novel}
+# Count significant differences for Novel temperature variations
+novel_temperature_sig_count <- sum(novel_temperature_results$significant)
+cat("Summary of Significant Differences - 48 Novel Temperature Variations (Gemini 3 Pro):\n")
+cat(paste(rep("=", 50), collapse = ""), "\n")
+cat("  Total comparisons:", nrow(novel_temperature_results), "\n")
+cat("  Significant differences:", novel_temperature_sig_count, "\n")
+cat("  Percentage significant:", round(novel_temperature_sig_count / nrow(novel_temperature_results) * 100, 1), "%\n\n")
+# Show which comparisons are significant
+cat("Significant Comparisons in 48 Novel Temperature Variations (Gemini 3 Pro):\n")
+novel_temperature_sig <- novel_temperature_results[novel_temperature_results$significant, c("comparison", "diff", "p_value")]
+if (nrow(novel_temperature_sig) > 0) {
+  print(kable(novel_temperature_sig, format = "simple", digits = 4))
+} else {
+  cat("  None\n")
+}
+```
+
+
+
+## Visualization of Finke and Novel Temperature Variations
+```{r temperature_variation_visualization_finke_and_novel, fig.width=10, fig.height=6}
+# Plot proportions with confidence intervals for Finke temperature variations
+finke_temperature_plot <- ggplot(finke_temperature_data, aes(x = reorder(model, proportion), y = proportion)) +
+  geom_point(size = 4, aes(color = "#8da0cb")) +
+  geom_errorbar(aes(ymin = proportion - 1.96 * sqrt(proportion * (1 - proportion) / max_score),
+                    ymax = proportion + 1.96 * sqrt(proportion * (1 - proportion) / max_score),
+                    color = "#8da0cb"),
+                width = 0.2, size = 1) +
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "Finke Temperature (Proportions 95% CI)",
+       x = "Model",
+       y = "Proportion of Max Score") +
+  theme(plot.title = element_text(hjust = 0.5, size = 13, face = "bold")) +
+  scale_color_discrete()
+# Plot proportions with confidence intervals for Novel temperature variations
+novel_temperature_plot <- ggplot(novel_temperature_data, aes(x = reorder(model, proportion), y = proportion)) +
+  geom_point(size = 4, aes(color = "#8da0cb")) +
+  geom_errorbar(aes(ymin = proportion - 1.96 * sqrt(proportion * (1 - proportion) / max_score),
+                        ymax = proportion + 1.96 * sqrt(proportion * (1 - proportion) / max_score),
+                        color = "#8da0cb"),
+                    width = 0.2, size = 1) +
+    coord_flip() +
+    theme_minimal() +
+    labs(title = "48 Novel Temperature (Proportions 95% CI)",
+         x = "Model",
+         y = "Proportion of Max Score") +
+    theme(plot.title = element_text(hjust = 0.5, size = 13, face = "bold")) +
+    scale_color_discrete()
+combined_temperature_plot <- (finke_temperature_plot + novel_temperature_plot & theme(legend.position = "none")) + plot_layout(ncol = 2)
+print(combined_temperature_plot)
+```
+
+## Collapsed Temperature Variations
+
+```{r collapsed_temperature_variation}
+collapsed_temperature_results <- test_all_combinations(collapsed_temperature_data, "Collapsed Temperature Variations (Gemini 3 Pro)")
+# Display results
+cat("All Pairwise Comparisons for Collapsed Temperature Variations (Gemini 3 Pro):\n")
+cat(paste(rep("=", 80), collapse = ""), "\n")
+
+for (i in 1:nrow(collapsed_temperature_results)) {
+  cat("\n", collapsed_temperature_results$comparison[i], "\n")
+  cat(paste(rep("-", 40), collapse = ""), "\n")
+  cat("Proportions: ", round(collapsed_temperature_results$prop1[i], 3), " vs ",
+      round(collapsed_temperature_results$prop2[i], 3), "\n")
+  cat("Difference: ", round(collapsed_temperature_results$diff[i], 3), "\n")
+  cat("Chi-squared: ", round(collapsed_temperature_results$chi_squared[i], 3), "\n")
+  cat("Degrees of freedom: ", round(collapsed_temperature_results$df[i], 3), "\n")
+  cat("P-value: ", format(collapsed_temperature_results$p_value[i], scientific = FALSE, digits = 4), "\n")
+  cat("95% CI: [", round(collapsed_temperature_results$ci_lower[i], 3), ", ",
+      round(collapsed_temperature_results$ci_upper[i], 3), "]\n")
+  cat("Significant: ", ifelse(collapsed_temperature_results$significant[i], "YES (p < 0.05)", "NO"), "\n")
+}
+# Summary table
+collapsed_temperature_summary <- collapsed_temperature_results %>%
+  select(comparison, diff, chi_squared, p_value, significant) %>%
+  mutate(diff = round(diff, 3),
+         p_value = round(p_value, 4))
+cat("\n\nSummary Table - Collapsed Temperature Variations (Gemini 3 Pro):\n")
+print(kable(collapsed_temperature_summary, format = "simple"))
+```
+
+```{r temperature_variation_summary_collapsed}
+# Count significant differences for collapsed temperature variations
+collapsed_temperature_sig_count <- sum(collapsed_temperature_results$significant)
+cat("Summary of Significant Differences - Collapsed Temperature Variations (Gemini 3 Pro):\n")
+cat(paste(rep("=", 50), collapse = ""), "\n")
+cat("  Total comparisons:", nrow(collapsed_temperature_results), "\n")
+cat("  Significant differences:", collapsed_temperature_sig_count, "\n")
+cat("  Percentage significant:", round(collapsed_temperature_sig_count / nrow(collapsed_temperature_results) * 100, 1), "%\n\n")
+# Show which comparisons are significant
+cat("Significant Comparisons in Collapsed Temperature Variations (Gemini 3 Pro):\n")
+collapsed_temperature_sig <- collapsed_temperature_results[collapsed_temperature_results$significant, c("comparison", "diff", "p_value")]
+if (nrow(collapsed_temperature_sig) > 0) {
+  print(kable(collapsed_temperature_sig, format = "simple", digits = 4))
+} else {
+  cat("  None\n")
+}
+```
+
+
+```{r temperature_variation_combined_visualization, fig.width=10, fig.height=6}
+# Plot proportions with confidence intervals for collapsed temperature variations
+collapsed_temperature_plot <- ggplot(collapsed_temperature_data, aes(x = reorder(model, proportion), y = proportion)) +
+  geom_point(size = 4, aes(color = "#8da0cb")) +
+  geom_errorbar(aes(ymin = proportion - 1.96 * sqrt(proportion * (1 - proportion) / max_score),
+                    ymax = proportion + 1.96 * sqrt(proportion * (1 - proportion) / max_score),
+                    color = "#8da0cb"),
+                width = 0.2, size = 1) +
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "Collapsed Data (Finke + 48) - Temperature Variations - Proportions with 95% CI",
+       x = "Model",
+       y = "Proportion of Max Score") +
+  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")) +
+  scale_color_discrete() & theme(legend.position = "none")
+
+print(collapsed_temperature_plot)
+```
+
+
+
+
+
+
 
 
 
@@ -1779,7 +2162,8 @@ if (nrow(combined_reasoning_sig) > 0) {
 # Combine all results
 all_results <- rbind(finke_results, novel_48_results, collapsed_results,
                      finke_reasoning_results, novel_48_reasoning_results,
-                     combined_reasoning_results)
+                     combined_reasoning_results, finke_temperature_results,
+                     novel_temperature_results, collapsed_temperature_results)
 
 # Export to CSV
 write.csv(all_results, "statistical_results/proportion_test_results.csv", row.names = FALSE)

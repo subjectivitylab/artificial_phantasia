@@ -1,0 +1,266 @@
+Resetting chats...
+Prompt: Generate an image with a lowercase letter "b" to the left of a lowercase letter "d".
+Model: The image is ready for you!
+Prompt: From there, modify the image with the figure on the left moved to the right so that it just touches the other figure.
+Model: Here’s the updated image!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Eyeglasses
+Prompt: Generate an image with a plus symbol with two equally sized lines.
+Model: The image is ready for you!
+Prompt: From there, modify the image with a new vertical line the same size as the previous, just touching the left side of the figure.
+Model: 
+Prompt: From there, modify the image with the entire figure rotated 90 degrees to the right.
+Model: 
+Prompt: From there, modify the image with the figure without any lines to the left of the vertical line.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Letter F
+Prompt: Generate an image with a capital letter "B". 
+Model: 
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left so that is faces up.
+Model: The modified image is now available!
+Prompt: From there, modify the image with a triangle pointing downwards from the horizontal line in the figure.
+Model: The modified image is now available!
+Prompt: From there, modify the image with the horizontal line of the figure removed.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Heart
+Prompt: Generate an image with a capital letter "C" with parallel top and bottom lines with a capital letter "D" to the right. 
+Model: The image is ready for you!
+Prompt: From there, modify the image with the two figures pressed together so that they are just touching.
+Model: 
+Prompt: From there, modify the image with a horizontal line running from the left most point of the figure rightwards until the vertical line.
+Model: 
+Prompt: From there, modify the image with a capital letter "S" where the top right point is just touching the left side of the horizontal line.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Duck
+Prompt: Generate an image with a capital letter "D".
+Model: 
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: The modified image is now available!
+Prompt: From there, modify the image with a capital letter "J", attached to the bottom center of the figure.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Umbrella
+Prompt: Generate an image with a capital letter "D".
+Model: 
+Prompt: From there, modify the image with the figure rotated 90 degrees to the right.
+Model: 
+Prompt: From there, modify the image with a capital letter "T" where the top horizontal line is aligned to the bottom of the figure.
+Model: The modified image is now available!
+Prompt: From there, modify the image with the "T" flipped over.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Lamp
+Prompt: Generate an image with two lowercase letter "o" next to each other.
+Model: The image is ready for you!
+Prompt: From there, modify the image with the two figures pressed together so they are just touching.
+Model: 
+Prompt: From there, modify the image with two short lines coming up, vertically, from the left and right sides of the figure.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Owl
+Prompt: Generate an image with the number "5".
+Model: The image is ready for you!
+Prompt: From there, modify the image with the figure mirrored so that it faces the opposite direction.
+Model: The modified image is now available!
+Prompt: From there, modify the image with a second "5" directly overlapping the figure, sharing the top horizontal line.
+Model: The modified image is now available!
+Prompt: From there, modify the image with the figure flipped upside-down.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Number 8
+Prompt: Generate an image with a capital letter "H".
+Model: The image is ready for you!
+Prompt: From there, modify the image with the figure rotated 90 degrees to the right.
+Model: The modified image is now available!
+Prompt: From there, modify the image with a triangle whose base is the top horizontal line of the figure, pointed upwards.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Sailboat
+Prompt: Generate an image with a capital letter "N".
+Model: 
+Prompt: From there, modify the image with a diagonal line running from the top right corner of the figure to the bottom left corner.
+Model: The modified image is now available!
+Prompt: From there, modify the image with the entire figure rotated 90 degrees to the right.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Letter Z
+Prompt: Generate an image with two lowercase letter "p" next to each other.
+Model: The image is ready for you!
+Prompt: From there, modify the image with the left figure mirrored so that it is facing left.
+Model: The modified image is now available!
+Prompt: From there, modify the image with the two figures pressed together so that they share a vertical line.
+Model: 
+Prompt: From there, modify the image with a lowercase letter "o" just touching the top of the figure in the center.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Anchor
+Prompt: Generate an image with the number "8" with two equally sized loops.
+Model: The image is ready for you!
+Prompt: From there, modify the image with the "8" rotated 90 degrees to the right.
+Model: The modified image is now available!
+Prompt: From there, modify the image with a lowercase letter "o" just touching the top of the figure in the center.
+Model: The modified image is now available!
+Prompt: From there, modify the image with a lowercase letter "v" just touching the bottom of the figure in the center.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Butterfly
+Prompt: Generate an image with a capital letter "F".
+Model: 
+Prompt: From there, modify the image with a lowercase letter "b" connected to the base of the "F".
+Model: 
+Prompt: From there, modify the image with the loop mirrored so that it faces left.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Key
+Prompt: Generate an image with a capital letter "T" where both lines are the same length.
+Model: The image is ready for you!
+Prompt: From there, modify the image with a horizontal line running to the left of the bottom middle of the figure until it is the same length as the line at the top.
+Model: The modified image is now available!
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Flag
+Prompt: Generate an image with a capital letter "I" consisting of three lines of equal length, one vertical, and two horizontal.
+Model: 
+Prompt: From there, modify the image with the portion of the bottom horizontal line to the right of the vertical line, removed.
+Model: The modified image is now available!
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Chair
+Prompt: Generate an image with a capital letter "Y".
+Model: 
+Prompt: From there, modify the image with a small circle at the base of the figure.
+Model: The modified image is now available!
+Prompt: From there, modify the image with a horizontal line running through the center of the figure.
+Model: The modified image is now available!
+Prompt: From there, modify the image with the figure flipped upside-down.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Stick figure
+Prompt: Generate an image with a lowercase letter "v".
+Model: The image is ready for you!
+Prompt: From there, modify the image with the figure flipped upside-down.
+Model: 
+Prompt: From there, modify the image with a lowercase letter "o" just touching the top of the figure.
+Model: The modified image is now available!
+Prompt: From there, modify the image with a long line running down from the center of the figure.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Balloon
+Prompt: Generate an image with a capital letter "L".
+Model: The image is ready for you!
+Prompt: From there, modify the image with a capital letter "O" over the figure, large enough that no points are touching.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Magnifying glass
+Prompt: Generate an image with a capital letter "D".
+Model: 
+Prompt: From there, modify the image with the figure rotated 90 degrees to the right.
+Model: The modified image is now available!
+Prompt: From there, modify the image with a capital letter "I", consisting of three evenly sized bars, where the top horizontal line is aligned to the bottom of the figure.
+Model: The modified image is now available!
+Prompt: From there, modify the image with the top horizontal line of the "I" removed.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Wine glass
+Prompt: Generate an image with a capital letter "H" where all three lines are of equal length.
+Model: The image is ready for you!
+Prompt: From there, modify the image with the horizontal bar of the figure moved down to the bottom of the vertical lines forming two 90 degree angles.
+Model: The modified image is now available!
+Prompt: From there, modify the image with a lowercase letter "v" centered on top of the figure.
+Model: The modified image is now available!
+Prompt: From there, modify the image with the "v" flipped over and aligned so that the figure forms a closed shape.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: House
+Prompt: Generate an image with a capital letter "B"
+Model: 
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: The modified image is now available!
+Prompt: From there, modify the image with the left loop of the figure removed so that only one, complete, loop remains.
+Model: 
+Prompt: From there, modify the image with a lowercase letter "v" below the figure such that the top two points of the "v" align with the bottom-left and bottom-right points of the figure.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Parachute
+Prompt: Generate an image with a capital letter "H".
+Model: 
+Prompt: From there, modify the image with an identical capital letter "H" directly below the first figure so that the top of the new "H" just touches the bottom of the first figure.
+Model: The modified image is now available!
+Prompt: From there, modify the image with a third identical "H" just below the existing figure so that the top of the third "H" just touches the bottom of the figure.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Ladder
+Prompt: Generate an image with a capital letter "I" consisting of three lines of equal length, one vertical, and two horizontal.
+Model: The image is ready for you!
+Prompt: From there, modify the image with the vertical line of the "I" moved to the left side of the horizontal lines forming two 90 degree angles.
+Model: The modified image is now available!
+Prompt: From there, modify the image with a capital letter "P" just touching the right side of the figure.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Cup
+Prompt: Generate an image with a capital letter "D".
+Model: The image is ready for you!
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: The modified image is now available!
+Prompt: From there, modify the image with a capital letter "V" below the figure such that the top two points of the "V" align with the bottom-left and bottom-right points of the figure.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Teardrop
+Prompt: Generate an image with a capital letter "D".
+Model: The image is ready for you!
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: The modified image is now available!
+Prompt: From there, modify the image with a larger capital letter "O" above the figure just touching the top.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Lightbulb
+Prompt: Generate an image with a capital letter "E" with all straight lines.
+Model: The image is ready for you!
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: The modified image is now available!
+Prompt: From there, modify the image with a capital letter "I", consisting of three evenly sized bars, where the top horizontal line is aligned to the horizontal line of the existing figure.
+Model: The modified image is now available!
+Prompt: From there, modify the image with the bottom horizontal line of the figure removed.
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Fork
+Prompt: Generate an image with two capital letter "B" next to each other.
+Model: The image is ready for you!
+Prompt: From there, modify the image with the left figure mirrored so that it points left.
+Model: The modified image is now available!
+Prompt: From there, modify the image with a capital letter "Y" in-between the two figures with a vertical line the same height as the existing vertical lines.
+Model: The modified image is now available!
+Prompt: From there, modify the image with all three figures aligned such that the three vertical lines are overlayed.
+Model: 
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Butterfly
+Prompt: Generate an image with a capital letter "D".
+Model: The image is ready for you!
+Prompt: From there, modify the image with the figure rotated 90 degrees to the right.
+Model: 
+Prompt: From there, modify the image with a number "4" attached to the horizontal line in the center. The "4" should have a triangular top, not an open one.
+Model: The modified image is now available!
+Prompt: From there, modify the image with the figure without the line to the right of the vertical line of the "4".
+Model: The modified image is now available!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Umbrella
+Prompt: Generate an image with the number "8" with two equally sized loops.
+Error code: 500 - {'error': {'message': 'An error occurred while processing your request. You can retry your request, or contact us through our help center at help.openai.com if the error persists. Please include the request ID req_ceed41f7fa14cd6a8b7697e75b1a3dc6 in your message.', 'type': 'server_error', 'param': None, 'code': 'server_error'}}
+Image generation failed! Retrying...
+Error code: 500 - {'error': {'message': 'An error occurred while processing your request. You can retry your request, or contact us through our help center at help.openai.com if the error persists. Please include the request ID req_202e35f15121fd241be3c815de5b8260 in your message.', 'type': 'server_error', 'param': None, 'code': 'server_error'}}
+Image generation failed! Retrying...
+Error code: 500 - {'error': {'message': 'An error occurred while processing your request. You can retry your request, or contact us through our help center at help.openai.com if the error persists. Please include the request ID req_cd3937eddce8c9494657df85156ef681 in your message.', 'type': 'server_error', 'param': None, 'code': 'server_error'}}
+Image generation failed! Retrying...
+Error code: 500 - {'error': {'message': 'An error occurred while processing your request. You can retry your request, or contact us through our help center at help.openai.com if the error persists. Please include the request ID req_83cdc16b321af0bbcebca9e31c5c1214 in your message.', 'type': 'server_error', 'param': None, 'code': 'server_error'}}
+Image generation failed! Retrying...
+Error code: 500 - {'error': {'message': 'An error occurred while processing your request. You can retry your request, or contact us through our help center at help.openai.com if the error persists. Please include the request ID req_d9cd837681c21e1b58450faf1a7d160a in your message.', 'type': 'server_error', 'param': None, 'code': 'server_error'}}
+Image generation failed! Retrying...
+Error code: 500 - {'error': {'message': 'An error occurred while processing your request. You can retry your request, or contact us through our help center at help.openai.com if the error persists. Please include the request ID req_29e1b05aaa38ada9e299116878234f26 in your message.', 'type': 'server_error', 'param': None, 'code': 'server_error'}}
+Image generation failed! Retrying...
+Waiting for user to view exception...
+Confirm exception...?

@@ -45,6 +45,8 @@ def determine_family_from_model(model: str) -> str:
             return "gemini"
         case "gemini-2.0-flash":
             return "gemini"
+        case "gemini-3-pro-preview":
+            return "gemini"
         case "claude-opus-4-1-20250805":
             return "claude"
         case "claude-sonnet-4-20250514":
@@ -61,6 +63,14 @@ def determine_family_from_model(model: str) -> str:
             return "openai"
         case "gpt-5-2025-08-07":
             return "openai"
+        case "deepseek/deepseek-r1-0528":
+            return "openrouter"
+        case "qwen/qwen3-vl-235b-a22b-thinking":
+            return "openrouter"
+        case "qwen/qwen3-235b-a22b-thinking-2507":
+            return "openrouter"
+        case "openai/gpt-oss-120b":
+            return "openrouter"
     return ""
 
 
@@ -108,7 +118,6 @@ def build_gemini_chat(model: str, client: genai.Client) -> list:
     :rtype: list
     """
     return [client.chats.create(model=model), model, client, None]
-    # 'chat' is a list where [gemini chat obj, model name str, gemini client obj, last message id str]
 
 
 def build_openai_chat(model: str, client: OpenAI) -> list:
@@ -123,7 +132,20 @@ def build_openai_chat(model: str, client: OpenAI) -> list:
     :rtype: list
     """
     return [[], model, client, None]
-    # 'chat' is a list where [list of previous messages, model name str, openai client obj, last message id str]
+
+
+def build_openrouter_chat(model: str, client: OpenAI) -> list:
+    """
+    Build an OpenAI chat session with the specified model and client.
+
+    :param model: str: The model to use for the chat session.
+    :type model: str
+    :param client: OpenAI: The OpenAI client instance.
+    :type client: OpenAI
+    :return: list: A list containing the chat session, model name, client, and None (the last response ID).
+    :rtype: list
+    """
+    return [[], model, client, None]
 
 
 def build_claude_chat(model: str, client: anthropic.Anthropic) -> list:
@@ -138,7 +160,6 @@ def build_claude_chat(model: str, client: anthropic.Anthropic) -> list:
     :rtype: list
     """
     return [[], model, client]
-    # 'chat' is a list [list of previous messages, model name str, anthropic client obj]
 
 
 def build_openai_client(api_path: str, org: str, project: str) -> OpenAI:
@@ -159,6 +180,22 @@ def build_openai_client(api_path: str, org: str, project: str) -> OpenAI:
             f.read().strip()
         )  # Ensure the API key is stripped of whitespace and newlines
     return OpenAI(api_key=api_key, organization=org, project=project)
+
+
+def build_openrouter_client(api_path: str) -> OpenAI:
+    """
+    Build an OpenAI client for openrouter using the API key from the specified path. Uses openrouter for convenience.
+
+    :param api_path: str: Path to the file containing the OpenAI API key. This should be a secret.
+    :type api_path: str
+    :return: OpenAI: An OpenAI client instance.
+    :rtype: OpenAI
+    """
+    with open(api_path, "r") as f:
+        api_key = (
+            f.read().strip()
+        )  # Ensure the API key is stripped of whitespace and newlines
+    return OpenAI(api_key=api_key, base_url="https://openrouter.ai/api/v1")
 
 
 def build_claude_client(api_path: str) -> anthropic.Anthropic:
@@ -248,7 +285,7 @@ def generate_claude_text(prompt, chat, n_exceptions=0, hang=0):
     :param hang: time to wait before retrying in case of an exception. Default is 0.
     :return: the output text
     """
-    if n_exceptions > 5: # only allow 5 exceptions before requiring user input
+    if n_exceptions > 5:
         if "quit" in confirm_exception():
             return None
     else:
@@ -265,19 +302,19 @@ def generate_claude_text(prompt, chat, n_exceptions=0, hang=0):
                 "budget_tokens": get_thinking_token_count_claude(chat[1]),
             },
         )
-    except Exception as e: # message fails to generate or similar
+    except Exception as e:
         print(e)
         time.sleep(60)
-        return generate_claude_text(prompt, chat, n_exceptions + 1, hang) # recursive retry
+        return generate_claude_text(prompt, chat, n_exceptions + 1, hang)
     try:
         text = ""
         for block in response.content:
             if block.type == "thinking":
-                print("Thinking:", block.thinking) # thinking summary not actual tokens
+                print("Thinking:", block.thinking)
                 print()
             if block.type == "text":
                 text = block.text
-    except Exception as e: # response generation failed, retry recursively
+    except Exception as e:
         print(e)
         print(TEXT_FAIL)
         time.sleep(60)
@@ -307,7 +344,7 @@ def generate_gemini_image(
     :return: tuple: A tuple containing the generated text and image data.
     :rtype: tuple
     """
-    if n_exceptions > 5:  # faily arbitrary number that can be changed as desired.
+    if n_exceptions > 5:  # fairly arbitrary number that can be changed as desired.
         # useful to prevent excessive failed requests which can still cost money
         if "quit" in confirm_exception():
             return None, None  # bad output tuple
@@ -349,7 +386,9 @@ def generate_gemini_image(
     return text, image
 
 
-def generate_gemini_text(prompt, chat, n_exceptions=0, hang=0):
+def generate_gemini_text(
+    prompt, chat, n_exceptions=0, hang=60, temperature=1.0, reasoning_level="high"
+):
     """
     Generate a Gemini text output from a given prompt through a given chat.
 
@@ -364,38 +403,111 @@ def generate_gemini_text(prompt, chat, n_exceptions=0, hang=0):
     if n_exceptions > 5:
         if "quit" in confirm_exception():
             return None
-    else:
+    elif 1 <= n_exceptions <= 5:
         time.sleep(hang)
     try:
         response = chat[0].send_message(
             prompt,
             config=types.GenerateContentConfig(
-                temperature=0.1,
+                temperature=temperature,
                 response_modalities=(
                     ["TEXT"]
                     if chat[1] != "gemini-2.0-flash-preview-image-generation"
                     else ["TEXT", "IMAGE"]
                     # the new gemini flash preview model crashes when only given the text modality
-                    # the old version does not, this fix isn't perfect, but it works
+                    # the old version does not, this is a bandaid solution and can be improved
+                ),
+                thinking_config=types.ThinkingConfig(
+                    thinking_level=reasoning_level, include_thoughts=True
                 ),
             ),
         )
     except Exception as e:
         print(e)
-        time.sleep(60)
-        return generate_gemini_text(prompt, chat, n_exceptions + 1, hang)
+        return generate_gemini_text(
+            prompt, chat, n_exceptions + 1, hang, temperature, reasoning_level
+        )
+    text, thought_summary = "", None
     try:
-        text = response.text  # if response.text dne this excepts
+        for part in response.candidates[0].content.parts:
+            if part.text is not None:  # language output
+                text = part.text
+            if part.thought is not None:
+                thought_summary = part.text
+
     except Exception as e:
         print(e)
         print(TEXT_FAIL)
-        time.sleep(60)
-        return generate_gemini_text(prompt, chat, n_exceptions + 1, hang)
+        return generate_gemini_text(
+            prompt, chat, n_exceptions + 1, hang, temperature, reasoning_level
+        )
     if text == "":  # check to make sure that the text is not empty
         print(TEXT_FAIL)
-        time.sleep(60)
-        return generate_gemini_text(prompt, chat, n_exceptions + 1, hang)
-    return text
+        return generate_gemini_text(
+            prompt, chat, n_exceptions + 1, hang, temperature, reasoning_level
+        )
+    return text, thought_summary
+
+
+def generate_openrouter_text(
+    prompt, chat, n_exceptions=0, hang=60, preserve_reasoning=True
+):
+    """
+    Generate an openrouter text output from a given prompt through a given chat.
+
+    :param prompt: str: the prompt to send to the model
+    :type prompt: str
+    :param chat: list: the chat session containing the Gemini client and model.
+    :type chat: list
+    :param n_exceptions: int: the number of exceptions encountered so far. Default is 0.
+    :type n_exceptions: int
+    :param hang: time to wait before retrying in case of an exception. Default is 0.
+    :type hang: int
+    :return: the output text and the reasoning content
+    """
+    if n_exceptions > 5:
+        if "quit" in confirm_exception():
+            return None, None  # bad output
+    elif 1 <= n_exceptions <= 5:
+        time.sleep(hang)
+    prompt_struct = {  # imput prompt struct to the responses API
+        "role": "user",
+        "content": prompt,
+    }
+    chat[0] += [prompt_struct]
+    try:
+        response = chat[2].chat.completions.create(
+            model=chat[1],
+            messages=chat[0],
+            extra_body={
+                "reasoning": {
+                    "effort": "high",
+                    "enabled": True,
+                }
+            },
+        )
+    except Exception as e:
+        print(e)
+        return generate_openrouter_text(
+            prompt, chat, n_exceptions + 1, hang, preserve_reasoning
+        )
+    try:
+        output_text = response.choices[0].message.content
+        reasoning_details = response.choices[0].message.reasoning_details
+    except Exception as e:
+        print(e)
+        print(TEXT_FAIL)
+        return generate_openrouter_text(
+            prompt, chat, n_exceptions + 1, hang, preserve_reasoning
+        )
+    chat[0] += [
+        {
+            "role": "assistant",
+            "content": output_text,
+            "reasoning_details": reasoning_details,
+        }
+    ]
+    return output_text, reasoning_details[0]["text"]
 
 
 def generate_openai_text(
@@ -452,12 +564,11 @@ def generate_openai_text(
     try:
         text = response.output_text
         if reasoning:
-            if response.reasoning.summary: # if there is a reasoning summary print it out
-                # none of the models used create these properly
+            if response.reasoning.summary:
                 print("Reasoning Summary:", response.reasoning.summary)
                 print()
-        r_tokens = response.usage.output_tokens_details.reasoning_tokens # get the reasoning token count for usage
-    except Exception as e: # generation failed
+        r_tokens = response.usage.output_tokens_details.reasoning_tokens
+    except Exception as e:
         print(e)
         print(TEXT_FAIL)
         time.sleep(60)
@@ -465,7 +576,7 @@ def generate_openai_text(
             prompt, chat, n_exceptions + 1, hang, reasoning, reasoning_level
         )
     if text == "":
-        print(TEXT_FAIL) # no text generated
+        print(TEXT_FAIL)
         time.sleep(60)
         return generate_openai_text(
             prompt, chat, n_exceptions + 1, hang, reasoning, reasoning_level
@@ -499,7 +610,7 @@ def generate_openai_image(
     }
     chat[0] = [prompt_struct]  # .append(prompt_struct)
     try:
-        if not reasoning: # reasoning with images, vs without
+        if not reasoning:
             response = chat[2].responses.create(
                 model=chat[1],
                 input=chat[0],
@@ -528,7 +639,7 @@ def generate_openai_image(
                 for output in response.output
                 if output.type == "image_generation_call"
             ]
-    except Exception as e: # image or text failed here, can happen if the image is explicit
+    except Exception as e:
         print(e)
         print(IMAGE_FAIL)
         time.sleep(60)
@@ -550,7 +661,7 @@ def generate_openai_image(
     return text, image_data  # return the text and the image data
 
 
-def save_data(response_dict: dict, out_path: str):
+def save_data(response_dict, out_path):
     """
     Save the response data to a given path.
 
@@ -564,7 +675,11 @@ def save_data(response_dict: dict, out_path: str):
 
 
 def build_models(
-    models, api_path_openai=None, api_path_gemini=None, api_path_claude=None
+    models,
+    api_path_openai=None,
+    api_path_gemini=None,
+    api_path_claude=None,
+    api_path_openrouter=None,
 ):
     """
     Build a list of OpenAI and Gemini chats
@@ -575,17 +690,23 @@ def build_models(
     :param api_path_claude: Claude API key path
     :return: the lists of OpenAI and Gemini chats
     """
-    if api_path_openai is None and api_path_gemini is None and api_path_claude is None:
+    if (
+        api_path_openai is None
+        and api_path_gemini is None
+        and api_path_claude is None
+        and api_path_openrouter is None
+    ):
         raise ValueError("At least one API path must be provided.")
     openai_chats = []
     gemini_chats = []
     claude_chats = []
-    for model in models: # go through each model name
-        family = determine_family_from_model(model) # figure out the family
+    openrouter_chats = []
+    for model in models:
+        family = determine_family_from_model(model)
         if family == "gemini":
-            client = build_gemini_client(api_path_gemini) # build the corresponding client
-            chat = build_gemini_chat(model, client) # build the corresponding chat
-            gemini_chats.append(chat) # add it to the list
+            client = build_gemini_client(api_path_gemini)
+            chat = build_gemini_chat(model, client)
+            gemini_chats.append(chat)
         elif family == "openai":
             client = build_openai_client(
                 api_path_openai,
@@ -598,7 +719,11 @@ def build_models(
             client = build_claude_client(api_path_claude)
             chat = build_claude_chat(model, client)
             claude_chats.append(chat)
-    return openai_chats, gemini_chats, claude_chats
+        elif family == "openrouter":
+            client = build_openrouter_client(api_path_openrouter)
+            chat = build_openrouter_chat(model, client)
+            openrouter_chats.append(chat)
+    return openai_chats, gemini_chats, claude_chats, openrouter_chats
 
 
 def run_instructions_images(
@@ -646,18 +771,18 @@ def run_instructions_images(
                 with open(
                     f"output_images/{chat[1]}_{num}_{x.replace(" ", "")}.png", "wb"
                 ) as f:  # save the image file give the model type and the identifier
-                    f.write(base64.b64decode(image_base64)) # openai output is b64
+                    f.write(base64.b64decode(image_base64))
             else:
-                print(IMAGE_FAIL) # no image
+                print(IMAGE_FAIL)
             print(MODEL_CONS, text)
         for chat in gemini_chats:
             text, image = generate_gemini_image(prompt, chat)
             print(MODEL_CONS, text)
-            if image:
-                image = Image.open(image) # gemini output is PIL compatible
+            if image:  # saving format for OpenAI images
+                image = Image.open(image)
                 image.save(f"output_images/{chat[1]}_{num}_{x.replace(" ", "")}.png")
             else:
-                print(IMAGE_FAIL) # no image
+                print(IMAGE_FAIL)
     print("Final Prompt:", RESPONSE_IMAGE_TEXT)
     # Final prompt is only language, no images
     for chat in openai_chats:
@@ -674,7 +799,7 @@ def run_instructions_images(
         print(MODEL_CONS, response)
         gemini_responses.append(response)
 
-    return openai_responses, gemini_responses # no claude images
+    return openai_responses, gemini_responses
 
 
 def run_instructions(
@@ -682,8 +807,10 @@ def run_instructions(
     openai_chats,
     gemini_chats,
     claude_chats,
+    openrouter_chats,
     reasoning=False,
     reasoning_level="high",
+    temperature=1.0,
 ):
     """
     Iterate over the instruction set of a given row of instructions
@@ -699,6 +826,10 @@ def run_instructions(
     openai_responses = []
     gemini_responses = []
     claude_responses = []
+    openrouter_responses = []
+
+    gemini_reasoning = []
+    openrouter_reasoning = []
 
     openai_usage = []
 
@@ -718,9 +849,30 @@ def run_instructions(
             print(MODEL_CONS, output)
             openai_usage.append(r_tokens)
         for chat in gemini_chats:
-            print(MODEL_CONS, generate_gemini_text(prompt, chat))
+            output, thought_summary = generate_gemini_text(
+                prompt,
+                chat,
+                temperature=temperature,
+                reasoning_level=reasoning_level,
+            )
+            print("Model Thought Summary:", thought_summary)
+            print(MODEL_CONS, output)
+            gemini_reasoning.append(
+                thought_summary + "<!!!END OF THOUGHT SUMMARY!!!>"
+                if thought_summary is not None
+                else "<!!!NO THOUGHT SUMMARY!!!>"
+            )
         for chat in claude_chats:
             print(MODEL_CONS, generate_claude_text(prompt, chat))
+        for chat in openrouter_chats:
+            output_text, reasoning_content = generate_openrouter_text(prompt, chat)
+            print("Model Reasoning:", reasoning_content)
+            print(MODEL_CONS, output_text)
+            openrouter_reasoning.append(
+                reasoning_content + "<!!!END OF REASONING INSTANCE!!!>"
+                if reasoning_content is not None
+                else "<!!!NO REASONING INSTANCE!!!>"
+            )
     print("Final Prompt:", RESPONSE_TEXT)
     for chat in openai_chats:
         response, r_tokens = generate_openai_text(
@@ -730,30 +882,61 @@ def run_instructions(
         openai_responses.append(response)
         openai_usage.append(r_tokens)
     for chat in gemini_chats:
-        response = generate_gemini_text(RESPONSE_TEXT, chat)
+        response, thought_summary = generate_gemini_text(
+            RESPONSE_TEXT,
+            chat,
+            temperature=temperature,
+            reasoning_level=reasoning_level,
+        )
         print(MODEL_CONS, response)
         gemini_responses.append(response)
+        gemini_reasoning.append(
+            thought_summary + "<!!!END OF THOUGHT SUMMARY!!!>"
+            if thought_summary is not None
+            else "<!!!NO THOUGHT SUMMARY!!!>"
+        )
     for chat in claude_chats:
         response = generate_claude_text(RESPONSE_TEXT, chat)
         print(MODEL_CONS, response)
         claude_responses.append(response)
+    for chat in openrouter_chats:
+        output_text, reasoning_content = generate_openrouter_text(RESPONSE_TEXT, chat)
+        print("Model Reasoning:", reasoning_content)
+        print(MODEL_CONS, output_text)
+        openrouter_responses.append(output_text)
+        openrouter_reasoning.append(
+            reasoning_content + "<!!!END OF REASONING INSTANCE!!!>"
+            if reasoning_content is not None
+            else "<!!!NO REASONING INSTANCE!!!>"
+        )
 
-    return (openai_responses, openai_usage), gemini_responses, claude_responses
+    return (
+        (openai_responses, openai_usage),
+        (gemini_responses, gemini_reasoning),
+        claude_responses,
+        (openrouter_responses, openrouter_reasoning),
+    )
 
 
-def reset_chats(openai_chats=None, gemini_chats=None, claude_chats=None):
+def reset_chats(
+    openai_chats=None, gemini_chats=None, claude_chats=None, openrouter_chats=None
+):
     """Reset contexts of the given chats"""
     print("Resetting chats...")
     if openai_chats is not None:
-        for chat in openai_chats: # openai we reset the list and give no previous message id to reset context
+        for chat in openai_chats:
             chat[0] = []
             chat[3] = None
-    if gemini_chats is not None: # gemini we build a whole new chat to reset context
+    if gemini_chats is not None:
         for n, chat in enumerate(gemini_chats):
             gemini_chats[n] = build_gemini_chat(chat[1], chat[2])
     if claude_chats is not None:
-        for n, chat in enumerate(claude_chats): # same for claude as gemini
+        for n, chat in enumerate(claude_chats):
             claude_chats[n] = build_claude_chat(chat[1], chat[2])
+    if openrouter_chats is not None:
+        for chat in openrouter_chats:
+            chat[0] = []
+            chat[3] = None
 
 
 def iterate_instructions(
@@ -761,34 +944,59 @@ def iterate_instructions(
     openai_chats,
     gemini_chats,
     claude_chats,
+    openrouter_chats,
     single_context=False,
     reasoning=False,
     reasoning_level="high",
+    temperature=1.0,
 ):
-    """Iterate over a given instruction list row-by-row with given settings."""
-    print(reasoning_level)
-    openai_responses, gemini_responses, claude_responses = [], [], []
+    """Iterate over a given instruction list with given settings."""
+    openai_responses, gemini_responses, claude_responses, openrouter_responses = (
+        [],
+        [],
+        [],
+        [],
+    )
     openai_usage = []
+    openrouter_reasoning_traces = []
+    gemini_thought_summaries = []
     for row in prompt_df.iterrows():
         if not single_context:  # i.e. if MULTIPLE context variant reset chats
-            reset_chats(openai_chats, gemini_chats, claude_chats)
-        new_openai_tuple, new_gemini_responses, new_claude_responses = run_instructions(
+            reset_chats(openai_chats, gemini_chats, claude_chats, openrouter_chats)
+        (
+            new_openai_tuple,
+            new_gemini_tuple,
+            new_claude_responses,
+            new_openrouter_tuple,
+        ) = run_instructions(
             row,
             openai_chats,
             gemini_chats,
             claude_chats,
+            openrouter_chats,
             reasoning=reasoning,
-            reasoning_level=reasoning_level, # the tuple contains output text as well as token usage data
+            reasoning_level=reasoning_level,
+            temperature=temperature,
         )
 
-        new_openai_responses, new_openai_usage = new_openai_tuple # usage data is reasoning response token count
+        new_openai_responses, new_openai_usage = new_openai_tuple
+        new_openrouter_responses, new_openrouter_reasoning_traces = new_openrouter_tuple
+        new_gemini_responses, new_gemini_thought_summaries = new_gemini_tuple
 
-        openai_usage.append(new_openai_usage) # append a list instead of extending to separate blocks
+        openai_usage.append(new_openai_usage)
+        openrouter_reasoning_traces.append(new_openrouter_reasoning_traces)
+        gemini_thought_summaries.append(new_gemini_thought_summaries)
 
         openai_responses.extend(new_openai_responses)
         gemini_responses.extend(new_gemini_responses)
         claude_responses.extend(new_claude_responses)
-    return (openai_responses, openai_usage), gemini_responses, claude_responses
+        openrouter_responses.extend(new_openrouter_responses)
+    return (
+        (openai_responses, openai_usage),
+        (gemini_responses, gemini_thought_summaries),
+        claude_responses,
+        (openrouter_responses, openrouter_reasoning_traces),
+    )
 
 
 def iterate_instructions_images(
@@ -799,8 +1007,7 @@ def iterate_instructions_images(
     reasoning=False,
     reasoning_level="high",
 ):
-    """Iterate over a given instruction list row-by-row in image generation format."""
-    openai_responses, gemini_responses = [], [] # no claude images
+    openai_responses, gemini_responses = [], []
     for n, row in enumerate(prompt_df.iterrows()):
         if not single_context:  # i.e. if MULTIPLE context variant reset chats
             reset_chats(openai_chats, gemini_chats, None)
@@ -824,10 +1031,12 @@ def main(
     api_path_openai,
     api_path_gemini,
     api_path_claude,
+    api_path_openrouter,
     context_variant=0,
     images=False,
     reasoning=False,
     reasoning_level="high",
+    temperature=1.0,
 ):
     """
     Run and save data for any number of different LLMs (presuming they have proper cases added to the relevant locations
@@ -848,68 +1057,128 @@ def main(
             else "MULTIPLE" if context_variant == 1 else "BOTH"
         ),
     )
-    openai_chats, gemini_chats, claude_chats = build_models(
-        models, api_path_openai, api_path_gemini, api_path_claude
-        # we could have been given a whole bunch of models to run
+    openai_chats, gemini_chats, claude_chats, openrouter_chats = build_models(
+        models, api_path_openai, api_path_gemini, api_path_claude, api_path_openrouter
     )
     prompt_df = pd.read_csv(data_path)
-    reset_chats(openai_chats, gemini_chats, claude_chats) # prelimary reset to be super safe
-    openai_responses_sc, gemini_responses_sc, claude_responses_sc = None, None, None # need to initialize for the if
-    openai_responses_mc, gemini_responses_mc, claude_responses_mc = None, None, None # statement later
+    reset_chats(openai_chats, gemini_chats, claude_chats, openrouter_chats)
+    (
+        openai_responses_sc,
+        gemini_responses_sc,
+        claude_responses_sc,
+        openrouter_responses_sc,
+    ) = (None, None, None, None)
+    (
+        openai_responses_mc,
+        gemini_responses_mc,
+        claude_responses_mc,
+        openrouter_responses_mc,
+    ) = (None, None, None, None)
     openai_tuple_sc, openai_tuple_mc = None, None
-    if not images: # no images, mc and sc
-        if context_variant == 0 or context_variant == 2: # SINGLE
-            openai_tuple_sc, gemini_responses_sc, claude_responses_sc = (
-                iterate_instructions(
-                    prompt_df,
-                    openai_chats,
-                    gemini_chats,
-                    claude_chats,
-                    True,
-                    reasoning=reasoning,
-                    reasoning_level=reasoning_level,
-                )
+    openrouter_tuple_sc, openrouter_tuple_mc = None, None
+    gemini_tuple_sc, gemini_tuple_mc = None, None
+    if not images:
+        if context_variant == 0 or context_variant == 2:
+            (
+                openai_tuple_sc,
+                gemini_tuple_sc,
+                claude_responses_sc,
+                openrouter_tuple_sc,
+            ) = iterate_instructions(
+                prompt_df,
+                openai_chats,
+                gemini_chats,
+                claude_chats,
+                openrouter_chats,
+                True,
+                reasoning=reasoning,
+                reasoning_level=reasoning_level,
+                temperature=temperature,
             )
-        reset_chats(openai_chats, gemini_chats, claude_chats) # reset chats inbetween running context variants
-        if context_variant == 1 or context_variant == 2: # MULTIPLE
-            openai_tuple_mc, gemini_responses_mc, claude_responses_mc = (
-                iterate_instructions(
-                    prompt_df,
-                    openai_chats,
-                    gemini_chats,
-                    claude_chats,
-                    False,
-                    reasoning=reasoning,
-                    reasoning_level=reasoning_level,
-                )
+        reset_chats(openai_chats, gemini_chats, claude_chats, openrouter_chats)
+        if context_variant == 1 or context_variant == 2:
+            (
+                openai_tuple_mc,
+                gemini_tuple_mc,
+                claude_responses_mc,
+                openrouter_tuple_mc,
+            ) = iterate_instructions(
+                prompt_df,
+                openai_chats,
+                gemini_chats,
+                claude_chats,
+                openrouter_chats,
+                False,
+                reasoning=reasoning,
+                reasoning_level=reasoning_level,
+                temperature=temperature,
             )
-    else: # no images makes things easier
-        if context_variant == 0 or context_variant == 2: # SINGLE
+    else:
+        if context_variant == 0 or context_variant == 2:
             openai_responses_sc, gemini_responses_sc = iterate_instructions_images(
                 prompt_df, openai_chats, gemini_chats, True, reasoning, reasoning_level
             )
         reset_chats(openai_chats, gemini_chats, claude_chats)
         openai_responses_mc, gemini_responses_mc, claude_responses_mc = None, None, None
-        if context_variant == 1 or context_variant == 2: # MULTIPLE
+        if context_variant == 1 or context_variant == 2:
             openai_responses_mc, gemini_responses_mc = iterate_instructions_images(
                 prompt_df, openai_chats, gemini_chats, False, reasoning, reasoning_level
             )
 
     openai_usage_sc, openai_usage_mc = None, None
+    openrouter_reasoning_traces_sc, openrouter_reasoning_traces_mc = None, None
+    gemini_thought_summaries_sc, gemini_thought_summaries_mc = None, None
 
     if openai_tuple_mc is not None:
         openai_responses_mc, openai_usage_mc = openai_tuple_mc
     if openai_tuple_sc is not None:
         openai_responses_sc, openai_usage_sc = openai_tuple_sc
 
-    usage_dict = {} # construct the usage dict and then save it
-    if openai_usage_sc:
+    usage_dict = {}
+    if openai_usage_sc is not None and any(x for x in openai_usage_sc):
         usage_dict["openai_usage_sc"] = openai_usage_sc
-    if openai_usage_mc:
+    if openai_usage_mc is not None and any(x for x in openai_usage_mc):
         usage_dict["openai_usage_mc"] = openai_usage_mc
-    save_data(usage_dict, out_path.replace(".csv", "_usage.csv"))
+    if usage_dict:
+        save_data(usage_dict, out_path.replace(".csv", "_usage.csv"))
 
-    response_dict = {} # print and built a response dictionary with all the responses
+    if openrouter_tuple_sc is not None:
+        openrouter_responses_sc, openrouter_reasoning_traces_sc = openrouter_tuple_sc
+    if openrouter_tuple_mc is not None:
+        openrouter_responses_mc, openrouter_reasoning_traces_mc = openrouter_tuple_mc
+
+    reasoning_dict = {}
+    if openrouter_reasoning_traces_sc is not None and any(
+        x for x in openrouter_reasoning_traces_sc
+    ):
+        reasoning_dict["openrouter_reasoning_sc"] = openrouter_reasoning_traces_sc
+    if openrouter_reasoning_traces_mc is not None and any(
+        x for x in openrouter_reasoning_traces_mc
+    ):
+        reasoning_dict["openrouter_reasoning_mc"] = openrouter_reasoning_traces_mc
+    if reasoning_dict:
+        save_data(reasoning_dict, out_path.replace(".csv", "_reasoning.csv"))
+
+    if gemini_tuple_sc is not None:
+        gemini_responses_sc, gemini_thought_summaries_sc = gemini_tuple_sc
+    if gemini_tuple_mc is not None:
+        gemini_responses_mc, gemini_thought_summaries_mc = gemini_tuple_mc
+
+    thought_summaries_dict = {}
+    if gemini_thought_summaries_sc is not None and any(
+        x for x in gemini_thought_summaries_sc
+    ):
+        thought_summaries_dict["gemini_thoughts_sc"] = gemini_thought_summaries_sc
+    if gemini_thought_summaries_mc is not None and any(
+        x for x in gemini_thought_summaries_mc
+    ):
+        thought_summaries_dict["gemini_thoughts_mc"] = gemini_thought_summaries_mc
+    if thought_summaries_dict:
+        save_data(
+            thought_summaries_dict, out_path.replace(".csv", "_thought_summaries.csv")
+        )
+
+    response_dict = {}
     if openai_responses_sc:
         print("OpenAI Single Context Responses:", openai_responses_sc)
         response_dict["openai_sc"] = openai_responses_sc
@@ -919,6 +1188,10 @@ def main(
     if claude_responses_sc:
         print("Claude Single Context Responses:", claude_responses_sc)
         response_dict["claude_sc"] = claude_responses_sc
+    if openrouter_responses_sc:
+        print("openrouter Single Context Responses:", openrouter_responses_sc)
+        response_dict["openrouter_sc"] = openrouter_responses_sc
+
     if openai_responses_mc:
         print("OpenAI Multiple Context Responses:", openai_responses_mc)
         response_dict["openai_mc"] = openai_responses_mc
@@ -928,7 +1201,10 @@ def main(
     if claude_responses_mc:
         print("Claude Multiple Context Responses:", claude_responses_mc)
         response_dict["claude_mc"] = claude_responses_mc
-    save_data(response_dict, out_path) # save data
+    if openrouter_responses_mc:
+        print("openrouter Multiple Context Responses:", openrouter_responses_mc)
+        response_dict["openrouter_mc"] = openrouter_responses_mc
+    save_data(response_dict, out_path)
 
 
 if __name__ == "__main__":
@@ -961,9 +1237,16 @@ if __name__ == "__main__":
         help="Path to Claude API key file",
     )
     parser.add_argument(
+        "--api_path_openrouter",
+        "--api_path_deepseek",
+        type=str,
+        required=False,
+        help="Path to openrouter (OpenAI) API key file",
+    )
+    parser.add_argument(
         "--context_variant",
         type=int,
-        default=2,
+        default=1,
         help="Context variant for instruction processing",
     )
     parser.add_argument(
@@ -987,6 +1270,13 @@ if __name__ == "__main__":
         default="high",
         choices=["minimal", "low", "medium", "high"],
         help="Reasoning level for OpenAI responses",
+    )
+    parser.add_argument(
+        "--temperature",
+        required=False,
+        type=float,
+        default=1.0,
+        help="Temperature level",
     )
     args = parser.parse_args()
     main(**vars(args))

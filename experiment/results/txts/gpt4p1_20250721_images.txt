@@ -1,0 +1,1078 @@
+Prompt: Generate an image with a lowercase letter "b" to the left of a lowercase letter "d".
+Model: Here is an image with a lowercase letter "b" to the left of a lowercase letter "d", as you requested. If you need a different font, color, or arrangement, let me know!
+Prompt: From there, modify the image with the figure on the left moved to the right so that it just touches the other figure.
+Model: Here is the modified image with the lowercase "b" moved so that it just touches the lowercase "d". If you need further adjustments, feel free to let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Bed frame
+Prompt: Generate an image with a plus symbol with two equally sized lines.
+Model: Here is an image of a plus symbol with two equally sized lines. If you need any modifications, let me know!
+Prompt: From there, modify the image with a new vertical line the same size as the previous, just touching the left side of the figure.
+Model: Here is the modified image with a new vertical line of equal size, touching the left side of the plus symbol. If you need further changes, feel free to ask!
+Prompt: From there, modify the image with the entire figure rotated 90 degrees to the right.
+Model: Here is the image with the entire figure rotated 90 degrees to the right. Let me know if you need further modifications!
+Prompt: From there, modify the image with the figure without any lines to the left of the vertical line.
+Model: Here is the modified image, with the figure now having no lines extending to the left of the vertical line. If you need any more changes, just let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Lowercase "r"
+Prompt: Generate an image with a capital letter "B". 
+Model: Here is an artistic image featuring a bold, capital letter "B" prominently centered on a plain background. If you need a different style or design, let me know!
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left so that is faces up.
+Model: Here is the image of the capital letter "B" rotated 90 degrees to the left, so it is facing upward. If you'd like any further modifications, just let me know!
+Prompt: From there, modify the image with a triangle pointing downwards from the horizontal line in the figure.
+Model: Here is the modified image: the rotated capital letter "B" now has a downward-pointing triangle attached below the horizontal line. If you would like further modifications or adjustments, please let me know!
+Prompt: From there, modify the image with the horizontal line of the figure removed.
+Model: Here is the updated image: the rotated "B" now has its horizontal line removed, and the downward-pointing triangle remains attached below where the horizontal line was. If you need any more adjustments or additions, feel free to let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Arrow key
+Prompt: Generate an image with a capital letter "C" with parallel top and bottom lines with a capital letter "D" to the right. 
+Model: Here is an image with a capital letter "C" that has parallel top and bottom lines, with a capital "D" to its right. If you want any adjustments (color, size, spacing, etc.), please let me know!
+Prompt: From there, modify the image with the two figures pressed together so that they are just touching.
+Model: Here is the modified image with the "C" (with parallel lines) and "D" pressed together so that they are just touching. If you would like further modifications, let me know!
+Prompt: From there, modify the image with a horizontal line running from the left most point of the figure rightwards until the vertical line.
+Model: Here is the image with a horizontal line starting from the leftmost point of the figure and running rightwards until it meets the vertical line of the "D". If you need any changes or further modifications, let me know!
+Prompt: From there, modify the image with a capital letter "S" where the top right point is just touching the left side of the horizontal line.
+Model: Here is the updated image with a capital "S" placed so that its top right point is just touching the left side of the horizontal line. If you want any adjustments to the positioning or style, just let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: USB connector
+Prompt: Generate an image with a capital letter "D".
+Model: Here is an image with a capital letter "D" featured prominently. If you need it in a different font, color, or style, let me know!
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: Here is the image of a large, bold capital letter "D" rotated 90 degrees to the left. If you need more adjustments, let me know!
+Prompt: From there, modify the image with a capital letter "J", attached to the bottom center of the figure.
+Model: Here is the modified image: a capital letter "D" rotated 90 degrees to the left, with a capital letter "J" attached to the bottom center of the figure. If you need further modifications, feel free to ask!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Pipe wrench
+Prompt: Generate an image with a capital letter "D".
+Model: Here is an image with a bold, capital letter "D" centered on a plain white background.
+Prompt: From there, modify the image with the figure rotated 90 degrees to the right.
+Model: Here is the image of the bold, capital letter "D," rotated 90 degrees to the right and centered on a plain white background.
+Prompt: From there, modify the image with a capital letter "T" where the top horizontal line is aligned to the bottom of the figure.
+Model: Here is the modified image with a bold capital letter "T" placed below the rotated "D," aligning the top horizontal line of the "T" to the bottom of the rotated "D," all centered on a plain white background.
+Prompt: From there, modify the image with the "T" flipped over.
+Model: Here is the modified image with the "T" flipped upside down, positioned directly below the rotated "D," all centered on a plain white background.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Door hinge
+Prompt: Generate an image with two lowercase letter "o" next to each other.
+Model: Here is an image with two lowercase "o"s next to each other.
+Prompt: From there, modify the image with the two figures pressed together so they are just touching.
+Model: Here is the modified image with the two "o" characters just touching each other.
+Prompt: From there, modify the image with two short lines coming up, vertically, from the left and right sides of the figure.
+Model: Here is the image modified with two short vertical lines coming up from the left and right sides of the figure.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Eyeglasses frame
+Prompt: Generate an image with the number "5".
+Model: Here is an image featuring the number "5". If you need a specific style or color, please let me know!
+Prompt: From there, modify the image with the figure mirrored so that it faces the opposite direction.
+Model: Here is the image of the number "5" mirrored horizontally so it faces the opposite direction. If you need any more adjustments, let me know!
+Prompt: From there, modify the image with a second "5" directly overlapping the figure, sharing the top horizontal line.
+Model: Here is the modified image with a second "5" (mirrored) directly overlapping the original, sharing the top horizontal line. If you have any further requests or need changes, let me know!
+Prompt: From there, modify the image with the figure flipped upside-down.
+Model: Here is the image with the overlapping "5" figures, now flipped upside-down. If you need further modifications or specific adjustments, please let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Heart shape
+Prompt: Generate an image with a capital letter "H".
+Model: Here is an image featuring a bold, capital letter "H" centered on a white background. If you'd like any specific colors or styles, just let me know!
+Prompt: From there, modify the image with the figure rotated 90 degrees to the right.
+Model: Here is the image of the bold, capital letter "H" rotated 90 degrees to the right, now appearing like the "less than" symbol. If you need further changes, just let me know!
+Prompt: From there, modify the image with a triangle whose base is the top horizontal line of the figure, pointed upwards.
+Model: Here is the modified image: the rotated "H" now has a triangle on top, with the triangle's base aligned with the upper horizontal line and pointing upwards. Let me know if you need any further modifications!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Gymnastics apparatus
+Prompt: Generate an image with a capital letter "N".
+Model: Here is an image featuring a bold, uppercase letter "N" on a white background. If you need a different style or color, just let me know!
+Prompt: From there, modify the image with a diagonal line running from the top right corner of the figure to the bottom left corner.
+Model: Here is the modified image with a diagonal black line running from the top right corner to the bottom left corner, crossing over the bold, uppercase letter "N". If you need further adjustments, please let me know!
+Prompt: From there, modify the image with the entire figure rotated 90 degrees to the right.
+Model: Here is the updated image with the entire figure (the letter "N" and the diagonal line) rotated 90 degrees to the right. If you would like any more changes, just let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Zorro symbol
+Prompt: Generate an image with two lowercase letter "p" next to each other.
+Model: Here is an image with two lowercase letter "p" next to each other, as you requested. If you need a different font, color, or style, let me know!
+Prompt: From there, modify the image with the left figure mirrored so that it is facing left.
+Model: Here is the modified image: the left figure is a mirrored "p" facing left, next to a regular "p". If you'd like further adjustments, just let me know!
+Prompt: From there, modify the image with the two figures pressed together so that they share a vertical line.
+Model: Here is the updated image, with the mirrored "p" and the regular "p" pressed together, sharing a vertical line. If you need any more changes, let me know!
+Prompt: From there, modify the image with a lowercase letter "o" just touching the top of the figure in the center.
+Model: Here is the image with a lowercase "o" just touching the top of the combined figure in the center. If you’d like any more modifications, just let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Pair glasses
+Prompt: Generate an image with the number "8" with two equally sized loops.
+Model: Here is an image of the number "8" with two equally sized loops, both perfectly symmetrical and balanced.
+Prompt: From there, modify the image with the "8" rotated 90 degrees to the right.
+Model: The image now shows the "8" rotated 90 degrees to the right, appearing as a horizontal figure. If you need further modifications, let me know!
+Prompt: From there, modify the image with a lowercase letter "o" just touching the top of the figure in the center.
+Model: Here is the modified image: a lowercase letter "o" just touches the top center of the horizontally rotated "8". If you need more adjustments, feel free to ask!
+Prompt: From there, modify the image with a lowercase letter "v" just touching the bottom of the figure in the center.
+Model: Here is the modified image with a lowercase "o" just touching the top center and a lowercase "v" just touching the bottom center of the horizontally rotated "8". If you need further modifications, let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Infinity symbol
+Prompt: Generate an image with a capital letter "F".
+Model: Here is an image featuring a bold capital letter "F". If you need it in a different style, color, or background, let me know!
+Prompt: From there, modify the image with a lowercase letter "b" connected to the base of the "F".
+Model: Here is the modified image with a lowercase "b" connected to the base of the capital "F". If you need adjustments or a different style, let me know!
+Prompt: From there, modify the image with the loop mirrored so that it faces left.
+Model: Here is the updated image: the bold "F" is connected to a mirrored lowercase "b," with the loop facing left. If you want further edits or styling, let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Musical clef
+Prompt: Generate an image with a capital letter "T" where both lines are the same length.
+Model: Here is an image of a capital "T" where both the horizontal and vertical lines are the same length.
+Prompt: From there, modify the image with a horizontal line running to the left of the bottom middle of the figure until it is the same length as the line at the top.
+Model: Here is the modified image: a capital "T" with both lines the same length and an additional horizontal line extending left from the bottom middle, matching the length of the top line.
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: Here is the modified figure, rotated 90 degrees to the left as requested.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Pipe wrench
+Prompt: Generate an image with a capital letter "I" consisting of three lines of equal length, one vertical, and two horizontal.
+Model: Here is an image of a capital letter "I" constructed from three lines of equal length: one vertical and two horizontal.
+Prompt: From there, modify the image with the portion of the bottom horizontal line to the right of the vertical line, removed.
+Model: Here is the modified image: the bottom horizontal line only extends to the left of the vertical line, with the right portion removed.
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: Here is the modified image with the figure rotated 90 degrees to the left.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Flagpole signpost
+Prompt: Generate an image with a capital letter "Y".
+Model: Here is an image of a capital letter "Y". If you'd like a different style, color, or background, let me know!
+Prompt: From there, modify the image with a small circle at the base of the figure.
+Model: Here is the modified image with a small circle at the base of the capital letter "Y". If you need further adjustments, just let me know!
+Prompt: From there, modify the image with a horizontal line running through the center of the figure.
+Model: Here is the updated image with a horizontal line running through the center of the "Y" and the circle. If you would like any more modifications, let me know!
+Prompt: From there, modify the image with the figure flipped upside-down.
+Model: Here is your modified image with the entire figure (the letter "Y", the circle, and the horizontal line) flipped upside-down. If you need more changes, just let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Slingshot symbol
+Prompt: Generate an image with a lowercase letter "v".
+Model: Here is an image with a lowercase letter "v".
+Prompt: From there, modify the image with the figure flipped upside-down.
+Model: Here is the image of the lowercase letter "v" flipped upside-down.
+Prompt: From there, modify the image with a lowercase letter "o" just touching the top of the figure.
+Model: Here is the image with a lowercase letter "o" just touching the top of the upside-down "v".
+Prompt: From there, modify the image with a long line running down from the center of the figure.
+Model: Here is the modified image: a lowercase "o" just touching the top (point) of the upside-down "v", and a long vertical line running down from the center of the figure.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Magnifying glass
+Prompt: Generate an image with a capital letter "L".
+Model: Here is an image featuring a capital letter "L".
+Prompt: From there, modify the image with a capital letter "O" over the figure, large enough that no points are touching.
+Model: Here is the image you requested: a capital letter "L" with a large capital letter "O" over it, ensuring that none of the lines touch.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: LO monogram
+Prompt: Generate an image with a capital letter "D".
+Model: Here is an image featuring a capital letter "D".
+Prompt: From there, modify the image with the figure rotated 90 degrees to the right.
+Model: Here is the modified image with the capital letter "D" rotated 90 degrees to the right.
+Prompt: From there, modify the image with a capital letter "I", consisting of three evenly sized bars, where the top horizontal line is aligned to the bottom of the figure.
+Model: Here is the modified image with the rotated "D" and a capital letter "I," where the top bar of the "I" is aligned to the bottom of the rotated figure.
+Prompt: From there, modify the image with the top horizontal line of the "I" removed.
+Model: Here is the modified image with the top horizontal line of the "I" removed, leaving only the vertical and bottom bars, with alignment as specified.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Table lamp
+Prompt: Generate an image with a capital letter "H" where all three lines are of equal length.
+Model: Here is an image of a capital letter "H" where all three lines are of equal length.
+Prompt: From there, modify the image with the horizontal bar of the figure moved down to the bottom of the vertical lines forming two 90 degree angles.
+Model: Here is the modified image where the horizontal bar is moved down to the bottom, forming two 90 degree angles with the vertical lines.
+Prompt: From there, modify the image with a lowercase letter "v" centered on top of the figure.
+Model: Here is the modified image with a lowercase letter "v" centered on top of the figure.
+Prompt: From there, modify the image with the "v" flipped over and aligned so that the figure forms a closed shape.
+Model: Here is the modified image, with the "v" flipped over and aligned to the tops of the vertical bars to form a closed shape.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Pentagon house
+Prompt: Generate an image with a capital letter "B"
+Model: Here is an image featuring a bold, capital letter "B" centered on a plain white background. If you want the letter in a different font, color, or style, let me know!
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: Here is the image of the bold, capital letter "B" rotated 90 degrees to the left. If you need further modifications, just let me know!
+Prompt: From there, modify the image with the left loop of the figure removed so that only one, complete, loop remains.
+Model: Here is the modified image: the rotated "B" now has only one loop remaining, with the left loop removed. If you’d like more changes or a different style, let me know!
+Prompt: From there, modify the image with a lowercase letter "v" below the figure such that the top two points of the "v" align with the bottom-left and bottom-right points of the figure.
+Model: Here is the modified image: the rotated and altered "B" now has a lowercase "v" below it, aligned as requested. If you have further adjustments or new ideas, let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Magnifying glass
+Prompt: Generate an image with a capital letter "H".
+Model: Here is an image featuring a bold, capital letter "H" centered on a plain white background.
+Prompt: From there, modify the image with an identical capital letter "H" directly below the first figure so that the top of the new "H" just touches the bottom of the first figure.
+Model: Here is the modified image: two identical bold, capital letter "H"s are stacked vertically, with the bottom of the first "H" touching the top of the second "H", forming a seamless pair.
+Prompt: From there, modify the image with a third identical "H" just below the existing figure so that the top of the third "H" just touches the bottom of the figure.
+Model: Here is your updated image: three identical bold, capital letter "H"s are vertically aligned with each one directly touching the next, forming a continuous vertical column.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Ladder shape
+Prompt: Generate an image with a capital letter "I" consisting of three lines of equal length, one vertical, and two horizontal.
+Model: Here is an image of a capital letter "I" constructed from three lines of equal length: one vertical line and two horizontal lines.
+Prompt: From there, modify the image with the vertical line of the "I" moved to the left side of the horizontal lines forming two 90 degree angles.
+Model: Here is the modified image with the vertical line moved to the left side of the two horizontal lines, forming two 90-degree angles.
+Prompt: From there, modify the image with a capital letter "P" just touching the right side of the figure.
+Model: Here is the modified image with a capital letter "P" just touching the right side of the figure.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Flag pole
+Prompt: Generate an image with a capital letter "D".
+Model: Here is an image featuring a large capital letter "D". If you would like it styled differently or with color, please let me know!
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: Here is the image of the capital letter "D," rotated 90 degrees to the left. If you need further modifications, just let me know!
+Prompt: From there, modify the image with a capital letter "V" below the figure such that the top two points of the "V" align with the bottom-left and bottom-right points of the figure.
+Model: Here is the modified image with a rotated "D" and a "V" below it, aligned as you described. If you'd like more modifications or adjustments, just let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Whale tail
+Prompt: Generate an image with a capital letter "D".
+Model: Here is an image featuring a capital letter "D". If you need a different style, color, or background, just let me know!
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: Here is the image with the capital letter "D" rotated 90 degrees to the left. If you want any more adjustments or effects, please let me know!
+Prompt: From there, modify the image with a larger capital letter "O" above the figure just touching the top.
+Model: Here is the modified image: a larger capital letter "O" is above the sideways "D", just touching the top. If you need any further changes, let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Padlock icon
+Prompt: Generate an image with a capital letter "E" with all straight lines.
+Model: Here is an image of a capital letter "E" created entirely with straight lines. Let me know if you would like any modifications!
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: Here is the image of the capital letter "E" made entirely of straight lines, rotated 90 degrees to the left. If you need further adjustments, let me know!
+Prompt: From there, modify the image with a capital letter "I", consisting of three evenly sized bars, where the top horizontal line is aligned to the horizontal line of the existing figure.
+Model: Here is the modified image: the rotated "E" (now looking like a backwards "3") with a capital "I" made of three even bars next to it, with their top bars aligned. If you need any changes, just let me know!
+Prompt: From there, modify the image with the bottom horizontal line of the figure removed.
+Model: Here is the modified image with the bottom horizontal line removed from both figures. If you have further requests or changes, please let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Fork and knife
+Prompt: Generate an image with two capital letter "B" next to each other.
+Model: Here is an image with two capital letter "B" next to each other. If you need the style or arrangement changed, just let me know!
+Prompt: From there, modify the image with the left figure mirrored so that it points left.
+Model: The image has been modified: the left "B" is mirrored and now points to the left, while the right "B" remains in its normal orientation. If you want further adjustments, let me know!
+Prompt: From there, modify the image with a capital letter "Y" in-between the two figures with a vertical line the same height as the existing vertical lines.
+Model: The image now shows, from left to right: a mirrored "B" (pointing left), a "Y" of the same height, then a vertical line, and finally a normal "B" (pointing right). If you want more adjustments or a different style, let me know!
+Prompt: From there, modify the image with all three figures aligned such that the three vertical lines are overlayed.
+Model: In this modified image, the mirrored "B", the "Y", and the normal "B" are overlaid so that all their vertical lines are perfectly aligned in the center. If you'd like the alignment adjusted or need any other modifications, just let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Butterfly head
+Prompt: Generate an image with a capital letter "D".
+Model: Here is an image featuring a bold, capital letter "D" centered on a white background. If you need a different style, color, or setting, feel free to specify!
+Prompt: From there, modify the image with the figure rotated 90 degrees to the right.
+Model: Here is the image of the bold capital letter "D," rotated 90 degrees to the right, centered on a white background. If you need further adjustments, let me know!
+Prompt: From there, modify the image with a number "4" attached to the horizontal line in the center. The "4" should have a triangular top, not an open one.
+Model: Here is the image of the rotated "D" with a "4" having a closed, triangular top attached to the horizontal line in the center. Let me know if you need any further modifications!
+Prompt: From there, modify the image with the figure without the line to the right of the vertical line of the "4".
+Model: Here is the modified image: the rotated "D" is shown with a "4" attached, and the line to the right of the vertical line of the "4" is removed. If you need more changes, just let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Flag pole
+Prompt: Generate an image with the number "8" with two equally sized loops.
+Model: Here is an image featuring the number "8" with two perfectly equally sized loops.
+Prompt: From there, modify the image with the figure rotated 90 degrees to the right.
+Model: Here is the modified image with the figure rotated 90 degrees to the right, so it appears horizontally.
+Prompt: From there, modify the image with two short lines coming up, vertically, from the left and right sides of the figure.
+Model: Here is the updated image: the horizontally rotated "8" now has two short vertical lines coming up from the left and right sides of the figure.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Barbell weight
+Prompt: Generate an image with two lowercase letter "p" next to each other.
+Model: Here is an image of two lowercase letter "p" next to each other.
+Prompt: From there, modify the image with the right figure mirrored so that it points left.
+Model: Here is the image modified as requested: the right "p" is mirrored and now points to the left, creating a "p" and a reversed "p" side by side.
+Prompt: From there, modify the image with the figure on the left moved to the right so that it is just touching the other figure.
+Model: Here is the image with the two figures just touching each other in the center.
+Prompt: From there, modify the image with the entire scene upside down.
+Model: Here is the image with the entire scene turned upside down as you requested.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Eyeglasses frame
+Prompt: Generate an image with a lowercase letter "k".
+Model: Here is an image featuring a lowercase letter "k".
+Prompt: From there, modify the image with a circle around the figure so that it does not touch.
+Model: Here is your image: a lowercase "k" with a circle around it, ensuring the circle does not touch the letter.
+Prompt: From there, modify the image with the lower half of the "k" removed.
+Model: Here is the modified image: the lowercase "k" with its lower half removed, inside a circle that does not touch the letter.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Broken letter
+Prompt: Generate an image with a capital letter "E" with all straight lines.
+Model: Here is an image of a capital letter "E" created using only straight lines. If you would like any changes or a different style, please let me know!
+Prompt: From there, modify the image with three quarters of the middle horizontal line removed from the right.
+Model: Here is the modified "E" with only the leftmost quarter of the middle horizontal line visible, as you requested. If you need further changes, just let me know!
+Prompt: From there, modify the image with a vertical line running along the right side of the figure the same height and shape as the existing vertical line.
+Model: Here is the updated image: a letter-like figure with a vertical line added to the right, matching the height and width of the one on the left. The middle horizontal stroke remains as a short segment on the left side. Let me know if you'd like any further modifications!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Goal post
+Prompt: Generate an image with two lowercase letter "o" next to each other.
+Model: Here is an image with two lowercase letter "o" next to each other.
+Prompt: From there, modify the image with the two figures pressed together so they are just touching.
+Model: Here is the modified image with the two lowercase "o" figures pressed together so they are just touching.
+Prompt: From there, modify the image with another lowercase letter "o" just touching the top of the figure in the center.
+Model: Here is the modified image with another lowercase letter "o" just touching the top of the figure in the center.
+Prompt: From there, modify the image with a lowercase letter "v" just touching the bottom of the figure in the center.
+Model: Here is the modified image with a lowercase letter "v" just touching the bottom of the figure in the center.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Mickey Mouse
+Prompt: Generate an image with a capital letter "H" to the left of a capital letter "D".
+Model: Here is an image with a capital "H" to the left of a capital "D". If you want a different style, size, or color, let me know!
+Prompt: From there, modify the image with the entire scene rotated 90 degrees to the right.
+Model: Here is the modified image: the entire scene has been rotated 90 degrees to the right, so the "H" is now above the "D". If you need further changes, just let me know!
+Prompt: From there, modify the image with the upper figure and the lower figure pressed together so the horizontal line between them is overlayed.
+Model: Here is the modified image: the upper figure "H" and the lower figure "D" are pressed together, with their horizontal lines overlayed. If you need additional modifications, let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Goal post
+Prompt: Generate an image with the number "8" with two equally sized loops.
+Model: Here is an image of the number "8" with two equally sized loops, centered and clearly depicted. If you need any variations or a different style, let me know!
+Prompt: From there, modify the image with the right loop of the figure removed so that only one loop remains.
+Model: Here is the modified image with only the left loop remaining from the original "8". If you need further modifications, let me know!
+Prompt: From there, modify the image with a capital letter "D" just below the figure.
+Model: Here is the updated image with a bold capital letter "D" placed just below the single loop. If you need any more changes, just let me know!
+Prompt: From there, modify the image with the "D" rotated 90 degrees to the left and shifted up so that it just touches the loop.
+Model: Here is the modified image with the "D" rotated 90 degrees to the left and shifted up to touch the loop above it. If you need any more adjustments, let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Musical note
+Prompt: Generate an image with a capital letter "H" to the left of a capital letter "D".
+Model: Here is an image with a capital letter "H" to the left of a capital letter "D". If you need any color or font style changes, let me know!
+Prompt: From there, modify the image with the two figures pressed together so that the line between them is overlayed.
+Model: Here is the modified image, with the "H" and "D" pressed together and their vertical sides overlapping. If you want further modifications, just let me know!
+Prompt: From there, modify the image with a new vertical line between the two existing vertical lines, slightly shorter than the others.
+Model: Here is the modified image, now featuring a new, slightly shorter vertical line between the two existing overlapped vertical lines. If there's anything else you'd like to adjust or add, please let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Bridge support
+Prompt: Generate an image with a capital letter "T".
+Model: Here is an image with a capital letter "T".
+Prompt: From there, modify the image with the figure flipped upside-down.
+Model: Here is the image of the capital letter "T" flipped upside-down.
+Prompt: From there, modify the image with a downward pointing triangle, positioned at the top of the figure.
+Model: Here is the modified image: an upside-down capital letter "T" with a downward-pointing triangle positioned at the top of the figure.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Anchor symbol
+Prompt: Generate an image with a lowercase letter "v" to the left of a lowercase letter "o".
+Model: Here is an image showing a lowercase letter "v" to the left of a lowercase letter "o".
+Prompt: From there, modify the image with the "v" rotated 90 degrees to the left.
+Model: Here is the modified image with the lowercase "v" rotated 90 degrees to the left, positioned to the left of the lowercase "o".
+Prompt: From there, modify the image with the two figures pushed together so that they are just touching.
+Model: Here is the modified image with the rotated "v" and the "o" just touching each other.
+Prompt: From there, modify the image with a vertical line running between the two left points of the figure so that it is fully closed.
+Model: Here is the modified image with a vertical line connecting the two leftmost points of the rotated "v" and the "o," creating a fully closed figure.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Power button
+Prompt: Generate an image with the number "7" consisting of only two lines.
+Model: Here is an image of the number "7" created using only two straight lines, showcasing a minimalist style. If you'd like it in a different style or color, let me know!
+Prompt: From there, modify the image with the diagonal line rotated until is vertical and a 90 degree angle is formed.
+Model: Here is the modified image: the diagonal line from the original "7" is now rotated to a vertical position, forming a 90 degree angle with the horizontal line, creating an upside-down "L" shape. If you'd like any further changes, feel free to ask!
+Prompt: From there, modify the image with the horizontal line moved down to the middle of the vertical line.
+Model: Here is the modified image: the horizontal line has been moved down to intersect the vertical line at its midpoint, forming a "T" shape. Let me know if you'd like to make any more adjustments!
+Prompt: From there, modify the image with the entire figure rotated 90 degrees to the left.
+Model: Here is the image with the entire figure rotated 90 degrees to the left, so that the previous "T" shape is now laying sideways. If you need more edits or a different angle, just let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Uppercase pi
+Prompt: Generate an image with a capital letter "Y".
+Model: Here is an image featuring a bold, capital letter "Y" centered on a plain background.
+Prompt: From there, modify the image with the figure flipped upside-down.
+Model: Here is the image with the capital letter "Y" flipped upside-down.
+Prompt: From there, modify the image with the vertical line extended to the bottom.
+Model: Here is the modified image: the upside-down "Y" now has its vertical line extended all the way to the bottom.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Peace symbol
+Prompt: Generate an image with a lowercase letter "o".
+Model: Here is an image featuring a simple, lowercase letter "o" centered on a plain white background. If you want the font or color changed, or if you want the letter in a different style, please let me know!
+Prompt: From there, modify the image with a vertical line from the top of the figure to its center.
+Model: Here is the modified image: a lowercase letter "o" with a vertical line extending from the top of the letter down to its center. If you'd like to make any more adjustments or have another request, feel free to let me know!
+Prompt: From there, modify the image with a lowercase letter "s" just touching the figure at it's top.
+Model: Here is the updated image: a lowercase "o" with a vertical line from its top to center, and a lowercase "s" just touching the top of the "o". If you need further adjustments or additions, please let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Stethoscope icon
+Prompt: Generate an image with a capital letter "V".
+Model: Here is an image with a capital letter "V". If you need a different style or background, please let me know!
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: Here is the image with the "V" rotated 90 degrees to the left. If you need further modifications, just let me know!
+Prompt: From there, modify the image with a vertical line running from the top left point, through the bottom left point and continuing downwards the same distance again.
+Model: Here is the image with the rotated "V" and a vertical line running from the top left point through the bottom left point and continuing downward the same distance again. If you need any further adjustments, let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Check mark
+Prompt: Generate an image with a capital letter "D".
+Model: Here is an image with a capital letter "D". If you need the letter in a specific style or color, let me know!
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: Here is the image with the capital letter "D" rotated 90 degrees to the left. If you need further modifications, let me know!
+Prompt: From there, modify the image with a capital letter "T" with it's base centered on the top of the figure.
+Model: Here is the modified image with a capital letter "T" centered on the top of the rotated "D". If you'd like any other adjustments or details, let me know!
+Prompt: From there, modify the image with the entire scene flipped upside-down.
+Model: Here is the image with the entire scene flipped upside-down. If you need any more changes or a different style, just let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Umbrella handle
+Prompt: Generate an image with two lowercase letter "b" next to each other.
+Model: Here is an image with two lowercase letter "b" next to each other.
+Prompt: From there, modify the image with the right figure mirrored so that it points left.
+Model: Here is the modified image: the right "b" has been mirrored so that it now points to the left.
+Prompt: From there, modify the image with the figure on the left moved to the right so that it is just touching the other figure.
+Model: Here is the modified image: the two figures (a "b" and a mirrored "b") are now touching, with their vertical lines meeting.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Butterfly wings
+Prompt: Generate an image with two capital letter "D" next to each other.
+Model: Here is an image with two capital letter "D" next to each other. If you'd like any modifications or a different style, let me know!
+Prompt: From there, modify the image with the left figure mirrored so it is facing the left and it's vertical bar overlaps the bar of the right "D".
+Model: Here is the modified image: the left "D" is mirrored to face left, and its vertical bar overlaps the bar of the right "D". If you need further changes or adjustments, just let me know!
+Prompt: From there, modify the image with a horizontal line running from the left most point of the figure rightwards until the vertical line.
+Model: Here is the image with a horizontal line running from the leftmost point of the figure rightwards until it meets the vertical line. Let me know if you need any further modifications!
+Prompt: From there, modify the image with a capital letter "S" where the top right point is just touching the left side of the horizontal line.
+Model: Here is the image with a capital letter "S" added, its top right point just touching the left side of the horizontal line. If you need further adjustments, please let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Dollar sign
+Prompt: Generate an image with a capital letter "K".
+Model: Here is an image featuring a capital letter "K". If you want a different style, color, or background, just let me know!
+Prompt: From there, modify the image with a square to the left of the figure that shares the vertical line.
+Model: Here is the modified image with a square to the left of the "K", sharing the same vertical line. If you need any further adjustments, feel free to let me know!
+Prompt: From there, modify the image with a circle within the square, but not touching any point.
+Model: Here is the updated image: a "K" with a square to the left, and a circle inside the square that does not touch any side. If you need further modifications, just let me know!
+Prompt: From there, modify the image with the entire figure rotated 90 degrees to the left.
+Model: Here is the image with the entire figure rotated 90 degrees to the left. Let me know if you would like any more adjustments!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Keyhole symbol
+Prompt: Generate an image with two capital letter "D" next to each other.
+Model: Here is an image with two capital letter "D" next to each other. If you need any changes to the style or background, let me know!
+Prompt: From there, modify the image with the left figure mirrored so it faces left, and so the vertical lines overlap.
+Model: Here is the modified image: the left "D" is mirrored to face left, and the vertical lines of both letters are overlapping in the center. Let me know if you need further adjustments!
+Prompt: From there, modify the image with the bottom half of the vertical line removed.
+Model: Here is the image with the bottom half of the overlapping vertical line removed. If you would like further adjustments, please let me know!
+Prompt: From there, modify the image with a lowercase letter "s" just touching the figure at it's top.
+Model: Here is the updated image: a lowercase "s" is positioned just touching the top of the previous figure. If you'd like any more changes, let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Dollar sign
+Prompt: Generate an image with a capital letter "E" with all straight lines.
+Model: Here is an image of a capital letter "E" created with all straight lines. Let me know if you'd like any modifications!
+Prompt: From there, modify the image with the middle horizontal line of the figure removed.
+Model: Here is the modified image: the capital letter "E" with the middle horizontal bar removed, leaving only the top and bottom horizontal bars connected by a vertical line on the left. If you want further edits or another style, just let me know!
+Prompt: From there, modify the image with a capital letter "P" just touching the right side of the figure.
+Model: Here is your requested image: the modified "E" (with only the top and bottom bars) and a capital letter "P" just touching the right ends of those bars. If you need further changes or another arrangement, let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Goal post
+Prompt: Generate an image with a capital letter "I" consisting of three lines of equal length, one vertical, and two horizontal.
+Model: Here is an image of a capital letter "I" made with three lines of equal length: one vertical and two horizontal lines. If you need any modifications, let me know!
+Prompt: From there, modify the image with a capital letter "H" where all three lines are of equal length, overlapping the figure.
+Model: Here is the modified image with a capital letter "H," where all three lines are of equal length, overlapping the original "I" figure. If you want any further adjustments or additional modifications, let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Tic-tac-toe
+Prompt: Generate an image with a capital letter "S".
+Model: Here is an image featuring a large, bold, capital letter "S" in the center. If you need the style or color changed, please let me know!
+Prompt: From there, modify the image with a capital letter "O" overlayed over the "S" so that the top and bottom of the "S" are just touching the inside of the "O".
+Model: Here is the modified image with a bold capital "O" overlayed over the "S", with the top and bottom of the "S" just touching the inside of the "O". If you want further modifications, please let me know!
+Prompt: From there, modify the image with a capital letter "T" just touching the bottom of the figure.
+Model: Here is the image with a bold capital letter "T" just touching the bottom of the "O/S" figure. Let me know if you'd like any more changes!
+Prompt: From there, modify the image with the horizontal line of the "T" removed.
+Model: Here is the image with the horizontal line of the "T" removed, leaving only the vertical stem touching the bottom of the "O/S" figure. If you need further modifications, just let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Keyhole symbol
+Prompt: Generate an image with a capital letter "D".
+Model: Here is an image with a capital letter "D" as requested. If you need a different style or background, let me know!
+Prompt: From there, modify the image with the "D" rotated 90 degrees to the left.
+Model: Here is the image of the capital letter "D" rotated 90 degrees to the left, as requested. If you need further modifications, please let me know!
+Prompt: From there, modify the image with a capital letter "T" with it's base centered on the top of the figure.
+Model: Here is the modified image with the capital letter "T" placed so that its base is centered on the top of the rotated "D". If you need further changes, just let me know!
+Prompt: From there, modify the image with the horizontal bar of the "T" removed entirely.
+Model: Here is the image with the horizontal bar of the "T" removed, leaving only a vertical line centered on top of the rotated "D." If you'd like more modifications, let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Golf club
+Prompt: Generate an image with the number "8" with two equally sized loops.
+Model: Here is an image of the number "8" with two equally sized, symmetrical loops. If you need any adjustments or a different style, let me know!
+Prompt: From there, modify the image with the "8" rotated 90 degrees to the right.
+Model: Here is the image of the number "8" rotated 90 degrees to the right. If you would like further changes or a specific style, please let me know!
+Prompt: From there, modify the image with a lowercase letter "v" just below the figure.
+Model: Here is the modified image: the rotated "8" with a lowercase letter "v" centered just below it. If you need more changes, just let me know!
+Prompt: From there, modify the image with the "v" flipped upside down and just touching the figure's center.
+Model: Here is the modified image: the rotated "8" with an upside down "v" (ʌ) just touching its center. If you need any further modifications, let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Infinity symbol
+Prompt: Generate an image with a capital letter "D".
+Model: Here is an image with a capital letter "D". If you need a different style, color, or background, please let me know!
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: Here is the capital letter "D" rotated 90 degrees to the left. If you need further modifications, just let me know!
+Prompt: From there, modify the image with a capital letter "Y" below the figure such that the top two points of the "Y" align with the bottom-left and bottom-right points of the figure.
+Model: Here is the modified image: the rotated "D" is on top and a capital "Y" is below it, with the upper ends of the "Y" aligned to the bottom corners of the rotated "D". If you have further adjustments or another concept, let me know!
+Prompt: From there, modify the image with the vertical line removed from the figure.
+Model: Here is your modified image: the vertical line has been removed from the rotated "D", leaving only the curved part, with the "Y" below and aligned as before. If you need any further changes, let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Wine glass
+Prompt: Generate an image with two capital letter "B" next to each other.
+Model: Here is an image with two capital letter "B" next to each other. If you need it in a specific style, color, or font, let me know!
+Prompt: From there, modify the image with the left figure mirrored so that it points left.
+Model: Here is the modified image: the left figure is a mirrored capital letter "B" (facing left), and the right figure is a standard capital letter "B" (facing right). If you need further adjustments, let me know!
+Prompt: From there, modify the image with the two figures aligned such that the two vertical lines are overlayed.
+Model: Here is the modified image: the mirrored "B" and the standard "B" are aligned so that their vertical lines overlap, creating a butterfly-like symmetrical shape. If you need more changes or a different style, feel free to ask!
+Prompt: From there, modify the image with a lowercase letter "v" affixed to the middle of the top of the figure.
+Model: Here is the updated image: a lowercase "v" is affixed to the middle of the top of the overlapped mirrored "B" figures. If you need further modifications, let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Butterfly emblem
+Prompt: Generate an image with two lowercase letter "o" next to each other.
+Model: Here is an image with two lowercase letter "o" next to each other.
+Prompt: From there, modify the image with the two figures pressed together so they are just touching.
+Model: Here is the modified image with the two lowercase "o" characters just touching each other.
+Prompt: From there, modify the image with a lowercase letter "v" just below the figure.
+Model: Here is the modified image with the two touching lowercase "o"s and a lowercase "v" positioned directly below them.
+Prompt: From there, modify the image with the "v" flipped upside down and just touching the figure's center.
+Model: Here is the image modified so that the "v" is flipped upside down and just touching the center bottom of the two touching "o"s.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Owl face
+Prompt: Generate an image with a square.
+Model: Here is an image with a square in the center. If you'd like to customize the color, size, or add more elements, let me know!
+Prompt: From there, modify the image with a lowercase letter "v" with lines the same length as the sides of the square, just above the square.
+Model: Here is the modified image: a black square in the center and just above it, a lowercase letter "v," with each arm of the "v" the same length as the sides of the square. If you need further adjustments or additions, let me know!
+Prompt: From there, modify the image with the "v" flipped over with the points connecting to the top corners of the square.
+Model: Here is the modified image: the square is in the center, and above it, an upside-down "v" connects its points to the square's top corners, forming a simple house-like outline. If you want to add more details or make further changes, just let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Simple house
+Prompt: Generate an image with a capital letter "E" with all straight lines.
+Model: Here is an image of a capital letter "E" constructed entirely with straight lines. If you need any specific style (color, font, size), let me know!
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: Here is the image of the capital letter "E," rotated 90 degrees to the left, as requested. If you need further modifications, let me know!
+Prompt: From there, modify the image with a capital letter "T" where the top horizontal line is aligned to the horizontal line of the figure.
+Model: Here is the modified image showing a capital letter "T," with its top horizontal line aligned with the topmost horizontal line of the rotated "E" figure. If you need more changes or a different combination, let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Fork symbol
+Prompt: Generate an image with two capital letter "V", one above the other with a small gap in-between.
+Model: Here is an image with two capital letter "V" shapes, one above the other, with a small gap in-between. If you want any adjustments (color, font, orientation), please let me know!
+Prompt: From there, modify the image with the entire scene upside down.
+Model: Here is the image with the entire scene turned upside down, as requested. If you would like any further modifications or adjustments, let me know!
+Prompt: From there, modify the image with a line running from the top of the top figure down through the other figure and slightly further beyond.
+Model: Here is the modified image with a vertical line running from the top of the top (upside-down) "V", through both figures, and extending slightly beyond. If you need further adjustments, just let me know!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Railroad track
+Prompt: Generate an image with a capital letter "I" consisting of three lines of equal length, one vertical, and two horizontal.
+Model: Here is an image of the capital letter "I" made up of three lines of equal length: one vertical line and two horizontal lines at the top and bottom. Let me know if you'd like a different style or color!
+Prompt: From there, modify the image with an identical capital letter "I" directly to the right of the existing figure so that the left side of the new "I" just touches the right side of the figure.
+Model: Here is the modified image showing two identical capital letter "I" shapes, touching side by side as requested. If you need further changes or another configuration, please let me know!
+Prompt: From there, modify the image with a third identical "I" just to the right of the existing figure so that the left of the third "I" just touches the right of the figure.
+Model: Here is the updated image, now showing three identical capital letter "I" shapes placed side by side, each just touching the next. Let me know if you want any other modifications!
+Prompt: From there, modify the image with the entire scene rotated 90 degrees to the left.
+Model: Here is the modified image with the three "I" shapes rotated 90 degrees to the left, now appearing vertically stacked and touching each other. If you need any more changes, feel free to ask!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Ladder shape
+Prompt: Generate an image with a capital letter "C".
+Model: Here is an image featuring a bold, capital letter "C" on a plain background. If you need a different style, color, or background, please let me know!
+Prompt: From there, modify the image with the figure rotated 90 degrees to the right.
+Model: Here is the image of the capital letter "C," rotated 90 degrees to the right. If you have any other modifications or specific requests, let me know!
+Prompt: From there, modify the image with two smaller capital letter "D" at the base of the figure inside the loop. Both "D" are just touching the tips of the figure.
+Model: Here is the modified image: the rotated "C" shape now has two smaller capital letter "D"s positioned at the base, just touching the tips of the "C" inside the loop. If you need further adjustments or another variation, please let me know!
+Prompt: From there, modify the image with the left "D" mirrored so that it is pointing left and the left most side is touching the point of the figure.
+Model: Here is the modified image: the left "D" is now mirrored, pointing to the left, with its leftmost side just touching the point of the rotated "C." The right "D" remains in its normal orientation, touching the right tip of the figure. If you have any other requests or want further modifications, feel free to ask!
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Crab claw
+Prompt: Generate an image with a lowercase letter "b" to the left of a lowercase letter "d".
+Model: Here is an image with a lowercase letter "b" to the left of a lowercase letter "d".
+Prompt: From there, modify the image with the figure on the left moved to the right so that it just touches the other figure.
+Model: Here is the modified image, where the lowercase "b" is moved to the right so it just touches the lowercase "d".
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Bed frame
+Prompt: Generate an image with a plus symbol with two equally sized lines.
+Model: Here is an image of a plus symbol with two equally sized lines.
+Prompt: From there, modify the image with a new vertical line the same size as the previous, just touching the left side of the figure.
+Model: Here is the modified image, with a new vertical line of the same size just touching the left side of the plus symbol.
+Prompt: From there, modify the image with the entire figure rotated 90 degrees to the right.
+Model: Here is the modified image with the entire figure rotated 90 degrees to the right.
+Prompt: From there, modify the image with the figure without any lines to the left of the vertical line.
+Model: Here is the modified image with the figure containing only lines at or to the right of the rightmost vertical line, with no lines to its left.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Uppercase F
+Prompt: Generate an image with a capital letter "B". 
+Model: Here is an image with a capital letter "B".
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left so that is faces up.
+Model: Here is the image of a capital letter "B" rotated 90 degrees to the left so that it faces up.
+Prompt: From there, modify the image with a triangle pointing downwards from the horizontal line in the figure.
+Model: Here is the modified image with a downward-pointing triangle attached to the horizontal line in the figure.
+Prompt: From there, modify the image with the horizontal line of the figure removed.
+Model: Here is the modified image with the horizontal line of the figure removed, and the downward-pointing triangle remains.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Bird head
+Prompt: Generate an image with a capital letter "C" with parallel top and bottom lines with a capital letter "D" to the right. 
+Model: Here is an image with a capital letter "C" with parallel top and bottom lines, and a capital letter "D" to the right.
+Prompt: From there, modify the image with the two figures pressed together so that they are just touching.
+Model: Here is the modified image, with the two figures pressed together so they are just touching.
+Prompt: From there, modify the image with a horizontal line running from the left most point of the figure rightwards until the vertical line.
+Model: Here is the modified image with a horizontal line running from the leftmost point of the figure rightwards until the vertical line.
+Prompt: From there, modify the image with a capital letter "S" where the top right point is just touching the left side of the horizontal line.
+Model: Here is the modified image with a capital letter "S" whose top right point just touches the left side of the horizontal line.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Scissors shape
+Prompt: Generate an image with a capital letter "D".
+Model: Here is an image with a capital letter "D".
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: Here is the image of a capital letter "D" rotated 90 degrees to the left.
+Prompt: From there, modify the image with a capital letter "J", attached to the bottom center of the figure.
+Model: Here is the modified image with a capital letter "J" attached to the bottom center of the rotated "D".
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Umbrella handle
+Prompt: Generate an image with a capital letter "D".
+Model: Here is an image with a capital letter "D".
+Prompt: From there, modify the image with the figure rotated 90 degrees to the right.
+Model: Here is the image of a capital letter "D" rotated 90 degrees to the right.
+Prompt: From there, modify the image with a capital letter "T" where the top horizontal line is aligned to the bottom of the figure.
+Model: Here is the modified image with a capital letter "T" whose top horizontal line is aligned with the bottom of the rotated "D".
+Prompt: From there, modify the image with the "T" flipped over.
+Model: Here is the modified image with the "T" flipped over, so its horizontal line is at the bottom, aligned with the bottom of the rotated "D".
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Stapler icon
+Prompt: Generate an image with two lowercase letter "o" next to each other.
+Model: Here is an image with two lowercase letter "o" next to each other.
+Prompt: From there, modify the image with the two figures pressed together so they are just touching.
+Model: Here is the modified image with the two lowercase "o" figures pressed together so they are just touching.
+Prompt: From there, modify the image with two short lines coming up, vertically, from the left and right sides of the figure.
+Model: Here is the modified image with two short vertical lines coming up from the left and right sides of the figure.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Eyeglasses frame
+Prompt: Generate an image with the number "5".
+Model: Here is an image with the number "5".
+Prompt: From there, modify the image with the figure mirrored so that it faces the opposite direction.
+Model: Here is the image of the number "5" mirrored so that it faces the opposite direction.
+Prompt: From there, modify the image with a second "5" directly overlapping the figure, sharing the top horizontal line.
+Model: Here is the modified image with a second "5" directly overlapping the mirrored figure, sharing the top horizontal line.
+Prompt: From there, modify the image with the figure flipped upside-down.
+Model: Here is the modified image with the entire figure flipped upside-down.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Handcuffs icon
+Prompt: Generate an image with a capital letter "H".
+Model: Here is an image with a capital letter "H".
+Prompt: From there, modify the image with the figure rotated 90 degrees to the right.
+Model: Here is the image of the capital letter "H" rotated 90 degrees to the right.
+Prompt: From there, modify the image with a triangle whose base is the top horizontal line of the figure, pointed upwards.
+Model: Here is the modified image with a triangle whose base is the top horizontal line of the rotated "H" and is pointed upwards.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Bridge arch
+Prompt: Generate an image with a capital letter "N".
+Model: Here is an image with a capital letter "N".
+Prompt: From there, modify the image with a diagonal line running from the top right corner of the figure to the bottom left corner.
+Model: Here is the modified image with a diagonal line running from the top right corner to the bottom left corner of the capital letter "N".
+Prompt: From there, modify the image with the entire figure rotated 90 degrees to the right.
+Model: Here is the modified image with the entire figure rotated 90 degrees to the right.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Tape dispenser
+Prompt: Generate an image with two lowercase letter "p" next to each other.
+Model: Here is an image with two lowercase letter "p" next to each other.
+Prompt: From there, modify the image with the left figure mirrored so that it is facing left.
+Model: Here is the modified image with the left lowercase "p" mirrored so that it is facing left, next to the standard "p".
+Prompt: From there, modify the image with the two figures pressed together so that they share a vertical line.
+Model: Here is the modified image with the mirrored lowercase "p" on the left and the standard "p" on the right, pressed together so that they share a vertical line.
+Prompt: From there, modify the image with a lowercase letter "o" just touching the top of the figure in the center.
+Model: Here is the modified image with a lowercase letter "o" just touching the top of the figure at the center.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Magnifying glass
+Prompt: Generate an image with the number "8" with two equally sized loops.
+Model: Here is an image with the number "8" with two equally sized loops.
+Prompt: From there, modify the image with the "8" rotated 90 degrees to the right.
+Model: Here is the modified image with the number "8" rotated 90 degrees to the right.
+Prompt: From there, modify the image with a lowercase letter "o" just touching the top of the figure in the center.
+Model: Here is the modified image with a lowercase letter "o" just touching the top center of the horizontally rotated "8".
+Prompt: From there, modify the image with a lowercase letter "v" just touching the bottom of the figure in the center.
+Model: Here is the modified image with a lowercase letter "v" just touching the bottom center of the figure, along with the lowercase "o" at the top.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Snowman sideways
+Prompt: Generate an image with a capital letter "F".
+Model: Here is an image with a capital letter "F".
+Prompt: From there, modify the image with a lowercase letter "b" connected to the base of the "F".
+Model: Here is the modified image with a lowercase letter "b" connected to the base of the capital "F".
+Prompt: From there, modify the image with the loop mirrored so that it faces left.
+Model: Here is the modified image with the loop of the lowercase "b" mirrored so that it faces left, connected to the base of the capital "F".
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Flag stand
+Prompt: Generate an image with a capital letter "T" where both lines are the same length.
+Model: Here is an image with a capital letter "T" where both lines are the same length.
+Prompt: From there, modify the image with a horizontal line running to the left of the bottom middle of the figure until it is the same length as the line at the top.
+Model: Here is the modified image with a horizontal line running to the left from the bottom middle of the figure, matching the length of the top line.
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: Here is the modified image with the figure rotated 90 degrees to the left.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Hammer shape
+Prompt: Generate an image with a capital letter "I" consisting of three lines of equal length, one vertical, and two horizontal.
+Model: Here is an image with a capital letter "I" consisting of three lines of equal length: one vertical, and two horizontal.
+Prompt: From there, modify the image with the portion of the bottom horizontal line to the right of the vertical line, removed.
+Model: Here is the modified image with the portion of the bottom horizontal line to the right of the vertical line removed.
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: Here is the modified image with the entire figure rotated 90 degrees to the left.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Flagpole icon
+Prompt: Generate an image with a capital letter "Y".
+Model: Here is an image with a capital letter "Y".
+Prompt: From there, modify the image with a small circle at the base of the figure.
+Model: Here is the modified image with a small circle at the base of the capital letter "Y".
+Prompt: From there, modify the image with a horizontal line running through the center of the figure.
+Model: Here is the modified image with a horizontal line running through the center of the figure.
+Prompt: From there, modify the image with the figure flipped upside-down.
+Model: Here is the modified image with the figure flipped upside-down.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Slingshot icon
+Prompt: Generate an image with a lowercase letter "v".
+Model: Here is an image with a lowercase letter "v".
+Prompt: From there, modify the image with the figure flipped upside-down.
+Model: Here is the modified image with the lowercase letter "v" flipped upside-down.
+Prompt: From there, modify the image with a lowercase letter "o" just touching the top of the figure.
+Model: Here is the modified image with a lowercase letter "o" just touching the top of the upside-down "v".
+Prompt: From there, modify the image with a long line running down from the center of the figure.
+Model: Here is the modified image with a long line running down from the center of the figure.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Lollipop icon
+Prompt: Generate an image with a capital letter "L".
+Model: Here is an image with a capital letter "L".
+Prompt: From there, modify the image with a capital letter "O" over the figure, large enough that no points are touching.
+Model: Here is the modified image with a capital letter "O" over the figure, large enough that no points are touching.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Magnifying glass
+Prompt: Generate an image with a capital letter "D".
+Model: Here is an image with a capital letter "D".
+Prompt: From there, modify the image with the figure rotated 90 degrees to the right.
+Model: Here is the image of a capital letter "D" rotated 90 degrees to the right.
+Prompt: From there, modify the image with a capital letter "I", consisting of three evenly sized bars, where the top horizontal line is aligned to the bottom of the figure.
+Model: Here is the modified image with a capital letter "I" (three evenly sized bars), and the top horizontal line aligned to the bottom of the rotated "D".
+Prompt: From there, modify the image with the top horizontal line of the "I" removed.
+Model: Here is the modified image with the top horizontal line of the "I" removed, leaving only the vertical and bottom horizontal bars, aligned beneath the rotated "D".
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Desk lamp
+Prompt: Generate an image with a capital letter "H" where all three lines are of equal length.
+Model: Here is an image with a capital letter "H" where all three lines are of equal length.
+Prompt: From there, modify the image with the horizontal bar of the figure moved down to the bottom of the vertical lines forming two 90 degree angles.
+Model: Here is the modified image with the horizontal bar of the "H" moved down to the bottom of the vertical lines, forming two 90 degree angles.
+Prompt: From there, modify the image with a lowercase letter "v" centered on top of the figure.
+Model: Here is the modified image with a lowercase letter "v" centered on top of the figure.
+Prompt: From there, modify the image with the "v" flipped over and aligned so that the figure forms a closed shape.
+Model: Here is the modified image with the "v" flipped over and aligned so that the figure forms a closed shape.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Planter pot
+Prompt: Generate an image with a capital letter "B"
+Model: Here is an image with a capital letter "B".
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: Here is the modified image with the capital letter "B" rotated 90 degrees to the left.
+Prompt: From there, modify the image with the left loop of the figure removed so that only one, complete, loop remains.
+Model: Here is the modified image with only one complete loop remaining after removing the left loop of the rotated "B".
+Prompt: From there, modify the image with a lowercase letter "v" below the figure such that the top two points of the "v" align with the bottom-left and bottom-right points of the figure.
+Model: Here is the modified image with a lowercase letter "v" below the figure, aligned so the top points of the "v" meet the bottom-left and bottom-right points of the remaining loop.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Cup trophy
+Prompt: Generate an image with a capital letter "H".
+Model: Here is an image with a capital letter "H".
+Prompt: From there, modify the image with an identical capital letter "H" directly below the first figure so that the top of the new "H" just touches the bottom of the first figure.
+Model: Here is the modified image with an identical capital letter "H" directly below the first, just touching at their ends.
+Prompt: From there, modify the image with a third identical "H" just below the existing figure so that the top of the third "H" just touches the bottom of the figure.
+Model: Here is the modified image with a third identical "H" just below the existing figure, all touching at their ends in a vertical stack.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Ladder icon
+Prompt: Generate an image with a capital letter "I" consisting of three lines of equal length, one vertical, and two horizontal.
+Model: Here is an image with a capital letter "I" consisting of three lines of equal length: one vertical, and two horizontal.
+Prompt: From there, modify the image with the vertical line of the "I" moved to the left side of the horizontal lines forming two 90 degree angles.
+Model: Here is the modified image with the vertical line of the "I" moved to the left side of the horizontal lines, forming two 90 degree angles.
+Prompt: From there, modify the image with a capital letter "P" just touching the right side of the figure.
+Model: Here is the modified image with a capital letter "P" just touching the right side of the figure.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Key shape
+Prompt: Generate an image with a capital letter "D".
+Model: Here is an image with a capital letter "D".
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: Here is the modified image with the capital letter "D" rotated 90 degrees to the left.
+Prompt: From there, modify the image with a capital letter "V" below the figure such that the top two points of the "V" align with the bottom-left and bottom-right points of the figure.
+Model: Here is the modified image with a capital letter "V" below the rotated "D", aligned so the top two points of the "V" are at the bottom-left and bottom-right points of the rotated figure.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Trophy cup
+Prompt: Generate an image with a capital letter "D".
+Model: Here is an image with a capital letter "D".
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: Here is the modified image with the capital letter "D" rotated 90 degrees to the left.
+Prompt: From there, modify the image with a larger capital letter "O" above the figure just touching the top.
+Model: Here is the modified image with a larger capital letter "O" above the rotated "D", just touching the top.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Magnifying glass
+Prompt: Generate an image with a capital letter "E" with all straight lines.
+Model: Here is an image with a capital letter "E" made with all straight lines.
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: Here is the modified image with the capital letter "E" rotated 90 degrees to the left.
+Prompt: From there, modify the image with a capital letter "I", consisting of three evenly sized bars, where the top horizontal line is aligned to the horizontal line of the existing figure.
+Model: Here is the modified image with a capital letter "I" (three evenly sized bars) next to the rotated "E", aligned so the top horizontal line of the "I" matches the lowest horizontal line of the rotated "E".
+Prompt: From there, modify the image with the bottom horizontal line of the figure removed.
+Model: Here is the modified image with the bottom horizontal line of the figure removed, leaving one vertical and one top horizontal bar on the "I".
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Forklift icon
+Prompt: Generate an image with two capital letter "B" next to each other.
+Model: Here is an image with two capital letter "B" next to each other.
+Prompt: From there, modify the image with the left figure mirrored so that it points left.
+Model: Here is the modified image with the left capital letter "B" mirrored so that it points left, next to the standard "B" on the right.
+Prompt: From there, modify the image with a capital letter "Y" in-between the two figures with a vertical line the same height as the existing vertical lines.
+Model: Here is the modified image with a capital letter "Y" in-between the two figures, and with a vertical line the same height as the existing vertical lines.
+Prompt: From there, modify the image with all three figures aligned such that the three vertical lines are overlayed.
+Model: Here is the modified image with all three figures (mirrored "B", "Y", standard "B") aligned such that their three vertical lines are perfectly overlaid.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Butterfly icon
+Prompt: Generate an image with a capital letter "D".
+Model: Here is an image with a capital letter "D".
+Prompt: From there, modify the image with the figure rotated 90 degrees to the right.
+Model: Here is the modified image with the capital letter "D" rotated 90 degrees to the right.
+Prompt: From there, modify the image with a number "4" attached to the horizontal line in the center. The "4" should have a triangular top, not an open one.
+Model: Here is the modified image with a number "4" attached to the horizontal line in the center of the rotated "D", and the "4" has a triangular, closed top.
+Prompt: From there, modify the image with the figure without the line to the right of the vertical line of the "4".
+Model: Here is the modified image with the line to the right of the vertical line of the "4" removed, leaving only the vertical and horizontal lines and the triangle at the top.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Desk lamp
+Prompt: Generate an image with the number "8" with two equally sized loops.
+Model: Here is an image with the number "8" with two equally sized loops.
+Prompt: From there, modify the image with the figure rotated 90 degrees to the right.
+Model: Here is the modified image with the number "8" rotated 90 degrees to the right.
+Prompt: From there, modify the image with two short lines coming up, vertically, from the left and right sides of the figure.
+Model: Here is the modified image with two short vertical lines coming up from the left and right sides of the figure.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Eyeglasses icon
+Prompt: Generate an image with two lowercase letter "p" next to each other.
+Model: Here is an image with two lowercase letter "p" next to each other.
+Prompt: From there, modify the image with the right figure mirrored so that it points left.
+Model: Here is the modified image with the right figure (lowercase "p") mirrored so that it points left, next to the standard "p" on the left.
+Prompt: From there, modify the image with the figure on the left moved to the right so that it is just touching the other figure.
+Model: Here is the modified image with the figure on the left moved to the right so that it is just touching the other figure.
+Prompt: From there, modify the image with the entire scene upside down.
+Model: Here is the modified image with the entire scene flipped upside down.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Ballet shoes
+Prompt: Generate an image with a lowercase letter "k".
+Model: Here is an image with a lowercase letter "k".
+Prompt: From there, modify the image with a circle around the figure so that it does not touch.
+Model: Here is the modified image with a circle around the lowercase letter "k" so that it does not touch the figure.
+Prompt: From there, modify the image with the lower half of the "k" removed.
+Model: Here is the modified image with the lower half of the "k" removed, leaving only the upper half of the letter inside the circle.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Arm symbol
+Prompt: Generate an image with a capital letter "E" with all straight lines.
+Model: Here is an image with a capital letter "E" made with all straight lines.
+Prompt: From there, modify the image with three quarters of the middle horizontal line removed from the right.
+Model: Here is the modified image with three quarters of the middle horizontal line removed from the right, leaving only the leftmost quarter.
+Prompt: From there, modify the image with a vertical line running along the right side of the figure the same height and shape as the existing vertical line.
+Model: Here is the modified image with a vertical line added along the right side of the figure, matching the height and shape of the existing left vertical line.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Rail tracks
+Prompt: Generate an image with two lowercase letter "o" next to each other.
+Model: Here is an image with two lowercase letter "o" next to each other.
+Prompt: From there, modify the image with the two figures pressed together so they are just touching.
+Model: Here is the modified image with the two lowercase "o" figures pressed together so they are just touching.
+Prompt: From there, modify the image with another lowercase letter "o" just touching the top of the figure in the center.
+Model: Here is the modified image with another lowercase letter "o" just touching the top center of the two pressed together "o" figures.
+Prompt: From there, modify the image with a lowercase letter "v" just touching the bottom of the figure in the center.
+Model: Here is the modified image with a lowercase letter "v" just touching the bottom center of the two pressed together "o" figures.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Snowman face
+Prompt: Generate an image with a capital letter "H" to the left of a capital letter "D".
+Model: Here is an image with a capital letter "H" to the left of a capital letter "D".
+Prompt: From there, modify the image with the entire scene rotated 90 degrees to the right.
+Model: Here is the modified image with the entire scene rotated 90 degrees to the right, so the "H" is above the "D".
+Prompt: From there, modify the image with the upper figure and the lower figure pressed together so the horizontal line between them is overlayed.
+Model: Here is the modified image with the upper figure ("H") and the lower figure ("D") pressed together so the horizontal line between them is overlayed.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Chair shape
+Prompt: Generate an image with the number "8" with two equally sized loops.
+Model: Here is an image with the number "8" with two equally sized loops.
+Prompt: From there, modify the image with the right loop of the figure removed so that only one loop remains.
+Model: Here is the modified image with the right loop of the "8" removed, so that only one loop remains.
+Prompt: From there, modify the image with a capital letter "D" just below the figure.
+Model: Here is the modified image with a capital letter "D" just below the remaining left loop of the original "8".
+Prompt: From there, modify the image with the "D" rotated 90 degrees to the left and shifted up so that it just touches the loop.
+Model: Here is the modified image with the "D" rotated 90 degrees to the left and shifted up so that it just touches the loop.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Magnifying glass
+Prompt: Generate an image with a capital letter "H" to the left of a capital letter "D".
+Model: Here is an image with a capital letter "H" to the left of a capital letter "D".
+Prompt: From there, modify the image with the two figures pressed together so that the line between them is overlayed.
+Model: Here is the modified image with the capital letter "H" and capital letter "D" pressed together so that the line between them is overlayed.
+Prompt: From there, modify the image with a new vertical line between the two existing vertical lines, slightly shorter than the others.
+Model: Here is the modified image with a new vertical line between the two existing vertical lines, slightly shorter than the others.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Rail bridge
+Prompt: Generate an image with a capital letter "T".
+Model: Here is an image with a capital letter "T".
+Prompt: From there, modify the image with the figure flipped upside-down.
+Model: Here is the modified image with the capital letter "T" flipped upside-down.
+Prompt: From there, modify the image with a downward pointing triangle, positioned at the top of the figure.
+Model: Here is the modified image with a downward pointing triangle positioned at the top of the upside-down "T".
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Pushpin icon
+Prompt: Generate an image with a lowercase letter "v" to the left of a lowercase letter "o".
+Model: Here is an image with a lowercase letter "v" to the left of a lowercase letter "o".
+Prompt: From there, modify the image with the "v" rotated 90 degrees to the left.
+Model: Here is the modified image with the lowercase "v" rotated 90 degrees to the left, to the left of the "o".
+Prompt: From there, modify the image with the two figures pushed together so that they are just touching.
+Model: Here is the modified image with the rotated lowercase "v" and the "o" pushed together so they are just touching.
+Prompt: From there, modify the image with a vertical line running between the two left points of the figure so that it is fully closed.
+Model: Here is the modified image with a vertical line running between the two left points of the figure, so that it is fully closed.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Keyhole icon
+Prompt: Generate an image with the number "7" consisting of only two lines.
+Model: Here is an image with the number "7" consisting of only two lines.
+Prompt: From there, modify the image with the diagonal line rotated until is vertical and a 90 degree angle is formed.
+Model: Here is the modified image with the diagonal line rotated until it is vertical, forming a 90 degree angle with the top horizontal line.
+Prompt: From there, modify the image with the horizontal line moved down to the middle of the vertical line.
+Model: Here is the modified image with the horizontal line moved down to the middle of the vertical line, forming a "T" shape.
+Prompt: From there, modify the image with the entire figure rotated 90 degrees to the left.
+Model: Here is the modified image with the entire figure rotated 90 degrees to the left.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Flagpole sign
+Prompt: Generate an image with a capital letter "Y".
+Model: Here is an image with a capital letter "Y".
+Prompt: From there, modify the image with the figure flipped upside-down.
+Model: Here is the modified image with the capital letter "Y" flipped upside-down.
+Prompt: From there, modify the image with the vertical line extended to the bottom.
+Model: Here is the modified image with the vertical line of the upside-down "Y" extended to the bottom.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Slingshot pole
+Prompt: Generate an image with a lowercase letter "o".
+Model: Here is an image with a lowercase letter "o".
+Prompt: From there, modify the image with a vertical line from the top of the figure to its center.
+Model: Here is the modified image with a vertical line from the top of the lowercase "o" to its center.
+Prompt: From there, modify the image with a lowercase letter "s" just touching the figure at it's top.
+Model: Here is the modified image with a lowercase letter "s" just touching the top of the figure.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Music note
+Prompt: Generate an image with a capital letter "V".
+Model: Here is an image with a capital letter "V".
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: Here is the modified image with the capital letter "V" rotated 90 degrees to the left.
+Prompt: From there, modify the image with a vertical line running from the top left point, through the bottom left point and continuing downwards the same distance again.
+Model: Here is the modified image with a vertical line running from the top left point, through the bottom left point, and continuing downward the same distance again.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Checkmark post
+Prompt: Generate an image with a capital letter "D".
+Model: Here is an image with a capital letter "D".
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: Here is the modified image with the capital letter "D" rotated 90 degrees to the left.
+Prompt: From there, modify the image with a capital letter "T" with it's base centered on the top of the figure.
+Model: Here is the modified image with a capital letter "T" centered on top of the rotated "D", with its base just touching the top of the figure.
+Prompt: From there, modify the image with the entire scene flipped upside-down.
+Model: Here is the modified image with the entire scene flipped upside-down.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Mushroom shape
+Prompt: Generate an image with two lowercase letter "b" next to each other.
+Model: Here is an image with two lowercase letter "b" next to each other.
+Prompt: From there, modify the image with the right figure mirrored so that it points left.
+Model: Here is the modified image with the right lowercase "b" mirrored so that it points left, next to the standard "b" on the left.
+Prompt: From there, modify the image with the figure on the left moved to the right so that it is just touching the other figure.
+Model: Here is the modified image with the figure on the left moved to the right so that it is just touching the other figure.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Glasses icon
+Prompt: Generate an image with two capital letter "D" next to each other.
+Model: Here is an image with two capital letter "D" next to each other.
+Prompt: From there, modify the image with the left figure mirrored so it is facing the left and it's vertical bar overlaps the bar of the right "D".
+Model: Here is the modified image with the left figure mirrored to face left and its vertical bar overlapping the bar of the right "D".
+Prompt: From there, modify the image with a horizontal line running from the left most point of the figure rightwards until the vertical line.
+Model: Here is the modified image with a horizontal line running from the leftmost point of the figure rightwards until the vertical line.
+Prompt: From there, modify the image with a capital letter "S" where the top right point is just touching the left side of the horizontal line.
+Model: Here is the modified image with a capital letter "S" whose top right point just touches the left side of the horizontal line.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Scissors icon
+Prompt: Generate an image with a capital letter "K".
+Model: Here is an image with a capital letter "K".
+Prompt: From there, modify the image with a square to the left of the figure that shares the vertical line.
+Model: Here is the modified image with a square to the left of the capital letter "K" that shares the vertical line.
+Prompt: From there, modify the image with a circle within the square, but not touching any point.
+Model: Here is the modified image with a circle within the square, but not touching any point.
+Prompt: From there, modify the image with the entire figure rotated 90 degrees to the left.
+Model: Here is the modified image with the entire figure rotated 90 degrees to the left, so the square with the circle is now above the "K".
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Keyhole symbol
+Prompt: Generate an image with two capital letter "D" next to each other.
+Model: Here is an image with two capital letter "D" next to each other.
+Prompt: From there, modify the image with the left figure mirrored so it faces left, and so the vertical lines overlap.
+Model: Here is the modified image with the left figure mirrored to face left, with both vertical lines overlapping.
+Prompt: From there, modify the image with the bottom half of the vertical line removed.
+Model: Here is the modified image with the bottom half of the vertical line removed, leaving only the top half of the overlapping "D" figures' vertical line.
+Prompt: From there, modify the image with a lowercase letter "s" just touching the figure at it's top.
+Model: Here is the modified image with a lowercase letter "s" just touching the top of the figure.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Swan icon
+Prompt: Generate an image with a capital letter "E" with all straight lines.
+Model: Here is an image with a capital letter "E" made with all straight lines.
+Prompt: From there, modify the image with the middle horizontal line of the figure removed.
+Model: Here is the modified image with the middle horizontal line of the figure removed, leaving only the top and bottom horizontal lines.
+Prompt: From there, modify the image with a capital letter "P" just touching the right side of the figure.
+Model: Here is the modified image with a capital letter "P" just touching the right side of the figure.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Ear shape
+Prompt: Generate an image with a capital letter "I" consisting of three lines of equal length, one vertical, and two horizontal.
+Model: Here is an image with a capital letter "I" consisting of three lines of equal length: one vertical, and two horizontal.
+Prompt: From there, modify the image with a capital letter "H" where all three lines are of equal length, overlapping the figure.
+Model: Here is the modified image with a capital letter "H" (all lines equal length) overlapping the capital letter "I" (three equal lines), centered together.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Hash symbol
+Prompt: Generate an image with a capital letter "S".
+Model: Here is an image with a capital letter "S".
+Prompt: From there, modify the image with a capital letter "O" overlayed over the "S" so that the top and bottom of the "S" are just touching the inside of the "O".
+Model: Here is the modified image with a capital letter "O" overlaid over the "S" so the top and bottom of the "S" are just touching the inside of the "O".
+Prompt: From there, modify the image with a capital letter "T" just touching the bottom of the figure.
+Model: Here is the modified image with a capital letter "T" just touching the bottom of the figure.
+Prompt: From there, modify the image with the horizontal line of the "T" removed.
+Model: Here is the modified image with the horizontal line of the "T" removed, leaving only the vertical line below the "O" and "S" combination.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Streetlamp icon
+Prompt: Generate an image with a capital letter "D".
+Model: Here is an image with a capital letter "D".
+Prompt: From there, modify the image with the "D" rotated 90 degrees to the left.
+Model: Here is the modified image with the capital letter "D" rotated 90 degrees to the left.
+Prompt: From there, modify the image with a capital letter "T" with it's base centered on the top of the figure.
+Model: Here is the modified image with a capital letter "T" with its base centered on the top of the rotated "D".
+Prompt: From there, modify the image with the horizontal bar of the "T" removed entirely.
+Model: Here is the modified image with the horizontal bar of the "T" removed entirely, leaving only the vertical bar centered on top of the rotated "D".
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Mushroom stem
+Prompt: Generate an image with the number "8" with two equally sized loops.
+Model: Here is an image with the number "8" with two equally sized loops.
+Prompt: From there, modify the image with the "8" rotated 90 degrees to the right.
+Model: Here is the modified image with the number "8" rotated 90 degrees to the right.
+Prompt: From there, modify the image with a lowercase letter "v" just below the figure.
+Model: Here is the modified image with a lowercase letter "v" just below the horizontally rotated "8".
+Prompt: From there, modify the image with the "v" flipped upside down and just touching the figure's center.
+Model: Here is the modified image with the "v" flipped upside down and just touching the figure's center.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Hourglass shape
+Prompt: Generate an image with a capital letter "D".
+Model: Here is an image with a capital letter "D".
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: Here is the modified image with the capital letter "D" rotated 90 degrees to the left.
+Prompt: From there, modify the image with a capital letter "Y" below the figure such that the top two points of the "Y" align with the bottom-left and bottom-right points of the figure.
+Model: Here is the modified image with a capital letter "Y" below the rotated "D", aligned so the top two points of the "Y" meet the bottom-left and bottom-right points of the rotated figure.
+Prompt: From there, modify the image with the vertical line removed from the figure.
+Model: Here is the modified image with the vertical line removed from the "Y", leaving only the two upper arms connecting to the bottom of the rotated "D".
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Goblet shape
+Prompt: Generate an image with two capital letter "B" next to each other.
+Model: Here is an image with two capital letter "B" next to each other.
+Prompt: From there, modify the image with the left figure mirrored so that it points left.
+Model: Here is the modified image with the left capital letter "B" mirrored so that it points left, next to the standard "B" on the right.
+Prompt: From there, modify the image with the two figures aligned such that the two vertical lines are overlayed.
+Model: Here is the modified image with the mirrored "B" on the left and the standard "B" on the right, both aligned so that their two vertical lines are perfectly overlaid.
+Prompt: From there, modify the image with a lowercase letter "v" affixed to the middle of the top of the figure.
+Model: Here is the modified image with a lowercase letter "v" affixed to the middle of the top of the figure.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Butterfly antennae
+Prompt: Generate an image with two lowercase letter "o" next to each other.
+Model: Here is an image with two lowercase letter "o" next to each other.
+Prompt: From there, modify the image with the two figures pressed together so they are just touching.
+Model: Here is the modified image with the two lowercase "o" figures pressed together so they are just touching.
+Prompt: From there, modify the image with a lowercase letter "v" just below the figure.
+Model: Here is the modified image with a lowercase letter "v" just below the two pressed-together "o" figures.
+Prompt: From there, modify the image with the "v" flipped upside down and just touching the figure's center.
+Model: Here is the modified image with the "v" flipped upside down and just touching the figure's center.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Heart glasses
+Prompt: Generate an image with a square.
+Model: Here is an image with a square.
+Prompt: From there, modify the image with a lowercase letter "v" with lines the same length as the sides of the square, just above the square.
+Model: Here is the modified image with a lowercase letter "v", with lines the same length as the sides of the square, just above the square.
+Prompt: From there, modify the image with the "v" flipped over with the points connecting to the top corners of the square.
+Model: Here is the modified image with the "v" flipped over and the points connecting to the top corners of the square.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: House icon
+Prompt: Generate an image with a capital letter "E" with all straight lines.
+Model: Here is an image with a capital letter "E" made with all straight lines.
+Prompt: From there, modify the image with the figure rotated 90 degrees to the left.
+Model: Here is the modified image with the capital letter "E" rotated 90 degrees to the left.
+Prompt: From there, modify the image with a capital letter "T" where the top horizontal line is aligned to the horizontal line of the figure.
+Model: Here is the modified image with a capital letter "T" added, with the top horizontal line aligned to the horizontal line of the rotated "E".
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Comb utensil
+Prompt: Generate an image with two capital letter "V", one above the other with a small gap in-between.
+Model: Here is an image with two capital letter "V", one above the other with a small gap in-between.
+Prompt: From there, modify the image with the entire scene upside down.
+Model: Here is the modified image with the entire scene turned upside down, so both "V" letters are inverted.
+Prompt: From there, modify the image with a line running from the top of the top figure down through the other figure and slightly further beyond.
+Model: Here is the modified image with a vertical line running from the top of the top figure, through the other figure, and slightly further beyond.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Spire icon
+Prompt: Generate an image with a capital letter "I" consisting of three lines of equal length, one vertical, and two horizontal.
+Model: Here is an image with a capital letter "I" consisting of three lines of equal length: one vertical, and two horizontal.
+Prompt: From there, modify the image with an identical capital letter "I" directly to the right of the existing figure so that the left side of the new "I" just touches the right side of the figure.
+Model: Here is the modified image with an identical capital letter "I" directly to the right of the existing figure, so that the left side of the new "I" just touches the right side of the original figure.
+Prompt: From there, modify the image with a third identical "I" just to the right of the existing figure so that the left of the third "I" just touches the right of the figure.
+Model: Here is the modified image with a third identical capital letter "I" just to the right of the existing figures, so all three are touching end-to-end.
+Prompt: From there, modify the image with the entire scene rotated 90 degrees to the left.
+Model: Here is the modified image with the entire scene rotated 90 degrees to the left, so the row of three "I" figures is now vertical.
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Railing fence
+Prompt: Generate an image with a capital letter "C".
+Model: Here is an image with a capital letter "C".
+Prompt: From there, modify the image with the figure rotated 90 degrees to the right.
+Model: Here is the modified image with the capital letter "C" rotated 90 degrees to the right.
+Prompt: From there, modify the image with two smaller capital letter "D" at the base of the figure inside the loop. Both "D" are just touching the tips of the figure.
+Model: Here is the modified image with two smaller capital letter "D" at the base of the rotated "C" inside the loop, both just touching the tips of the figure.
+Prompt: From there, modify the image with the left "D" mirrored so that it is pointing left and the left most side is touching the point of the figure.
+Model: Here is the modified image with the left "D" mirrored so that it is pointing left and its leftmost side is just touching the tip of the rotated "C".
+Final Prompt: What object best represents the image you generated? Respond in at most two words.
+Model: Owl face
+OpenAI Single Context Responses: ['Bed frame', 'Lowercase "r"', 'Arrow key', 'USB connector', 'Pipe wrench', 'Door hinge', 'Eyeglasses frame', 'Heart shape', 'Gymnastics apparatus', 'Zorro symbol', 'Pair glasses', 'Infinity symbol', 'Musical clef', 'Pipe wrench', 'Flagpole signpost', 'Slingshot symbol', 'Magnifying glass', 'LO monogram', 'Table lamp', 'Pentagon house', 'Magnifying glass', 'Ladder shape', 'Flag pole', 'Whale tail', 'Padlock icon', 'Fork and knife', 'Butterfly head', 'Flag pole', 'Barbell weight', 'Eyeglasses frame', 'Broken letter', 'Goal post', 'Mickey Mouse', 'Goal post', 'Musical note', 'Bridge support', 'Anchor symbol', 'Power button', 'Uppercase pi', 'Peace symbol', 'Stethoscope icon', 'Check mark', 'Umbrella handle', 'Butterfly wings', 'Dollar sign', 'Keyhole symbol', 'Dollar sign', 'Goal post', 'Tic-tac-toe', 'Keyhole symbol', 'Golf club', 'Infinity symbol', 'Wine glass', 'Butterfly emblem', 'Owl face', 'Simple house', 'Fork symbol', 'Railroad track', 'Ladder shape', 'Crab claw']
+OpenAI Multiple Context Responses: ['Bed frame', 'Uppercase F', 'Bird head', 'Scissors shape', 'Umbrella handle', 'Stapler icon', 'Eyeglasses frame', 'Handcuffs icon', 'Bridge arch', 'Tape dispenser', 'Magnifying glass', 'Snowman sideways', 'Flag stand', 'Hammer shape', 'Flagpole icon', 'Slingshot icon', 'Lollipop icon', 'Magnifying glass', 'Desk lamp', 'Planter pot', 'Cup trophy', 'Ladder icon', 'Key shape', 'Trophy cup', 'Magnifying glass', 'Forklift icon', 'Butterfly icon', 'Desk lamp', 'Eyeglasses icon', 'Ballet shoes', 'Arm symbol', 'Rail tracks', 'Snowman face', 'Chair shape', 'Magnifying glass', 'Rail bridge', 'Pushpin icon', 'Keyhole icon', 'Flagpole sign', 'Slingshot pole', 'Music note', 'Checkmark post', 'Mushroom shape', 'Glasses icon', 'Scissors icon', 'Keyhole symbol', 'Swan icon', 'Ear shape', 'Hash symbol', 'Streetlamp icon', 'Mushroom stem', 'Hourglass shape', 'Goblet shape', 'Butterfly antennae', 'Heart glasses', 'House icon', 'Comb utensil', 'Spire icon', 'Railing fence', 'Owl face']

@@ -26,3 +26,9 @@
 24,OpenAI: GPT 4.1 w/ GPT-image-1 - Multiple Context (2025-07-21),broken letter,Broken letter,56
 25,OpenAI: o3 w/ GPT-image-1 - Multiple Context - Med Reasoning (2025-07-14),scd logo,SCD Logo,19
 26,OpenAI: o4-mini - Single Context - High Reasoning (2025-07-21),"i see a vertical stem on the left with a smooth semicircular curve attached to its right, forming the bowl of the letter d.","I see a vertical stem on the left with a smooth semicircular curve attached to its right, forming the bowl of the letter D.",20
+27,DeepSeek: R1 0528 - Multiple Context (2025-11-20),fused circle,Fused circle,5
+28,Alibaba: Qwen 3 235b a22b Thinking 2507 - Multiple Context (2025-11-20),chinese character,Chinese character,24
+29,Alibaba: Qwen 3 VL 235b a22b Thinking - Multiple Context (2025-11-20),d with t,D with T,32
+30,OpenAI: gpt-oss-120b - High Reasoning - Multiple Context (2025-11-20),monogram badge,Monogram badge,18
+31,OpenAI: gpt-oss-120b - High Reasoning - Multiple Context (2025-11-20),logo emblem,Logo emblem,47
+32,OpenAI: gpt-oss-120b - High Reasoning - Multiple Context (2025-11-20),logo emblem,Logo emblem,51
