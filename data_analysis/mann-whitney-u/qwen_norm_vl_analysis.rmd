@@ -1,0 +1,150 @@
+---
+title: "Independent Model Comparison (Mann–Whitney U)"
+author: "Anonymous"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE
+)
+
+library(tidyverse)
+library(broom)
+library(rstatix)
+library(ggrepel)
+```
+
+## 1. Data Import
+
+```{r load-data}
+file_two_models <- "../output_csvs/qwen_comparison_grade_dist.csv"  # EDIT if needed
+
+raw_two <- readr::read_csv(file_two_models, show_col_types = FALSE)
+glimpse(raw_two)
+```
+
+We drop the first index column and extract the two score columns.
+
+```{r clean-data}
+dat <- raw_two[, -1]  # remove index column
+
+model_names <- names(dat)
+model_names
+```
+
+Extract both model score vectors:
+
+```{r extract-vectors}
+model_A <- dat[[model_names[1]]]
+model_B <- dat[[model_names[2]]]
+
+length(model_A)
+length(model_B)
+```
+
+## 2. Combine for Visualization
+
+```{r long-format}
+scores_long <- tibble(
+  score = c(model_A, model_B),
+  model = rep(model_names, each = nrow(dat))
+)
+
+scores_long %>%
+  group_by(model) %>%
+  summarise(
+    n    = n(),
+    mean = mean(score),
+    sd   = sd(score),
+    median = median(score),
+    .groups = "drop"
+  )
+```
+
+## 3. Visual Comparison
+
+### 3.1 Density
+
+```{r density-plot, fig.width=10, fig.height=6}
+scores_long %>%
+  ggplot(aes(x = score, fill = model)) +
+  geom_density(alpha = 0.4) +
+  labs(
+    title = "Score Distributions: Independent Model Comparison",
+    x = "Score",
+    y = "Density"
+  ) +
+  theme_minimal()
+```
+
+### 3.2 Boxplot
+
+```{r boxplot, fig.width=8, fig.height=5}
+scores_long %>%
+  ggplot(aes(x = model, y = score, fill = model)) +
+  geom_boxplot(outlier.alpha = 0.5) +
+  labs(title = "Boxplot Comparison",
+       x = "Model", y = "Score") +
+  theme_minimal()
+```
+
+## 4. Mann–Whitney U Test (Wilcoxon Rank-Sum)
+
+Assumes **independent** samples.
+
+```{r mann-whitney}
+mw_test <- wilcox.test(model_A, model_B, exact = FALSE)
+mw_tidy <- broom::tidy(mw_test)
+mw_tidy
+```
+
+## 5. Effect Size (Rank-Biserial)
+
+```{r effect-size}
+eff <- wilcox_effsize(
+  scores_long,
+  score ~ model,
+  paired = FALSE
+)
+eff
+```
+
+## 6. Mean / Median Differences (Objective Performance Gap)
+
+```{r performance-gap}
+performance_diff <- tibble(
+  model_A_mean    = mean(model_A),
+  model_B_mean    = mean(model_B),
+  diff_mean       = mean(model_B) - mean(model_A),
+  percent_of_A    = 100 * mean(model_B) / mean(model_A),
+  model_A_median  = median(model_A),
+  model_B_median  = median(model_B),
+  diff_median     = median(model_B) - median(model_A)
+)
+
+performance_diff
+```
+
+## 7. Combined Output Table
+
+```{r combined-table}
+results <- mw_tidy %>%
+  mutate(
+    model_A = model_names[1],
+    model_B = model_names[2]
+  ) %>%
+  bind_cols(
+    eff %>% select(effsize, magnitude),
+    performance_diff
+  )
+
+results
+```

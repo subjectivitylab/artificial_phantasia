@@ -1,0 +1,301 @@
+---
+title: "Single vs Multi-Context Comparison (sc vs mc)"
+author: "Anonymous"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE
+)
+
+library(tidyverse)
+library(broom)
+library(rstatix)
+library(ggrepel)
+```
+
+## 1. Data Import
+
+We use the file that contains **only model variants** with `_sc` and `_mc` suffixes.
+
+```{r load-data}
+file_sc_mc <- "../output_csvs/single_vs_multiple_context_grade_dist.csv"  # EDIT PATH IF NEEDED
+
+raw_sc_mc <- readr::read_csv(file_sc_mc, show_col_types = FALSE)
+
+glimpse(raw_sc_mc)
+```
+
+Assumptions (based on the file):
+
+* Column 1 (`Unnamed: 0`) is an **index** → we ignore it.
+* Remaining columns are model variants of the form:
+
+  * `modelname_sc`
+  * `modelname_mc`
+
+```{r clean-data}
+# Drop the first index column
+dat <- raw_sc_mc[, -1]
+
+# Identify sc and mc columns
+sc_cols <- names(dat)[str_ends(names(dat), "_sc")]
+mc_cols <- names(dat)[str_ends(names(dat), "_mc")]
+
+sc_cols
+mc_cols
+```
+
+We now extract **base model names** so we can pair `_sc` and `_mc` columns:
+
+```{r model-names}
+# Helper to strip suffix
+strip_suffix <- function(x, suffix) sub(paste0(suffix, "$"), "", x)
+
+models_sc <- strip_suffix(sc_cols, "_sc")
+models_mc <- strip_suffix(mc_cols, "_mc")
+
+# Models that appear in both sc and mc
+common_models <- intersect(models_sc, models_mc)
+common_models
+```
+
+## 2. Long Format for sc vs mc
+
+We create a long table with columns:
+
+* `model`   – base model name (e.g., `"sonnet"`, `"o3"`)
+* `context` – `"sc"` or `"mc"`
+* `item_id` – row index (shared for sc & mc)
+* `score`   – numeric score
+
+```{r long-format}
+# Build long data for all models
+long_list <- lapply(common_models, function(m) {
+  sc_name <- paste0(m, "_sc")
+  mc_name <- paste0(m, "_mc")
+
+  tibble(
+    item_id = seq_len(nrow(dat)),
+    model   = m,
+    sc      = dat[[sc_name]],
+    mc      = dat[[mc_name]]
+  )
+})
+
+wide_sc_mc <- bind_rows(long_list)
+
+# Convert to long context format
+scores_long <- wide_sc_mc %>%
+  pivot_longer(
+    cols = c(sc, mc),
+    names_to = "context",
+    values_to = "score"
+  )
+
+scores_long
+```
+
+Quick summary: mean and SD in each condition for each model.
+
+```{r summary-descriptives}
+summary_stats <- scores_long %>%
+  group_by(model, context) %>%
+  summarise(
+    n    = n(),
+    mean = mean(score, na.rm = TRUE),
+    sd   = sd(score, na.rm = TRUE),
+    median = median(score, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+summary_stats
+```
+
+## 3. Visualizing sc vs mc
+
+### 3.1 Boxplots per Model
+
+```{r boxplots, fig.width=10, fig.height=0.4 * length(common_models) + 4}
+scores_long %>%
+  mutate(model = fct_reorder(model, score, .fun = median, na.rm = TRUE)) %>%
+  ggplot(aes(x = context, y = score, fill = context)) +
+  geom_boxplot(outlier.alpha = 0.4) +
+  facet_wrap(~ model, scales = "free_y") +
+  labs(
+    title = "Single vs Multi-Context Scores (sc vs mc)",
+    x = "Context",
+    y = "Score"
+  ) +
+  theme_minimal()
+```
+
+### 3.2 Paired Differences (mc - sc)
+
+We can also look at the **paired difference** per item:
+
+```{r paired-differences, fig.width=10, fig.height=0.4 * length(common_models) + 4}
+diff_long <- wide_sc_mc %>%
+  mutate(diff = mc - sc)
+
+diff_long %>%
+  ggplot(aes(x = model, y = diff)) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_boxplot(outlier.alpha = 0.4) +
+  coord_flip() +
+  labs(
+    title = "Paired Difference (mc - sc) per Model",
+    x = "Model",
+    y = "Difference in score (mc - sc)"
+  ) +
+  theme_minimal()
+```
+
+Positive diff = multi-context > single-context on average.
+Negative diff = single-context > multi-context.
+
+## 4. Paired Tests: sc vs mc within Each Model
+
+Since scores are **paired by item** for sc and mc, we use the **Wilcoxon signed-rank test** (non-parametric paired test).
+
+```{r paired-wilcoxon}
+paired_results <- purrr::map_df(
+  common_models,
+  ~{
+    m <- .
+    subdat <- wide_sc_mc %>% filter(model == m)
+
+    # Paired Wilcoxon signed-rank test: is sc distribution different from mc?
+    test <- wilcox.test(subdat$sc, subdat$mc, paired = TRUE, exact = FALSE)
+
+    broom::tidy(test) %>%
+      mutate(model = m)
+  }
+)
+
+paired_results
+```
+
+### 4.1 Multiple-Comparison Correction
+
+We have one test per model; adjust p-values (Bonferroni + FDR):
+
+```{r p-adjust}
+paired_results_adj <- paired_results %>%
+  mutate(
+    p_adj_bonferroni = p.adjust(p.value, method = "bonferroni"),
+    p_adj_fdr        = p.adjust(p.value, method = "fdr")
+  ) %>%
+  arrange(p_adj_bonferroni)
+
+paired_results_adj
+```
+
+### 4.2 Effect Sizes for Paired sc vs mc
+
+We use **rank-biserial effect size** for each model’s sc vs mc difference:
+
+```{r effect-sizes}
+eff_results <- purrr::map_df(
+  common_models,
+  ~{
+    m <- .
+    subdat <- scores_long %>%
+      filter(model == m)
+
+    # Paired effect size: sc vs mc
+    rstatix::wilcox_effsize(
+      data = subdat,
+      score ~ context,
+      paired = TRUE
+    ) %>%
+      mutate(model = m)
+  }
+)
+
+eff_results
+```
+
+### 4.3 Combined Summary
+
+We now combine:
+
+* medians in each condition
+* mean paired difference (mc - sc)
+* Wilcoxon stats
+* adjusted p-values
+* effect sizes
+
+```{r combined-summary}
+# Compute mean/median per context + mean diff
+diff_summary <- wide_sc_mc %>%
+  group_by(model) %>%
+  summarise(
+    n_pairs   = n(),
+    mean_sc   = mean(sc, na.rm = TRUE),
+    mean_mc   = mean(mc, na.rm = TRUE),
+    median_sc = median(sc, na.rm = TRUE),
+    median_mc = median(mc, na.rm = TRUE),
+    mean_diff = mean(mc - sc, na.rm = TRUE),   # mc - sc
+    .groups   = "drop"
+  )
+
+summary_table <- paired_results_adj %>%
+  select(model, statistic, p.value, p_adj_bonferroni, p_adj_fdr) %>%
+  left_join(eff_results %>% select(model, effsize, magnitude), by = "model") %>%
+  left_join(diff_summary, by = "model") %>%
+  arrange(p_adj_bonferroni)
+
+summary_table
+```
+
+## 5. Significance & Direction
+
+Add a simple significance label and sign of effect:
+
+```{r significance-labels}
+sig_table <- summary_table %>%
+  mutate(
+    significance = case_when(
+      p_adj_bonferroni < 0.001 ~ "***",
+      p_adj_bonferroni < 0.01  ~ "**",
+      p_adj_bonferroni < 0.05  ~ "*",
+      TRUE ~ "ns"
+    ),
+    direction = case_when(
+      mean_diff >  0 ~ "mc > sc",
+      mean_diff <  0 ~ "sc > mc",
+      TRUE           ~ "no difference"
+    )
+  )
+
+sig_table
+```
+
+## 6. Visual: Effect Size vs Adjusted p-value
+
+```{r effect-vs-p, fig.width=7, fig.height=7}
+sig_table %>%
+  ggplot(aes(
+    x = effsize,
+    y = -log10(p_adj_bonferroni),
+    label = model
+  )) +
+  geom_point() +
+  ggrepel::geom_text_repel(size = 3, max.overlaps = 20) +
+  geom_vline(xintercept = 0, linetype = "dashed") +
+  labs(
+    title = "Paired sc vs mc: Effect Size vs Adjusted p-value",
+    x = "Rank-biserial effect size (mc vs sc)",
+    y = "-log10(Bonferroni-adjusted p-value)"
+  ) +
+  theme_minimal()
+```

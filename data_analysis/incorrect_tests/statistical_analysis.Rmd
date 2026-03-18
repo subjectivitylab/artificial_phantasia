@@ -22,15 +22,15 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
 
 ```{r data_loading}
-llm_data_finke <- read.csv("output_csvs/llm_graded_results_finke.csv")
-llm_data_novel <- read.csv("output_csvs/llm_graded_results_novel.csv")
+llm_data_finke <- read.csv("../output_csvs/llm_graded_results_finke.csv")
+llm_data_novel <- read.csv("../output_csvs/llm_graded_results_novel.csv")
 
-human_data_finke <- read.csv("output_csvs/h_graded_results_finke.csv")
-human_data_novel <- read.csv("output_csvs/h_graded_results_novel.csv")
+human_data_finke <- read.csv("../output_csvs/h_graded_results_finke.csv")
+human_data_novel <- read.csv("../output_csvs/h_graded_results_novel.csv")
 
-llm_data_sc_mc <- read.csv("output_csvs/single_vs_multiple_context_results.csv")
+llm_data_sc_mc <- read.csv("../output_csvs/single_vs_multiple_context_results.csv")
 
-aphant_data <- read.csv("output_csvs/aphant.csv")
+aphant_data <- read.csv("../output_csvs/aphant.csv")
 ```
 
 ```{r data_finke}
@@ -2166,7 +2166,7 @@ all_results <- rbind(finke_results, novel_48_results, collapsed_results,
                      novel_temperature_results, collapsed_temperature_results)
 
 # Export to CSV
-write.csv(all_results, "statistical_results/proportion_test_results.csv", row.names = FALSE)
+write.csv(all_results, "../statistical_results/proportion_test_results.csv", row.names = FALSE)
 cat("\nResults exported to 'proportion_test_results.csv'\n")
 
 # Create a more detailed summary for export
@@ -2188,7 +2188,7 @@ detailed_summary <- all_results %>%
          chi_squared, p_value, ci_95, interpretation)
 
 # Export detailed summary
-write.csv(detailed_summary, "statistical_results/proportion_test_detailed_summary.csv", row.names = FALSE)
+write.csv(detailed_summary, "../statistical_results/proportion_test_detailed_summary.csv", row.names = FALSE)
 cat("Detailed summary exported to 'proportion_test_detailed_summary.csv'\n")
 ```
 

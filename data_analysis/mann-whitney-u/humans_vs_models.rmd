@@ -1,0 +1,277 @@
+---
+title: "Human vs LLM Score Distributions"
+author: "Anonymous"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE
+)
+
+library(tidyverse)
+library(broom)
+library(rstatix)
+library(ggrepel)
+```
+
+## 1. Data Import
+
+```{r load-data}
+human_file <- "../output_csvs/h_grade_distribution.csv"   # EDIT IF NEEDED
+llm_file   <- "../output_csvs/llm_collapsed_grade_dist.csv"   # EDIT IF NEEDED
+
+humans_raw <- readr::read_csv(human_file, show_col_types = FALSE)
+llms_raw   <- readr::read_csv(llm_file, show_col_types = FALSE)
+
+glimpse(humans_raw)
+glimpse(llms_raw)
+```
+
+Assumptions based on the files:
+
+* `humans_raw` has:
+
+  * Column 1: index (0, 1, 2, …) → **ignore**
+  * Column 2: `humans` → **human score distribution**
+* `llms_raw` has:
+
+  * Column 1: index (0, 1, 2, …) → **ignore**
+  * Columns 2+: one column per LLM model → **model score distributions**
+
+```{r clean-data}
+# Human scores: use second column only (full distribution)
+human_score_col <- names(humans_raw)[2]
+
+humans <- humans_raw[[human_score_col]]
+
+length(humans)
+
+# LLMs: drop the first index column, keep the rest as models
+model_cols <- names(llms_raw)[-1]
+llms <- llms_raw %>% select(all_of(model_cols))
+
+dim(llms)
+model_cols[1:5]
+```
+
+## 2. Long Format for Plotting
+
+We build a long data frame with:
+
+* `model` – `"Human"` or LLM name
+* `score` – numeric score
+
+```{r long-format}
+humans_long <- tibble(
+  model = "Human",
+  score = humans
+)
+
+llms_long <- llms %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = "model",
+    values_to = "score"
+  )
+
+scores_long <- bind_rows(humans_long, llms_long)
+
+scores_long %>%
+  group_by(model) %>%
+  summarise(
+    n    = n(),
+    mean = mean(score, na.rm = TRUE),
+    sd   = sd(score, na.rm = TRUE),
+    .groups = "drop"
+  )
+```
+
+## 3. Distribution Visualizations
+
+### 3.1 Density Plot for Humans vs a Few Models
+
+```{r density-plot, fig.width=10, fig.height=6}
+# Pick a few models to highlight (first 3, plus humans)
+highlight_models <- c("Human", head(model_cols, 3))
+
+scores_long %>%
+  filter(model %in% highlight_models) %>%
+  ggplot(aes(x = score, fill = model)) +
+  geom_density(alpha = 0.4) +
+  labs(
+    title = "Score Distributions: Humans vs Selected Models",
+    x = "Score",
+    y = "Density"
+  ) +
+  theme_minimal()
+```
+
+### 3.2 Boxplots for Humans and All Models
+
+```{r boxplot-all, fig.width=10}
+scores_long %>%
+  mutate(model = fct_reorder(model, score, .fun = median, na.rm = TRUE)) %>%
+  ggplot(aes(x = score, y = model)) +
+  geom_boxplot(outlier.alpha = 0.4) +
+  labs(
+    title = "Score Distributions: Human vs All LLM Models",
+    x = "Score",
+    y = "Model"
+  ) +
+  theme_minimal()
+```
+
+## 4. Mann–Whitney U Tests (Human vs Each Model)
+
+We compare the **overall human score distribution** vs **each model’s score distribution** using the Wilcoxon rank-sum (Mann–Whitney U) test.
+
+```{r mann-whitney}
+human_vec <- humans
+
+mw_results <- purrr::map_df(
+  model_cols,
+  ~{
+    model_name <- .x
+    model_vec  <- llms[[model_name]]
+
+    test <- wilcox.test(human_vec, model_vec, exact = FALSE)
+
+    broom::tidy(test) %>%
+      mutate(model = model_name)
+  }
+)
+
+mw_results
+```
+
+### 4.1 Multiple-Comparison Correction
+
+We adjust p-values across all models using Bonferroni and FDR.
+
+```{r p-adjust}
+mw_results_adj <- mw_results %>%
+  mutate(
+    p_adj_bonferroni = p.adjust(p.value, method = "bonferroni"),
+    p_adj_fdr        = p.adjust(p.value, method = "fdr")
+  ) %>%
+  arrange(p_adj_bonferroni)
+
+mw_results_adj
+```
+
+### 4.2 Effect Size (Rank-Biserial Correlation)
+
+```{r effect-size}
+effect_sizes <- purrr::map_df(
+  model_cols,
+  ~{
+    model_name <- .x
+    model_vec  <- llms[[model_name]]
+
+    tmp <- tibble(
+      score = c(human_vec, model_vec),
+      group = c(rep("Human", length(human_vec)),
+                rep(model_name, length(model_vec)))
+    )
+
+    rstatix::wilcox_effsize(tmp, score ~ group) %>%
+      mutate(model = model_name)
+  }
+)
+
+effect_sizes
+```
+
+### 4.3 Combined Summary Table
+
+```{r summary-table}
+summary_table <- mw_results_adj %>%
+  select(model, statistic, p.value, p_adj_bonferroni, p_adj_fdr) %>%
+  left_join(
+    effect_sizes %>%
+      select(model, effsize, magnitude),
+    by = "model"
+  ) %>%
+  arrange(p_adj_bonferroni)
+
+summary_table
+```
+
+## 5. Significance Labels
+
+```{r significance-flags}
+sig_table <- summary_table %>%
+  mutate(
+    significance = case_when(
+      p_adj_bonferroni < 0.001 ~ "***",
+      p_adj_bonferroni < 0.01  ~ "**",
+      p_adj_bonferroni < 0.05  ~ "*",
+      TRUE ~ "ns"
+    )
+  )
+# save as csv
+write_csv(sig_table, "../statistical_results/human_vs_model_significance_summary.csv")
+sig_table
+```
+
+## 6. Effect Size vs Adjusted p-value
+
+```{r effect-vs-p, fig.width=7, fig.height=7}
+sig_table %>%
+  ggplot(aes(
+    x = effsize,
+    y = -log10(p_adj_bonferroni),
+    label = model
+  )) +
+  geom_point() +
+  ggrepel::geom_text_repel(size = 3, max.overlaps = 20) +
+  geom_vline(xintercept = 0, linetype = "dashed") +
+  labs(
+    title = "Effect Size vs Adjusted p-value (Human vs Model)",
+    x = "Rank-biserial effect size",
+    y = "-log10(Bonferroni-adjusted p-value)"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+mean_diffs <- scores_long %>%
+  group_by(model) %>%
+  summarise(mean_score = mean(score)) %>%
+  ungroup() %>%
+  mutate(
+    human_mean = mean_score[model == "Human"],
+    diff_vs_humans = mean_score - human_mean,
+  )
+
+mean_diffs
+
+```
+
+
+
+```{r}
+perf_pct <- mean_diffs %>%
+  mutate(percent_of_human = 100 * mean_score / human_mean)
+
+perf_pct
+
+```
+
+
+```{r}
+final_ranked <- summary_table %>%
+  left_join(mean_diffs %>% select(model, diff_vs_humans), by="model") %>%
+  left_join(perf_pct %>% select(model, percent_of_human), by="model") %>%
+  arrange(desc(percent_of_human))
+
+final_ranked
+```

@@ -1,0 +1,2 @@
+n.b. tests in this directory are historical and incorrect. Corrected tests are in the mann-whitney-u and wilcoxon-signed-rank directories.
+This directory is for historical reference currently and is marked for deletion upon further analysis of what is needed and what is not.
