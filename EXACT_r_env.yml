@@ -1,4 +1,4 @@
-name: R-Artificial_Phantasia
+name: r-artificial_phantasia
 channels:
   - conda-forge
   - defaults
@@ -400,4 +400,4 @@ dependencies:
   - zipp=3.23.0=pyhd8ed1ab_0
   - zstandard=0.23.0=py313h07c4f96_3
   - zstd=1.5.7=hb8e6e7a_2
-prefix: /home/anonymous/anaconda3/envs/R-Artificial_Phantasia
+prefix: /home/morgan/anaconda3/envs/R-ImagineLLMs
