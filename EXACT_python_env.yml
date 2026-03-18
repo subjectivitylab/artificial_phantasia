@@ -210,4 +210,3 @@ dependencies:
       - urllib3==2.3.0
       - wcwidth==0.2.5
       - websockets==15.0.1
-prefix: /home/anonymous/anaconda3/envs/Artifical_Phantasia_Python_Env
