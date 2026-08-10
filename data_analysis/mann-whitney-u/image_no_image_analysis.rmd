@@ -26,9 +26,15 @@ library(ggrepel)
 
 ```{r load-data}
 file_images <- "../output_csvs/image_comparison_grade_dist.csv"  # edit path if needed
+file_reasoning <- "../output_csvs/openai_reasoning_comparison_grade_dist.csv"
+file_sc_mc <- "../output_csvs/single_vs_multiple_context_grade_dist.csv"
 
 raw <- readr::read_csv(file_images, show_col_types = FALSE)
+raw_reasoning <- readr::read_csv(file_reasoning, show_col_types = FALSE)
+raw_sc_mc <- readr::read_csv(file_sc_mc, show_col_types = FALSE)
 glimpse(raw)
+glimpse(raw_reasoning)
+glimpse(raw_sc_mc)
 ```
 
 Assumptions (from the file):
@@ -42,33 +48,45 @@ Assumptions (from the file):
 ```{r clean-data}
 # Drop index column
 dat <- raw[, -1]
+reasoning_dat <- raw_reasoning[, -1]
+sc_mc_dat <- raw_sc_mc[, -1]
 
 names(dat)
+names(reasoning_dat)
+names(sc_mc_dat)
 ```
 
 ## 2. Identify Image vs Non-Image Model Pairs
 
-We assume image variants are named `*_images`.
+We assume image variants contain `_images` either at the end of the model name
+or before a context/reasoning suffix. For example:
+
+* `gpt4.1_images` → `gpt4.1`
+* `o3_images_high` → `o3_high`
+* `gpt4.1_images_sc` → `gpt4.1_sc`
+
+Pairs are discovered from the collapsed image comparison file, the OpenAI
+reasoning comparison file, and the single-vs-multiple-context file.
 
 ```{r identify-pairs}
-# Columns that are image variants
-image_cols <- names(dat)[str_ends(names(dat), "_images")]
-image_cols
+discover_image_pairs <- function(source_dat, source_name) {
+  image_cols <- names(source_dat)[str_detect(names(source_dat), "_images($|_)")]
+  no_image_cols <- str_replace(image_cols, "_images($|_)", "\\1")
 
-# Base model names (without _images)
-base_models <- sub("_images$", "", image_cols)
-base_models
+  tibble(
+    base_model      = no_image_cols,
+    no_image_col    = no_image_cols,
+    image_model_col = image_cols,
+    data_source     = source_name
+  ) %>%
+    filter(no_image_col %in% names(source_dat))
+}
 
-# Check that each base model exists as a non-image column
-non_image_cols <- base_models[base_models %in% names(dat)]
-non_image_cols
-
-# Keep only pairs where both exist
-pairs <- tibble(
-  base_model      = base_models,
-  image_model_col = image_cols
-) %>%
-  filter(base_model %in% names(dat))
+pairs <- bind_rows(
+  discover_image_pairs(dat, "image_comparison"),
+  discover_image_pairs(reasoning_dat, "reasoning_comparison"),
+  discover_image_pairs(sc_mc_dat, "single_vs_multiple_context")
+)
 
 pairs
 ```
@@ -77,23 +95,42 @@ At this point, for your file, `pairs` should look roughly like:
 
 * `gpt4.1` ↔ `gpt4.1_images`
 * `o3` ↔ `o3_images`
+* `o3_high` ↔ `o3_images_high`
+* `o3_med` ↔ `o3_images_med`
 * `gemini_2.0_flash` ↔ `gemini_2.0_flash_images`
+* `gpt4.1_sc` ↔ `gpt4.1_images_sc`
+* `gpt4.1_mc` ↔ `gpt4.1_images_mc`
 
 ## 3. Long-Format Data for Plotting
 
 ```{r long-format}
+get_pair_dat <- function(source_name) {
+  if (source_name == "image_comparison") {
+    dat
+  } else if (source_name == "reasoning_comparison") {
+    reasoning_dat
+  } else if (source_name == "single_vs_multiple_context") {
+    sc_mc_dat
+  } else {
+    stop("Unknown data source: ", source_name)
+  }
+}
+
 # Build a long data frame: model, variant (with/without images), score
 long_list <- lapply(seq_len(nrow(pairs)), function(i) {
   base  <- pairs$base_model[i]
+  noimg <- pairs$no_image_col[i]
   img   <- pairs$image_model_col[i]
+  source_dat <- get_pair_dat(pairs$data_source[i])
 
   tibble(
     model_base = base,
+    data_source = pairs$data_source[i],
     variant    = c(
-      rep("no_images", nrow(dat)),
-      rep("with_images", nrow(dat))
+      rep("no_images", nrow(source_dat)),
+      rep("with_images", nrow(source_dat))
     ),
-    score      = c(dat[[base]], dat[[img]])
+    score      = c(source_dat[[noimg]], source_dat[[img]])
   )
 })
 
@@ -159,15 +196,22 @@ mw_results <- purrr::map_df(
   seq_len(nrow(pairs)),
   ~{
     base <- pairs$base_model[.x]
+    noimg <- pairs$no_image_col[.x]
     img  <- pairs$image_model_col[.x]
+    source_dat <- get_pair_dat(pairs$data_source[.x])
 
-    vec_noimg <- dat[[base]]
-    vec_img   <- dat[[img]]
+    vec_noimg <- source_dat[[noimg]]
+    vec_img   <- source_dat[[img]]
 
     test <- wilcox.test(vec_noimg, vec_img, exact = FALSE)
 
     broom::tidy(test) %>%
-      mutate(model_base = base)
+      mutate(
+        model_base = base,
+        no_image_col = noimg,
+        image_model_col = img,
+        data_source = pairs$data_source[.x]
+      )
   }
 )
 
@@ -194,10 +238,12 @@ eff_results <- purrr::map_df(
   seq_len(nrow(pairs)),
   ~{
     base <- pairs$base_model[.x]
+    noimg <- pairs$no_image_col[.x]
     img  <- pairs$image_model_col[.x]
+    source_dat <- get_pair_dat(pairs$data_source[.x])
 
-    vec_noimg <- dat[[base]]
-    vec_img   <- dat[[img]]
+    vec_noimg <- source_dat[[noimg]]
+    vec_img   <- source_dat[[img]]
 
     tmp <- tibble(
       score   = c(vec_noimg, vec_img),
@@ -208,7 +254,7 @@ eff_results <- purrr::map_df(
     )
 
     rstatix::wilcox_effsize(tmp, score ~ variant) %>%
-      mutate(model_base = base)
+      mutate(model_base = base, data_source = pairs$data_source[.x])
   }
 )
 
@@ -223,10 +269,12 @@ diff_summary <- purrr::map_df(
   seq_len(nrow(pairs)),
   ~{
     base <- pairs$base_model[.x]
+    noimg <- pairs$no_image_col[.x]
     img  <- pairs$image_model_col[.x]
+    source_dat <- get_pair_dat(pairs$data_source[.x])
 
-    vec_noimg <- dat[[base]]
-    vec_img   <- dat[[img]]
+    vec_noimg <- source_dat[[noimg]]
+    vec_img   <- source_dat[[img]]
 
     tibble(
       model_base      = base,
@@ -235,15 +283,22 @@ diff_summary <- purrr::map_df(
       median_no_images  = median(vec_noimg, na.rm = TRUE),
       median_with_images = median(vec_img, na.rm = TRUE),
       mean_diff       = mean(vec_img, na.rm = TRUE) - mean(vec_noimg, na.rm = TRUE),   # with - without
-      median_diff     = median(vec_img, na.rm = TRUE) - median(vec_noimg, na.rm = TRUE)
+      median_diff     = median(vec_img, na.rm = TRUE) - median(vec_noimg, na.rm = TRUE),
+      data_source     = pairs$data_source[.x]
     )
   }
 )
 
 summary_table <- mw_results_adj %>%
-  select(model_base, statistic, p.value, p_adj_bonferroni, p_adj_fdr) %>%
-  left_join(eff_results %>% select(model_base, effsize, magnitude), by = "model_base") %>%
-  left_join(diff_summary, by = "model_base") %>%
+  select(
+    data_source, model_base, no_image_col, image_model_col, statistic, p.value,
+    p_adj_bonferroni, p_adj_fdr
+  ) %>%
+  left_join(
+    eff_results %>% select(data_source, model_base, effsize, magnitude),
+    by = c("data_source", "model_base")
+  ) %>%
+  left_join(diff_summary, by = c("data_source", "model_base")) %>%
   arrange(p_adj_bonferroni)
 
 summary_table
@@ -267,6 +322,7 @@ sig_table <- summary_table %>%
     )
   )
 
+write_csv(sig_table, "../statistical_results/image_no_image_mann_whitney_summary.csv")
 sig_table
 ```
 

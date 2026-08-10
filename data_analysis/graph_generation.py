@@ -228,6 +228,7 @@ def _plot_half_violins(
     labels = [item[0] for item in groups]
     values = [item[1] for item in groups]
     colors = [item[2] for item in groups]
+    markers = [_historical_marker(label) for label in labels]
     positions = np.arange(len(groups) - 1, -1, -1)
 
     fig, ax = plt.subplots(figsize=(10, max(6, len(groups) * 0.35)))
@@ -250,7 +251,7 @@ def _plot_half_violins(
             body.set_alpha(0.42)
             body.set_linewidth(1)
 
-        for position, vals, color in zip(positions, values, colors):
+        for position, vals, color, marker in zip(positions, values, colors, markers):
             point_color = _mean_ci_color(color)
             center = _center_value(vals, center_stat)
             ci_low, ci_high = _center_interval(vals, center_stat)
@@ -258,15 +259,24 @@ def _plot_half_violins(
                 ci_low = max(xlim[0], ci_low)
                 ci_high = min(xlim[1], ci_high)
             _draw_horizontal_ci(ax, ci_low, ci_high, position, point_color)
-            ax.scatter([center], [position], color=point_color, edgecolor="black", linewidth=0.4, s=28, zorder=3)
+            ax.scatter(
+                [center],
+                [position],
+                color=point_color,
+                edgecolor="black",
+                linewidth=0.4,
+                marker=marker,
+                s=28,
+                zorder=3,
+            )
             if len(vals) <= 8:
                 jitter = np.linspace(0.04, 0.24, len(vals))
                 ax.scatter(vals, position + jitter, color=color, alpha=0.65, s=12, linewidth=0, zorder=2)
 
     ax.set_yticks(positions, labels, fontsize=12)
-    #ax.set_title(title, pad=15)
+    ax.set_title(title, pad=15)
     ax.set_xlabel(xlabel, fontsize=12)
-    #ax.set_ylabel("Model", fontsize=12)
+    ax.set_ylabel("Model", fontsize=12)
     ax.tick_params(axis="x", labelsize=12)
     if xlim:
         ax.set_xlim(*xlim)
@@ -274,7 +284,7 @@ def _plot_half_violins(
     if color_col and colors:
         legend_frame = pd.DataFrame({
             "color": colors,
-            "shape": [_historical_marker(label) for label in labels],
+            "shape": markers,
         })
         _add_historical_legend(ax, legend_frame, legend_title, show_title = False, fontsize=12)
     return _save(fig, out_dir, name, show, tight_layout=False)
@@ -658,16 +668,118 @@ def generate_human_vs_model_graphs(
     return results
 
 
+def _reasoning_variant_meta(columns: Sequence[str]) -> pd.DataFrame:
+    rows = []
+    for col in columns:
+        for level in ("high", "med", "low", "minimal"):
+            suffix = f"_{level}"
+            if col.endswith(suffix):
+                rows.append(
+                    {
+                        "variant": col,
+                        "model_base": col.removesuffix(suffix),
+                        "reasoning_level": level,
+                    }
+                )
+                break
+    return pd.DataFrame(rows)
+
+
+def _reasoning_comparison_pairs(columns: Sequence[str]) -> pd.DataFrame:
+    meta = _reasoning_variant_meta(columns)
+    rows = []
+    for model_base, sub in meta.groupby("model_base", sort=False):
+        variants = dict(zip(sub["reasoning_level"], sub["variant"], strict=False))
+        high_variant = variants.get("high")
+        if not high_variant:
+            continue
+        for level in ("med", "low", "minimal"):
+            comparison_variant = variants.get(level)
+            if comparison_variant:
+                comparison_name = "medium" if level == "med" else level
+                rows.append(
+                    {
+                        "model_base": model_base,
+                        "comparison": f"high_vs_{comparison_name}",
+                        "high_variant": high_variant,
+                        "comparison_variant": comparison_variant,
+                    }
+                )
+    return pd.DataFrame(rows)
+
+
 def generate_reasoning_comparison_graphs(show: bool = False) -> list[PlotResult]:
-    return generate_human_vs_model_graphs(
-        llm_file=OUTPUT_CSVS / "openai_reasoning_comparison_grade_dist.csv",
-        summary_file=STATISTICAL_RESULTS / "human_vs_reasoning_model_significance_summary.csv",
-        out_dir=GRAPH_DIR / "reasoning_comparison",
-        prefix="reasoning_comparison",
-        color_task="Reasoning",
-        legend_title="Reasoning Level",
-        show=show,
+    out_dir = GRAPH_DIR / "reasoning_comparison"
+    prefix = "reasoning_comparison"
+    llms = _read_csv(OUTPUT_CSVS / "openai_reasoning_comparison_grade_dist.csv")
+    pairs = _reasoning_comparison_pairs(llms.columns)
+    variant_order = pd.unique(pd.concat([pairs["high_variant"], pairs["comparison_variant"]], ignore_index=True))
+    meta = _reasoning_variant_meta(variant_order)
+    scores_long = (
+        llms[list(variant_order)]
+        .melt(var_name="variant", value_name="score")
+        .merge(meta, on="variant", how="left")
     )
+    colored_scores = _with_distribution_colors(scores_long, "variant", "Reasoning")
+    results = [
+        _save(_distribution_overlay(
+            scores_long,
+            group_col="variant",
+            value_col="score",
+            title="Score Distributions by Reasoning Level",
+            xlabel="Score",
+            figsize=(12, 7),
+        ), out_dir, f"{prefix}_selected_distribution", show),
+        _save(_boxplot_by_group(
+            scores_long,
+            group_col="variant",
+            value_col="score",
+            title="Score Distributions by Reasoning Level",
+            xlabel="Reasoning Variant",
+            ylabel="Score",
+            horizontal=True,
+            figsize=(10, max(6, 0.35 * scores_long["variant"].nunique() + 2)),
+        ), out_dir, f"{prefix}_all_boxplot", show),
+        _plot_half_violins(
+            colored_scores,
+            group_col="variant",
+            value_col="score",
+            color_col="color",
+            title="Mean Score Distributions by Reasoning Level",
+            xlabel="Score",
+            out_dir=out_dir,
+            name=f"{prefix}_half_violins_mean",
+            legend_title="Reasoning Level",
+            show=show,
+            center_stat="mean",
+        ),
+        _plot_half_violins(
+            colored_scores,
+            group_col="variant",
+            value_col="score",
+            color_col="color",
+            title="Median Score Distributions by Reasoning Level",
+            xlabel="Score",
+            out_dir=out_dir,
+            name=f"{prefix}_half_violins",
+            legend_title="Reasoning Level",
+            show=show,
+        ),
+    ]
+    summary_file = STATISTICAL_RESULTS / "human_vs_reasoning_model_significance_summary.csv"
+    if summary_file.exists():
+        summary = _read_csv(summary_file)
+        summary["label"] = summary["model_base"] + ": " + summary["comparison"]
+        results.append(_effect_vs_p_plot(
+            summary,
+            label_col="label",
+            title="Effect Size vs Adjusted p-value (High vs Lower Reasoning)",
+            xlabel="Rank-biserial effect size (positive = high reasoning higher)",
+            out_dir=out_dir,
+            name=f"{prefix}_effect_vs_p",
+            show=show,
+        ))
+    return results
 
 
 def _image_scores_long() -> pd.DataFrame:
@@ -1161,6 +1273,7 @@ def _plot_mean_score_ci_lines(
             "ci_high": min(5, ci_high),
             "color": color,
             "line_style": _historical_line_style(str(model)),
+            "shape": _historical_marker(str(model)),
         })
     center_col = f"{center_stat}_score"
     plot_data = pd.DataFrame(rows).sort_values(center_col, ascending=False).reset_index(drop=True)
@@ -1176,6 +1289,7 @@ def _plot_mean_score_ci_lines(
             color=point_color,
             edgecolor="black",
             linewidth=0.4,
+            marker=row["shape"],
             s=28,
             zorder=3,
         )
@@ -1543,9 +1657,9 @@ def _add_historical_legend(
     if line_style_key and "line_style" in plot_data and any(style == "--" for style in plot_data["line_style"]):
         handles.extend([
             Line2D([0], [0], color="black", label="Single Context",
-                   linestyle="-", linewidth=2),
+                   linestyle="-", marker="o", markersize=6, linewidth=2),
             Line2D([0], [0], color="black", label="Multiple Context",
-                   linestyle="--", linewidth=2),
+                   linestyle="--", marker="D", markersize=6, linewidth=2),
         ])
     elif "shape" in plot_data and any(marker == "D" for marker in plot_data["shape"]):
         handles.extend([

@@ -1,0 +1,2 @@
+statistic,p.value,method,alternative,model_A,model_B,effsize,magnitude,model_A_mean,model_B_mean,diff_mean,percent_of_A,model_A_median,model_B_median,diff_median
+1443,0.1086967590119173,Wilcoxon rank sum test with continuity correction,two.sided,qwen_3,qwen_3_vl,0.14791598990853713,small,1.5823446327683617,1.9905367231638418,0.4081920903954801,125.7966616084977,1.2,1.35,0.15000000000000013

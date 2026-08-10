@@ -1,5 +1,5 @@
 ---
-title: "Human vs LLM Score Distributions"
+title: "Reasoning-Level Score Distributions"
 author: "Anonymous"
 date: "`r Sys.Date()`"
 output:
@@ -25,67 +25,86 @@ library(ggrepel)
 ## 1. Data Import
 
 ```{r load-data}
-human_file <- "../output_csvs/h_grade_distribution.csv"   # EDIT IF NEEDED
-llm_file   <- "../output_csvs/openai_reasoning_comparison_grade_dist.csv"   # EDIT IF NEEDED
+llm_file <- "../output_csvs/openai_reasoning_comparison_grade_dist.csv"
 
-humans_raw <- readr::read_csv(human_file, show_col_types = FALSE)
-llms_raw   <- readr::read_csv(llm_file, show_col_types = FALSE)
+llms_raw <- readr::read_csv(llm_file, show_col_types = FALSE)
 
-glimpse(humans_raw)
 glimpse(llms_raw)
 ```
 
 Assumptions based on the files:
 
-* `humans_raw` has:
-
-  * Column 1: index (0, 1, 2, …) → **ignore**
-  * Column 2: `humans` → **human score distribution**
 * `llms_raw` has:
 
   * Column 1: index (0, 1, 2, …) → **ignore**
-  * Columns 2+: one column per LLM model → **model score distributions**
+  * Columns 2+: one column per LLM reasoning variant → **model score distributions**
 
 ```{r clean-data}
-# Human scores: use second column only (full distribution)
-human_score_col <- names(humans_raw)[2]
-
-humans <- humans_raw[[human_score_col]]
-
-length(humans)
-
-# LLMs: drop the first index column, keep the rest as models
-model_cols <- names(llms_raw)[-1]
-llms <- llms_raw %>% select(all_of(model_cols))
+variant_cols <- names(llms_raw)[-1]
+llms <- llms_raw %>% select(all_of(variant_cols))
 
 dim(llms)
-model_cols[1:5]
+variant_cols
 ```
 
 ## 2. Long Format for Plotting
 
 We build a long data frame with:
 
-* `model` – `"Human"` or LLM name
+* `model_base` – same-model family
+* `reasoning_level` – reasoning setting
+* `variant` – original column name
 * `score` – numeric score
 
-```{r long-format}
-humans_long <- tibble(
-  model = "Human",
-  score = humans
-)
+```{r comparison-pairs}
+reasoning_levels <- c("med", "low", "minimal")
 
+parse_reasoning_variant <- function(variant) {
+  level <- stringr::str_extract(variant, "(high|med|low|minimal)$")
+  if (is.na(level)) {
+    return(tibble(variant = variant, model_base = NA_character_, reasoning_level = NA_character_))
+  }
+  tibble(
+    variant = variant,
+    model_base = stringr::str_remove(variant, paste0("_", level, "$")),
+    reasoning_level = level
+  )
+}
+
+variant_meta <- purrr::map_dfr(variant_cols, parse_reasoning_variant) %>%
+  filter(!is.na(reasoning_level))
+
+comparison_pairs <- variant_meta %>%
+  filter(reasoning_level == "high") %>%
+  transmute(model_base, high_variant = variant) %>%
+  tidyr::crossing(comparison_level = reasoning_levels) %>%
+  left_join(
+    variant_meta %>%
+      filter(reasoning_level %in% reasoning_levels) %>%
+      transmute(model_base, comparison_level = reasoning_level, comparison_variant = variant),
+    by = c("model_base", "comparison_level")
+  ) %>%
+  filter(!is.na(comparison_variant)) %>%
+  mutate(
+    comparison = paste0("high_vs_", recode(comparison_level, med = "medium")),
+    pair_label = paste0(model_base, "_", comparison)
+  )
+
+comparison_pairs
+```
+
+```{r long-format}
 llms_long <- llms %>%
   pivot_longer(
     cols = everything(),
-    names_to = "model",
+    names_to = "variant",
     values_to = "score"
-  )
+  ) %>%
+  left_join(variant_meta, by = "variant")
 
-scores_long <- bind_rows(humans_long, llms_long)
-
-scores_long %>%
-  group_by(model) %>%
+llms_long %>%
+  filter(!is.na(reasoning_level)) %>%
+  group_by(model_base, reasoning_level, variant) %>%
   summarise(
     n    = n(),
     mean = mean(score, na.rm = TRUE),
@@ -96,56 +115,78 @@ scores_long %>%
 
 ## 3. Distribution Visualizations
 
-### 3.1 Density Plot for Humans vs a Few Models
+### 3.1 Density Plot by Reasoning Level
 
 ```{r density-plot, fig.width=10, fig.height=6}
-# Pick a few models to highlight (first 3, plus humans)
-highlight_models <- c("Human", head(model_cols, 3))
-
-scores_long %>%
-  filter(model %in% highlight_models) %>%
-  ggplot(aes(x = score, fill = model)) +
+llms_long %>%
+  filter(!is.na(reasoning_level), model_base %in% unique(comparison_pairs$model_base)) %>%
+  ggplot(aes(x = score, fill = reasoning_level)) +
   geom_density(alpha = 0.4) +
+  facet_wrap(vars(model_base)) +
   labs(
-    title = "Score Distributions: Humans vs Selected Models",
+    title = "Score Distributions by Reasoning Level",
     x = "Score",
-    y = "Density"
+    y = "Density",
+    fill = "Reasoning Level"
   ) +
   theme_minimal()
 ```
 
-### 3.2 Boxplots for Humans and All Models
+### 3.2 Boxplots by Reasoning Level
 
 ```{r boxplot-all, fig.width=10}
-scores_long %>%
-  mutate(model = fct_reorder(model, score, .fun = median, na.rm = TRUE)) %>%
-  ggplot(aes(x = score, y = model)) +
+llms_long %>%
+  filter(!is.na(reasoning_level), model_base %in% unique(comparison_pairs$model_base)) %>%
+  mutate(reasoning_level = factor(reasoning_level, levels = c("high", "med", "low", "minimal"))) %>%
+  ggplot(aes(x = reasoning_level, y = score)) +
   geom_boxplot(outlier.alpha = 0.4) +
+  facet_wrap(vars(model_base)) +
   labs(
-    title = "Score Distributions: Human vs All LLM Models",
-    x = "Score",
-    y = "Model"
+    title = "Score Distributions by Reasoning Level",
+    x = "Reasoning Level",
+    y = "Score"
   ) +
   theme_minimal()
 ```
 
-## 4. Mann–Whitney U Tests (Human vs Each Model)
+## 4. Mann-Whitney U Tests (High vs Other Reasoning Levels)
 
-We compare the **overall human score distribution** vs **each model’s score distribution** using the Wilcoxon rank-sum (Mann–Whitney U) test.
+We compare each model's **high reasoning** score distribution against the same model's **medium**, **low**, and **minimal** reasoning score distributions when both variants exist.
 
 ```{r mann-whitney}
-human_vec <- humans
+rank_biserial <- function(x, y, statistic) {
+  nx <- length(x)
+  ny <- length(y)
+  u <- as.numeric(statistic)
+  (2 * u / (nx * ny)) - 1
+}
 
 mw_results <- purrr::map_df(
-  model_cols,
-  ~{
-    model_name <- .x
-    model_vec  <- llms[[model_name]]
+  seq_len(nrow(comparison_pairs)),
+  function(i) {
+    pair <- comparison_pairs[i, ]
+    high_vec <- llms[[pair$high_variant]] %>% purrr::discard(is.na) %>% unlist()
+    comparison_vec <- llms[[pair$comparison_variant]] %>% purrr::discard(is.na) %>% unlist()
 
-    test <- wilcox.test(human_vec, model_vec, exact = FALSE)
+    if (length(high_vec) == 0 || length(comparison_vec) == 0) {
+      return(tibble())
+    }
+
+    test <- wilcox.test(high_vec, comparison_vec, exact = FALSE)
 
     broom::tidy(test) %>%
-      mutate(model = model_name)
+      mutate(
+        model_base = pair$model_base,
+        comparison = pair$comparison,
+        high_variant = pair$high_variant,
+        comparison_variant = pair$comparison_variant,
+        n_high = length(high_vec),
+        n_comparison = length(comparison_vec),
+        high_mean = mean(high_vec),
+        comparison_mean = mean(comparison_vec),
+        mean_difference = high_mean - comparison_mean,
+        effsize = rank_biserial(high_vec, comparison_vec, statistic)
+      )
   }
 )
 
@@ -162,45 +203,29 @@ mw_results_adj <- mw_results %>%
     p_adj_bonferroni = p.adjust(p.value, method = "bonferroni"),
     p_adj_fdr        = p.adjust(p.value, method = "fdr")
   ) %>%
-  arrange(p_adj_bonferroni)
+  arrange(model_base, comparison)
 
 mw_results_adj
-```
-
-### 4.2 Effect Size (Rank-Biserial Correlation)
-
-```{r effect-size}
-effect_sizes <- purrr::map_df(
-  model_cols,
-  ~{
-    model_name <- .x
-    model_vec  <- llms[[model_name]]
-
-    tmp <- tibble(
-      score = c(human_vec, model_vec),
-      group = c(rep("Human", length(human_vec)),
-                rep(model_name, length(model_vec)))
-    )
-
-    rstatix::wilcox_effsize(tmp, score ~ group) %>%
-      mutate(model = model_name)
-  }
-)
-
-effect_sizes
 ```
 
 ### 4.3 Combined Summary Table
 
 ```{r summary-table}
 summary_table <- mw_results_adj %>%
-  select(model, statistic, p.value, p_adj_bonferroni, p_adj_fdr) %>%
-  left_join(
-    effect_sizes %>%
-      select(model, effsize, magnitude),
-    by = "model"
+  mutate(
+    magnitude = case_when(
+      abs(effsize) < 0.1 ~ "negligible",
+      abs(effsize) < 0.3 ~ "small",
+      abs(effsize) < 0.5 ~ "medium",
+      TRUE ~ "large"
+    )
   ) %>%
-  arrange(p_adj_bonferroni)
+  select(
+    model_base, comparison, high_variant, comparison_variant, n_high, n_comparison,
+    statistic, p.value, p_adj_bonferroni, p_adj_fdr, effsize, magnitude,
+    high_mean, comparison_mean, mean_difference
+  ) %>%
+  arrange(model_base, comparison)
 
 summary_table
 ```
@@ -226,31 +251,26 @@ sig_table
 
 ```{r effect-vs-p, fig.width=7, fig.height=7}
 sig_table %>%
+  mutate(label = paste(model_base, comparison, sep = ": ")) %>%
   ggplot(aes(
     x = effsize,
     y = -log10(p_adj_bonferroni),
-    label = model
+    label = label
   )) +
   geom_point() +
   ggrepel::geom_text_repel(size = 3, max.overlaps = 20) +
   geom_vline(xintercept = 0, linetype = "dashed") +
   labs(
-    title = "Effect Size vs Adjusted p-value (Human vs Model)",
-    x = "Rank-biserial effect size",
+    title = "Effect Size vs Adjusted p-value (High vs Lower Reasoning)",
+    x = "Rank-biserial effect size (positive = high reasoning higher)",
     y = "-log10(Bonferroni-adjusted p-value)"
   ) +
   theme_minimal()
 ```
 
 ```{r}
-mean_diffs <- scores_long %>%
-  group_by(model) %>%
-  summarise(mean_score = mean(score)) %>%
-  ungroup() %>%
-  mutate(
-    human_mean = mean_score[model == "Human"],
-    diff_vs_humans = mean_score - human_mean,
-  )
+mean_diffs <- summary_table %>%
+  select(model_base, comparison, high_mean, comparison_mean, mean_difference)
 
 mean_diffs
 
@@ -260,7 +280,7 @@ mean_diffs
 
 ```{r}
 perf_pct <- mean_diffs %>%
-  mutate(percent_of_human = 100 * mean_score / human_mean)
+  mutate(comparison_percent_of_high = 100 * comparison_mean / high_mean)
 
 perf_pct
 
@@ -269,9 +289,9 @@ perf_pct
 
 ```{r}
 final_ranked <- summary_table %>%
-  left_join(mean_diffs %>% select(model, diff_vs_humans), by="model") %>%
-  left_join(perf_pct %>% select(model, percent_of_human), by="model") %>%
-  arrange(desc(percent_of_human))
+  left_join(perf_pct %>% select(model_base, comparison, comparison_percent_of_high),
+            by = c("model_base", "comparison")) %>%
+  arrange(p_adj_bonferroni)
 
 final_ranked
 ```

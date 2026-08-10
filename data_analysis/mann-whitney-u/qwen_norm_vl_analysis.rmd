@@ -148,3 +148,7 @@ results <- mw_tidy %>%
 
 results
 ```
+
+```{r save-results}
+write_csv(results, "../statistical_results/qwen_norm_vl_mann_whitney_summary.csv")
+```
